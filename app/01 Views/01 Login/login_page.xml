@@ -1,0 +1,33 @@
+<Page id="login_page" loaded="onLoaded" navigatedTo="onNavigatedTo">
+    <GridLayout class="gradientBg" rows="*,*,auto,5*" columns="*,auto,*">
+        <Image row="1" col="1" src="~/06 Assets/00 General/placeholder_icon.png"/>
+        
+        <StackLayout class="loginForm" row="3" col="1" hidden="{{!on_login_page}}">
+            <Label class="h1 centered" text="Sign In"/>
+            <Label class="h2" text="Username"/>
+            <TextField text="{{username_input}}" hint="Enter Username" autocorrect="false" maxLength="30"></TextField>
+            <Label class="h2" text="Password"/>
+            <TextField text="{{password_input}}" hint="Enter Password" secure="true" autocorrect="false" maxLength="30"></TextField>
+            <Button class="-primary" text="Login" tap="loginOnTap"/>
+            <FlexboxLayout class="flex-center">
+            <Label text="Don't have an account? "/>
+            <Label class="hyperlink" text="Register" tap="toggleRegister"/>
+            </FlexboxLayout>
+        </StackLayout>
+
+        <StackLayout class="loginForm" row="3" col="1" hidden="{{on_login_page}}">
+            <Label class="h1 centered" text="Register"/>
+            <Label class="h2" text="Username"/>
+            <TextField text="{{username_input}}" hint="Enter Username" autocorrect="false" maxLength="30"></TextField>
+            <Label class="h2" text="Password"/>
+            <TextField text="{{password_input}}" hint="Enter Password" secure="true" autocorrect="false" maxLength="30"></TextField>
+            <Button class="-primary" text="Register" tap="registerOnTap"/>
+            <FlexboxLayout class="flex-center">
+            <Label text="Already have an account? "/>
+            <Label class="hyperlink" text="Sign In" tap="toggleRegister"/>
+            </FlexboxLayout>
+        </StackLayout>
+
+
+    </GridLayout>
+</Page>

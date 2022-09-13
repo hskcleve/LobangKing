@@ -1,0 +1,12 @@
+<Page id="feed_page" loaded="onLoaded" navigatedTo="onNavigatedTo">
+    <GridLayout class="gradientBg" rows="auto,*,auto">
+        <Label class="h1" row="0" text="{{'Welcome, ' + user.first_name + ' ' + user.last_name}}"/>
+        
+        <Button class="-primary" row="1" text="Back to Login" tap="logoutOnTap"/>
+        
+        <GridLayout row="2" style="background-color:grey" height="7%">
+            <Label style="color:white; text-align:center" text="<unimplemented navbar>"/>
+        </GridLayout>
+
+    </GridLayout>
+</Page>

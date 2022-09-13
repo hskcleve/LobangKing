@@ -1,0 +1,10 @@
+.loginForm {
+  background-color: white;
+  height: 100%;
+  width: 90%;
+  border-radius: 25%, 25%, 0, 0;
+  border-width: 0, 0, 1, 0;
+  border-color: rgb(184, 184, 184);
+  padding: 20%;
+  margin-top: 10%;
+}

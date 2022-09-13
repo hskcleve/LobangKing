@@ -1,2 +1,2 @@
-<Frame defaultPage="main-page">
+<Frame defaultPage="~/01 Views/01 Login/login_page">
 </Frame>

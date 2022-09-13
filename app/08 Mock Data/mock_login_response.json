@@ -1,0 +1,16 @@
+{
+    "user_id" : "1a2b3c4d",
+    "first_name" : "John",
+    "last_name" : "Doe",
+    "location" : "1",
+    "profile_pic_uri" : "",
+    "email" : "john_doe@gmail.com",
+    "mobile" : "90909090",
+    "verified" : true,
+    "coins" : 256,
+    "rating" : 4.9,
+    "disabled" : false,
+    "communities_joined": [],
+    "lobangs_joined": [],
+    "reviews": []
+}

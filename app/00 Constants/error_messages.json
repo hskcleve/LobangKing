@@ -1,0 +1,5 @@
+{
+    "EMPTY_FIELD_ERROR" : "Please provide input for all fields.",
+    "USER_DOES_NOT_EXIST_ERROR" : "The username and password provided does not match any LobangKing accounts. Please try again. user:johndoe pw:password",
+    "INVALID_CREDENTIALS_ERROR" : "The password provided is invalid. Please try again. user:johndoe pw:password"
+}
