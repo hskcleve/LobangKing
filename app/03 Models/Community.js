@@ -6,7 +6,7 @@ function Community(details) {
     name: undefined,
     num_members: undefined,
     image: undefined,
-    posts: undefined,
+    posts: undefined,                                                                                                                                          
   };
 
 var communityModel = observableModule.fromObject({
@@ -18,6 +18,6 @@ var communityModel = observableModule.fromObject({
 });
 
 return communityModel;
-}
+}                          
 
-module.exports = Community;
+module.exports = Community;                 

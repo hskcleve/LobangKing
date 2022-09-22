@@ -1,0 +1,9 @@
+<Page id="community-page" loaded="onLoaded">
+    <GridLayout class="gradientBg">
+        <ListView items="{{ posts }}">
+            <ListView.itemTemplate>
+                <Label text="{{ body }}" />
+            </ListView.itemTemplate>
+        </ListView>
+    </GridLayout>
+</Page> 

@@ -1,0 +1,9 @@
+<Page id="my_communities" loaded="onLoaded">
+    <GridLayout class="gradientBg">
+        <ListView items="{{ communities }}">
+            <ListView.itemTemplate>
+                <Label text="{{ name }}" />
+            </ListView.itemTemplate>
+        </ListView>
+    </GridLayout>
+</Page> 
