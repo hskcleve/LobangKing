@@ -10,6 +10,8 @@ var pageData = observableModule.fromObject({
 
 exports.onLoaded = function(args) {
     page = args.object;
+    // page.actionBarHidden = true;
     page.bindingContext = pageData;
+    commList.empty();
     commList.load();
 }

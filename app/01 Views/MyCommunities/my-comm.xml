@@ -1,9 +1,23 @@
 <Page id="my_communities" loaded="onLoaded">
-    <GridLayout class="gradientBg">
-        <ListView items="{{ communities }}">
+    <ActionBar>
+        <Label class="title-mycomms" text="My Communities" />
+    </ActionBar>
+
+    <StackLayout class="gradientBg" height='100%'>
+        <SearchBar hint='Search communities...' />
+        <ListView height='100%' items="{{ communities }}">
             <ListView.itemTemplate>
-                <Label text="{{ name }}" />
+                <GridLayout 
+                height="280"
+                borderRadius="10"
+                columns="*"
+                rows="auto"
+                >
+                    <Image class="comm-image" row="0" margin="0" stretch="aspectFill" src="{{ image }}" />
+                    <Label class="comm-name" row='1' margin="10 10 0 10" text="{{ name }}" />
+                </GridLayout>
+
             </ListView.itemTemplate>
         </ListView>
-    </GridLayout>
+    </StackLayout>
 </Page> 

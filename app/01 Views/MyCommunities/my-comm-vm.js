@@ -12,6 +12,12 @@ function MyCommsViewModel(comms) {
         }
     }
 
+    vm.empty = function() {
+        while (vm.length) {
+            vm.pop();
+        }
+    }
+
     return vm;
 }
 

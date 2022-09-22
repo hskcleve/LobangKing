@@ -3,12 +3,18 @@ const { doGetCommunityPosts } = require("~/07 Services/community-posts-mock-serv
 
 function CommunityPageViewModel(communityPosts) {
     var vm = new ObservableArray(communityPosts);
-    
+
     vm.load = function() {
         const arr = doGetCommunityPosts();
         console.log(arr);
         for (const p of arr) {
             vm.push(p)
+        }
+    }
+
+    vm.empty = function() {
+        while (vm.length) {
+            vm.pop();
         }
     }
 

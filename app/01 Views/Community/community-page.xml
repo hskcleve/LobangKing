@@ -1,5 +1,5 @@
 <Page id="community-page" loaded="onLoaded">
-    <GridLayout class="gradientBg">
+    <GridLayout class="gradientBg" columns='2*,*'>
         <ListView items="{{ posts }}">
             <ListView.itemTemplate>
                 <Label text="{{ body }}" />

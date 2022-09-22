@@ -5,14 +5,14 @@ const myComms = [
     community_id: 1,
     name: "Groceries",
     num_members: 120,
-    image: "",
+    image: '~/assets/groceries-img.jpg',
     posts: [],
   },
   {
     community_id: 2,
     name: "Fashion",
     num_members: 188,
-    image: "",
+    image: '~/assets/fashion-img.jpg',
     posts: [],
   },
 ];
