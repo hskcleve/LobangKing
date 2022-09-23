@@ -4,8 +4,8 @@ const { doMockUserLogin } = require("~/07 Services/mock_service");
 
 function LoginPageViewModel() {
   var loginPageViewModel = observableModule.fromObject({
-    username_input: "",
-    password_input: "",
+    username_input: "johndoe",
+    password_input: "password",
     on_login_page: true,
   });
 

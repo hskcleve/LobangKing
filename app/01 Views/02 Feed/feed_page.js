@@ -24,3 +24,14 @@ exports.logoutOnTap = function (args) {
   };
   frame.navigate(navigationEntry);
 };
+
+exports.profileOnTap = function () {
+  const frame = frameModule.Frame.topmost();
+  const navigationEntry = {
+    moduleName: "~/01 Views/06 Profile/profile_page",
+    context: {
+      user: vm.user,
+    },
+  };
+  frame.navigate(navigationEntry);
+};

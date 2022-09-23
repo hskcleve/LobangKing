@@ -17,7 +17,7 @@ Button.-primary {
 .h1 {
   font-size: 25%;
   font-weight: bold;
-  margin: 2%;
+  margin: 2;
 }
 
 .h2 {
@@ -30,6 +30,11 @@ Button.-primary {
   text-decoration: underline;
 }
 
+.fineprint {
+  font-size: 10%;
+  color: rgb(55, 55, 55);
+}
+
 .centered {
   text-align: center;
 }
@@ -37,4 +42,8 @@ Button.-primary {
 .flex-center {
   justify-content: center;
   align-items: center;
+}
+
+.topBar {
+  padding: 15%, 0%, 15%, 0%;
 }
