@@ -13,12 +13,17 @@
 }
 
 .profilePicContainer {
-  background-color: white;
+  background-color: rgb(52, 52, 52);
   border-radius: 50%;
   height: 85;
   width: 85;
-  border-width: 0, 0.2, 0.5, 0;
   border-color: rgb(26, 26, 26);
+}
+
+.profilePic {
+  border-radius: 50%;
+  height: 85;
+  width: 85;
 }
 
 .h2-large {
@@ -30,7 +35,7 @@
 .tabHeaderSelected {
   border-radius: 25%, 25%, 0, 0;
   border-width: 0, 0, 3, 0;
-  border-color: grey;
+  border-color: black;
 }
 
 .tabHeaderUnselected {
@@ -40,9 +45,9 @@
 }
 
 .lobangPanel {
-  padding: 10%;
-  border-width: 0, 1, 1, 0;
+  color: white;
+  border-width: 0, 0.5, 0.5, 0;
   margin: 5;
-  background-color: grey;
+  background-color: rgb(52, 52, 52);
   border-radius: 10%;
 }

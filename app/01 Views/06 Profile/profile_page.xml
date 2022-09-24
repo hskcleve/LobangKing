@@ -1,4 +1,4 @@
-<Page id="profile_page" loaded="onLoaded" navigatedTo="onNavigatedTo">
+<Page id="profile_page" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:df="nativescript-ui-dataform">
     <GridLayout class="gradientBg" rows="auto,auto,*,auto">
         <GridLayout class="topBar" row="0" columns="40,*">
             <Image col="0" src="~/06 Assets/00 General/back_arrow.png" height="20" tap="goBack"/>
@@ -8,7 +8,7 @@
         <GridLayout class="profileInfoContainer" row="1" columns="*,20,2*" height="25%">
             <StackLayout col="0" height="100%">
                 <GridLayout class="profilePicContainer">
-                    <Image src="{{user.profile_pic_uri}}"/>
+                    <Image class="profilePic" src="{{user.profile_pic_uri}}"></Image>
                 </GridLayout>
                 <Label class="h2-large centered" text="{{user.first_name + ' ' + user.last_name}}"/>
                 <Label class="fineprint centered" text="{{'@' + user.user_id}}"/>
@@ -26,7 +26,7 @@
                     <Image col="1" height="12" src="{{user.verified | getVerifiedIcon}}" style="margin-bottom:3"/>
                     <Label class="fineprint" col="2" text="{{user.getVerifiedStatusString()}}" style="margin-left:2"/>
                     <Image col="4" height="12" src="~/06 Assets/06 Profile Page Icons/location-pin.png" style="margin-bottom:3"/>
-                    <Label class="fineprint" col="5" text="Punggol" style="margin-left:2"/>
+                    <Label class="fineprint" col="5" text="{{user.location}}" style="margin-left:2"/>
                 </GridLayout>
             </StackLayout>
         </GridLayout>
@@ -42,7 +42,6 @@
                 <Image src="~/06 Assets/06 Profile Page Icons/edit.png" height="42"/>
             </GridLayout>
 
-            
             <ScrollView hidden="{{tab!='lobangs'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
                 <StackLayout style="padding:10%">
                     <Label class="h1" text="Hosted Groupbuys"/>
@@ -51,32 +50,112 @@
                             <StackLayout orientation="vertical"/>
                         </Repeater.itemsLayout>
                         <Repeater.itemTemplate>
-                            <GridLayout class="lobangPanel" rows="*,auto,*,*,*">
-                                <Label class="h2" row="0" text="{{lobang_name}}"/>
-                                <Label row="1" text="{{joined.length + ' people joined'}}"/>
-                                <Label row="2" text="{{products.length + ' products'}}"/>
-                                <Label row="3" text="{{getTimeLeft()}}"/>
-                                <Label row="4" text="{{getTags()}}"/>
+                            <GridLayout class="lobangPanel" tap="hostedLobangOnTap">
+                                <GridLayout style="{{getBackgroundImageCss()}}">
+                                </GridLayout>
+                                <GridLayout rows="*,*,*,*,*" columns="auto,5,*" style="padding:10%">
+                                    <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" text="{{lobang_name}}"/>
+                                    <Label row="1" col="0" colSpan="3" text="{{joined.length + ' people joined'}}"/>
+                                    <Label row="2" col="2" style="font-weight: bold" text="{{products.length + ' products'}}"/>
+                                    <Label row="3" col="2" style="font-weight: bold" text="{{getTimeLeft()}}"/>
+                                    <Label row="4" col="2" style="font-weight: bold" text="{{getTags()}}"/>
+                                    <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products.png" height="15"/>
+                                    <Image row="3" col="0" src="~/06 Assets/10 Lobang Icons/time-left.png" height="15"/>
+                                    <Image row="4" col="0" src="~/06 Assets/10 Lobang Icons/tag.png" height="15"/>
+                                </GridLayout>
                             </GridLayout>
                         </Repeater.itemTemplate>
                     </Repeater>
-                    <Label class="h1" text="Joined Groupbuys"/>
+                    <Label class="h1" text="Joined Groupbuys" style="margin-top:15"/>
                     <Repeater items="{{joinedLobangs}}">
                         <Repeater.itemsLayout>
                             <StackLayout orientation="vertical"/>
                         </Repeater.itemsLayout>
                         <Repeater.itemTemplate>
-                            <GridLayout class="lobangPanel" rows="*,auto,*,*,*">
-                                <Label class="h2" row="0" text="{{lobang_name}}"/>
-                                <Label row="1" text="{{joined.length + ' people joined'}}"/>
-                                <Label row="2" text="{{products.length + ' products'}}"/>
-                                <Label row="3" text="{{getTimeLeft()}}"/>
-                                <Label row="4" text="{{getTags()}}"/>
+                            <GridLayout class="lobangPanel" tap="joinedLobangOnTap">
+                                <GridLayout style="{{getBackgroundImageCss()}}">
+                                </GridLayout>
+                                <GridLayout rows="*,*,*,*,*" columns="auto,5,*" style="padding:10%">
+                                    <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" text="{{lobang_name}}"/>
+                                    <Label row="1" col="0" colSpan="3" text="{{joined.length + ' people joined'}}"/>
+                                    <Label row="2" col="2" style="font-weight: bold" text="{{products.length + ' products'}}"/>
+                                    <Label row="3" col="2" style="font-weight: bold" text="{{getTimeLeft()}}"/>
+                                    <Label row="4" col="2" style="font-weight: bold" text="{{getTags()}}"/>
+                                    <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products.png" height="15"/>
+                                    <Image row="3" col="0" src="~/06 Assets/10 Lobang Icons/time-left.png" height="15"/>
+                                    <Image row="4" col="0" src="~/06 Assets/10 Lobang Icons/tag.png" height="15"/>
+                                </GridLayout>
                             </GridLayout>
                         </Repeater.itemTemplate>
                     </Repeater>
                 </StackLayout>
-                
+            </ScrollView>
+
+            <ScrollView hidden="{{tab!='coins'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
+                <StackLayout style="padding:10%">
+                    <Label class="h1" text="Balance"/>
+                    <GridLayout rows="*,*" columns="auto,55,*">
+                        <Label row="0" col="0" style="font-size:30%; font-weight:bold; margin-left:5" text="{{user.coins}}"/>
+                        <Image row="0" col="1" src="~/06 Assets/00 General/token.png" height="35"/>
+                        <Label row="1" col="0" colSpan="3" style="margin-bottom:10" text="{{coinText}}" textWrap="true"/>
+                    </GridLayout>
+                    <Repeater items="{{hostedLobangs}}">
+                        <Repeater.itemsLayout>
+                            <StackLayout orientation="vertical"/>
+                        </Repeater.itemsLayout>
+                        <Repeater.itemTemplate>
+                            <StackLayout>
+                                <GridLayout class="lobangPanel" tap="hostedLobangOnTap">
+                                    <GridLayout style="{{getBackgroundImageCss()}}">
+                                    </GridLayout>
+                                    <GridLayout rows="*,*,*,*,*" columns="auto,5,*" style="padding:10%">
+                                        <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" text="{{lobang_name}}"/>
+                                        <Label row="1" col="0" colSpan="3" text="{{joined.length + ' people joined'}}"/>
+                                        <Label row="2" col="2" style="font-weight: bold" text="{{products.length + ' products'}}"/>
+                                        <Label row="3" col="2" style="font-weight: bold" text="{{getTimeLeft()}}"/>
+                                        <Label row="4" col="2" style="font-weight: bold" text="{{getTags()}}"/>
+                                        <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products.png" height="15"/>
+                                        <Image row="3" col="0" src="~/06 Assets/10 Lobang Icons/time-left.png" height="15"/>
+                                        <Image row="4" col="0" src="~/06 Assets/10 Lobang Icons/tag.png" height="15"/>
+                                    </GridLayout>
+                                </GridLayout>
+                                <Button class="-primary" text="Boost GroupBuy" style="margin-bottom:10" tap="boostListingOnTap"/>
+                            </StackLayout>
+                        </Repeater.itemTemplate>
+                    </Repeater>
+                </StackLayout>
+            </ScrollView>
+
+            <ScrollView hidden="{{tab!='edit'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
+                <StackLayout style="padding:10%">
+                    <Label class="h1" text="My Information"/>
+                    <df:RadDataForm id="myInfoDataForm" source="{{temp_user}}">
+                        <df:RadDataForm.properties>
+                            <df:EntityProperty name="user_id" displayName="Username"/>
+                            <df:EntityProperty name="first_name" displayName="First Name"/>
+                            <df:EntityProperty name="last_name" displayName="Last Name"/>
+                            <df:EntityProperty name="email" displayName="Email Address"/>
+                            <df:EntityProperty name="mobile" displayName="Mobile Number"/>
+                            <df:EntityProperty name="profile_pic_uri" displayName="Profile Picture URL"/>
+                            <df:EntityProperty name="location" displayName="Town" valuesProvider="{{location_provider}}">
+                                <df:EntityProperty.editor>
+                                    <df:PropertyEditor type="Picker" />
+                                </df:EntityProperty.editor>
+                            </df:EntityProperty>
+                            <df:EntityProperty name="date_joined" hidden="true"/>
+                            <df:EntityProperty name="_observers" hidden="true"/>
+                            <df:EntityProperty name="_map" hidden="true"/>
+                            <df:EntityProperty name="verified" hidden="true"/>
+                            <df:EntityProperty name="coins" hidden="true"/>
+                            <df:EntityProperty name="rating" hidden="true"/>
+                            <df:EntityProperty name="disabled" hidden="true"/>
+                            <df:EntityProperty name="lobangs_joined" hidden="true"/>
+                            <df:EntityProperty name="communities_joined" hidden="true"/>
+                            <df:EntityProperty name="reviews" hidden="true"/>
+                        </df:RadDataForm.properties>
+                    </df:RadDataForm>
+                    <Button class="-primary" text="Update" tap="updateBtnOnTap"/>
+                </StackLayout>
             </ScrollView>
         </GridLayout>
         

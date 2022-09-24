@@ -4,6 +4,8 @@ const {
   getHostedGroupBuysByUserId,
   getJoinedGroupBuysByUserId,
 } = require("~/07 Services/mock_service");
+const coins_explanation = require("~/00 Constants/explanation_messages.json");
+const possible_locations = require("~/00 Constants/towns_constants").town_names;
 
 const displayDateJoined = function (dateJoined) {
   dateJoined = new Date(dateJoined);
@@ -25,11 +27,14 @@ const getVerifiedIcon = function (verifiedStatus) {
 function ProfilePageViewModel() {
   var profilePageViewModel = observableModule.fromObject({
     user: undefined,
+    temp_user: undefined,
     hostedLobangs: undefined,
     joinedLobangs: undefined,
     tab: "lobangs",
     displayDateJoined,
     getVerifiedIcon,
+    coinText: coins_explanation.profile_coins_explanation,
+    location_provider: possible_locations,
   });
 
   profilePageViewModel.getHostedLobangs = function () {
@@ -54,6 +59,11 @@ function ProfilePageViewModel() {
         profilePageViewModel.set("joinedLobangs", lobangs);
       }
     );
+  };
+
+  profilePageViewModel.doUserInfoUpdate = function () {
+    profilePageViewModel.user = profilePageViewModel.temp_user;
+    alert("UI updated. Will update user through service.");
   };
 
   return profilePageViewModel;

@@ -39,6 +39,14 @@ function Lobang(info) {
     lobang_status: info.lobang_status,
   });
 
+  lobangModel.getBackgroundImageCss = function () {
+    return (
+      "background-image: " +
+      lobangModel.coverPicture +
+      "; opacity: 0.40; border-radius:10%; background-repeat: no-repeat;background-size: cover;background-position: center;"
+    );
+  };
+
   lobangModel.getTags = function () {
     let displayString = "";
     for (let i = 0; i <= 2; i++) {
