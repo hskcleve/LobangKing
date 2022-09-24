@@ -5,7 +5,7 @@
             <Label col="1" class="h1" text="Profile" tap="goBack"/>
         </GridLayout>
 
-        <GridLayout class="profileInfoContainer" row="1" columns="*,20,2*" height="25%">
+        <GridLayout class="profileInfoContainer" row="1" columns="*,2*" height="22%">
             <StackLayout col="0" height="100%">
                 <GridLayout class="profilePicContainer">
                     <Image class="profilePic" src="{{user.profile_pic_uri}}"></Image>
@@ -13,7 +13,7 @@
                 <Label class="h2-large centered" text="{{user.first_name + ' ' + user.last_name}}"/>
                 <Label class="fineprint centered" text="{{'@' + user.user_id}}"/>
             </StackLayout>
-            <StackLayout col="2">
+            <StackLayout col="1">
                 <GridLayout style="padding:10%" rows="auto,auto" columns="*,*,*" height="55%">
                     <Label class="h2-large centered" row="0" col="0" text="{{user.date_joined | displayDateJoined}}"/>
                     <Label class="h2-large centered" row="0" col="1" text="{{user.rating}}"/>
