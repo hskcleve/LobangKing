@@ -1,4 +1,4 @@
 <!-- <Frame defaultPage="~/01 Views/01 Login/login_page">
 </Frame> -->
 
-<Frame defaultPage="~/01 Views/Community/community-page"></Frame>
+<Frame defaultPage="~/01 Views/MyCommunities/my-comm"></Frame>

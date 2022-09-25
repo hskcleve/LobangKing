@@ -10,8 +10,15 @@ var pageData = observableModule.fromObject({
 
 exports.onLoaded = function(args) {
     page = args.object;
-    // page.actionBarHidden = true;
     page.bindingContext = pageData;
     commList.empty();
     commList.load();
+}
+
+exports.selectCommunityOnTap = function() {
+    const frame = frameModule.Frame.topmost();
+    const navigationEntry = {
+        moduleName: "~/01 Views/Community/community-page"
+    };
+    frame.navigate(navigationEntry);
 }
