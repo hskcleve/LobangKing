@@ -1,9 +1,18 @@
 <Page id="community-page" loaded="onLoaded">
-    <GridLayout class="gradientBg" columns='2*,*'>
-        <ListView items="{{ posts }}">
+    <ActionBar title='Community Page' />
+    <StackLayout class="gradientBg" columns='2*,*' height='100%'>
+        <ListView height='100%' items="{{ posts }}">
             <ListView.itemTemplate>
-                <Label text="{{ body }}" />
+                <GridLayout 
+                height="280" 
+                borderRadius="10" 
+                rows="*, auto, auto" 
+                columns="*" 
+                margin="5 10" 
+                padding="0">
+                    <Label row="1" margin="10 10 0 10" fontWeight="700" fontSize="18" text="{{ body }}" />
+                </GridLayout>
             </ListView.itemTemplate>
         </ListView>
-    </GridLayout>
+    </StackLayout>
 </Page> 

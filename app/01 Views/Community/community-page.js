@@ -11,7 +11,6 @@ var pageData = observableModule.fromObject({
 exports.onLoaded = function(args) {
     page = args.object
     page.bindingContext = pageData
-    console.log("page is successfully loaded")
     communityPosts.empty()
     communityPosts.load()
 }
