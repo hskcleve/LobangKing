@@ -1,15 +1,19 @@
-﻿@import "@nativescript/theme/css/core.css";
-@import "@nativescript/theme/css/default.css";
+﻿Page {
+  color: black;
+}
 
 Button.-primary {
   font-size: 18;
+  color: black;
+  font-size: 12%;
+  font-weight: bold;
+  background: rgb(170, 190, 239);
 }
 
 .gradientBg {
-  background: rgb(2, 0, 36);
   background: linear-gradient(
     0deg,
-    rgb(255, 255, 255, 0.31) 0%,
+    rgb(255, 255, 255, 0.31) 40%,
     rgb(119, 149, 224) 100%
   );
 }
@@ -17,7 +21,7 @@ Button.-primary {
 .h1 {
   font-size: 25%;
   font-weight: bold;
-  margin: 2%;
+  margin: 2;
 }
 
 .h2 {
@@ -30,6 +34,11 @@ Button.-primary {
   text-decoration: underline;
 }
 
+.fineprint {
+  font-size: 10%;
+  color: rgb(55, 55, 55);
+}
+
 .centered {
   text-align: center;
 }
@@ -39,3 +48,6 @@ Button.-primary {
   align-items: center;
 }
 
+.topBar {
+  padding: 15%, 0%, 15%, 0%;
+}

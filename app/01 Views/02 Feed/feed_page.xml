@@ -1,12 +1,24 @@
 <Page id="feed_page" loaded="onLoaded" navigatedTo="onNavigatedTo">
-    <GridLayout class="gradientBg" rows="auto,*,auto">
-        <Label class="h1" row="0" text="{{'Welcome, ' + user.first_name + ' ' + user.last_name}}"/>
-        
-        <Button class="-primary" row="1" text="Back to Login" tap="logoutOnTap"/>
-        
-        <GridLayout row="2" style="background-color:grey" height="7%">
-            <Label style="color:white; text-align:center" text="unimplemented navbar"/>
+    <GridLayout class="gradientBg" rows="auto,auto,auto,auto,*,auto">
+
+        <GridLayout height="10%" class="topBar" row="0" columns="20,*">
+            <Label col="1" class="h1" text="{{'Welcome, ' + user.first_name + ' ' + user.last_name}}"/>
         </GridLayout>
 
+        <StackLayout row="1">
+            <Button class="-primary" text="Back to Login" tap="logoutOnTap"/>
+            <Button class="-primary" text="Temp Link to Profile" tap="profileOnTap"/>
+        </StackLayout>
+        
+        <GridLayout row="5" style="background-color:grey" height="7%">
+            <Label style="color:white; text-align:center" text="<unimplemented navbar>"/>
+        </GridLayout>
+
+        <StackLayout row="3" id="myChangingHeightBox" style="background-color:red" height="0">
+            <Label text="hello from changing height box" />
+        </StackLayout>
+
+        <Button row="2" text="Toggle Box" tap="toggleBox"/>
+        
     </GridLayout>
 </Page>

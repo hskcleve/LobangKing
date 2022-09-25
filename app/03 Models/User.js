@@ -16,6 +16,7 @@ function User(info) {
     communities_joined: undefined,
     lobangs_joined: undefined,
     reviews: undefined,
+    date_joined: undefined,
   };
 
   var userModel = observableModule.fromObject({
@@ -33,7 +34,14 @@ function User(info) {
     communities_joined: info.communities_joined,
     lobangs_joined: info.lobangs_joined,
     reviews: info.reviews,
+    date_joined: info.date_joined,
   });
+
+  userModel.getVerifiedStatusString = function () {
+    if (userModel.verified == "true") {
+      return "Verified Account";
+    } else return "Unverified";
+  };
 
   return userModel;
 }

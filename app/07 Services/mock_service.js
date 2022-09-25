@@ -1,4 +1,5 @@
 const error_messages = require("~/00 Constants/error_messages.json");
+const Lobang = require("~/03 Models/Lobang");
 const User = require("~/03 Models/User");
 
 exports.doMockUserLogin = function (userId, password) {
@@ -18,3 +19,30 @@ exports.doMockUserLogin = function (userId, password) {
   });
 };
 
+exports.getHostedGroupBuysByUserId = function (userId) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let mockGetHostedGroupBuyResponse = require("~/08 Mock Data/mock_get_own_hosted_lobangs.json");
+      let lobangs = [];
+      mockGetHostedGroupBuyResponse.lobangs.forEach((lobang) => {
+        lobangs.push(new Lobang(lobang));
+      });
+      resolve(lobangs);
+    }, 0);
+    // no reject for this fx in mock
+  });
+};
+
+exports.getJoinedGroupBuysByUserId = function (userId) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let mockGetJoinedGroupBuyResponse = require("~/08 Mock Data/mock_get_joined_lobangs.json");
+      let lobangs = [];
+      mockGetJoinedGroupBuyResponse.lobangs.forEach((lobang) => {
+        lobangs.push(new Lobang(lobang));
+      });
+      resolve(lobangs);
+    }, 0);
+    // no reject for this fx in mock
+  });
+};

@@ -1,0 +1,53 @@
+.profileTabContainer {
+  background-color: white;
+  height: 100%;
+  width: 95%;
+  border-radius: 25%, 25%, 0, 0;
+  border-width: 0, 0, 1, 0;
+  border-color: rgb(184, 184, 184);
+  color: black;
+}
+
+.profileInfoContainer {
+  padding: 20%;
+}
+
+.profilePicContainer {
+  background-color: rgb(52, 52, 52);
+  border-radius: 50%;
+  height: 85;
+  width: 85;
+  border-color: rgb(26, 26, 26);
+}
+
+.profilePic {
+  border-radius: 50%;
+  height: 85;
+  width: 85;
+}
+
+.h2-large {
+  font-size: 17%;
+  font-weight: bold;
+  margin: 2%;
+}
+
+.tabHeaderSelected {
+  border-radius: 25%, 25%, 0, 0;
+  border-width: 0, 0, 3, 0;
+  border-color: black;
+}
+
+.tabHeaderUnselected {
+  border-radius: 25%, 25%, 0, 0;
+  border-color: grey;
+  opacity: 0.2;
+}
+
+.lobangPanel {
+  color: white;
+  border-width: 0, 0.5, 0.5, 0;
+  margin: 5;
+  background-color: rgb(52, 52, 52);
+  border-radius: 10%;
+}
