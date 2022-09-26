@@ -1,12 +1,12 @@
 const { ObservableArray } = require("@nativescript/core");
-const { doGetMyCommunities } = require("~/07 Services/mycomms-mock-service");
+const { getMyCommunities } = require("~/07 Services/communities-mock-service");
+
 
 function MyCommsViewModel(comms) {
     var vm = new ObservableArray(comms);
 
     vm.load = function() {
-        const arr = doGetMyCommunities()
-        console.log(arr)
+        const arr = getMyCommunities();
         for (const c of arr) {
             vm.push(c)
         }

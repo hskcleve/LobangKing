@@ -1,5 +1,6 @@
 var observableModule = require("@nativescript/core/data/observable");
 var MyCommsViewModel = require("~/01 Views/MyCommunities/my-comm-vm");
+const frameModule = require("@nativescript/core/ui/frame");
 
 var page;
 
@@ -15,10 +16,18 @@ exports.onLoaded = function(args) {
     commList.load();
 }
 
-exports.selectCommunityOnTap = function() {
+exports.selectCommunityOnTap = function(args) {
+    const param = args.object.param;
+    alert("You tapped on the image" + param);
+
     const frame = frameModule.Frame.topmost();
+    
     const navigationEntry = {
-        moduleName: "~/01 Views/Community/community-page"
+        moduleName: "~/01 Views/Community/community-page",
+        context: {
+            commName: param
+        },
     };
     frame.navigate(navigationEntry);
+
 }

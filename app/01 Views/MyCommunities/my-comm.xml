@@ -13,7 +13,7 @@
                 columns="*"
                 rows="auto"
                 >
-                    <Image class="comm-image" row="0" margin="0" stretch="aspectFill" src="{{ image }}" />
+                    <Image class="comm-image" row="0" margin="0" stretch="aspectFill" src="{{ image }}" param="{{ name }}" tap="selectCommunityOnTap"/>
                     <Label class="comm-name" row='1' margin="10 10 0 10" text="{{ name }}" />
                 </GridLayout>
 

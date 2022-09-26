@@ -1,4 +1,4 @@
-<Page id="community-page" loaded="onLoaded">
+<Page id="community-page" loaded="onLoaded" navigatedTo="onNavigatedTo">
     
     <StackLayout class="gradientBg" columns='2*,*' height='100%'>
         <Image />
