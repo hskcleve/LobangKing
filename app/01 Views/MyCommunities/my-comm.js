@@ -18,10 +18,8 @@ exports.onLoaded = function(args) {
 
 exports.selectCommunityOnTap = function(args) {
     const param = args.object.param;
-    alert("You tapped on the image" + param);
 
     const frame = frameModule.Frame.topmost();
-    
     const navigationEntry = {
         moduleName: "~/01 Views/Community/community-page",
         context: {

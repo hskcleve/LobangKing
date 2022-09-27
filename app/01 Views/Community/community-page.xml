@@ -1,16 +1,21 @@
 <Page id="community-page" loaded="onLoaded" navigatedTo="onNavigatedTo">
     
     <StackLayout class="gradientBg" columns='2*,*' height='100%'>
-        <Image />
+        
+        <TextView class="add-post" loaded="onTextViewLoaded" hint="Write something" returnKeyType="done" autocorrect="false" maxLength="10">
+        </TextView>
+        
         <ListView height='100%' items="{{ posts }}">
             <ListView.itemTemplate>
-                <GridLayout height="280" borderRadius="10" rows="*, auto, auto" columns="*" margin="5 10" padding="0">
+                <GridLayout height="280" borderRadius="10" rows="*, auto, auto" columns="*, 2*" margin="5 10" padding="0">
                     
+                    <Label row="0" col="1" fontWeight="700" fontSize="18" text="{{ time_posted }}"/>
+
                     <Label row='0' margin="10 10 0 10" fontWeight="700" fontSize="18" text="Ken Lee" />
                     
                     <Label row="1" margin="10 10 0 10" fontWeight="700" fontSize="18" text="{{ body }}" />
                     
-                    <Image row="2" margin="0" stretch="aspectFill" src="{{ image }}" />
+                    <Image row="2" margin="0" colSpan="2" stretch="aspectFill" src="{{ image }}" />
 
                 </GridLayout>
             </ListView.itemTemplate>
