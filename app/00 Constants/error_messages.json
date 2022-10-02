@@ -1,5 +1,7 @@
 {
     "EMPTY_FIELD_ERROR" : "Please provide input for all fields.",
-    "USER_DOES_NOT_EXIST_ERROR" : "The username and password provided does not match any LobangKing accounts. Please try again. user:johndoe pw:password",
-    "INVALID_CREDENTIALS_ERROR" : "The password provided is invalid. Please try again. user:johndoe pw:password"
+    "USER_DOES_NOT_EXIST_ERROR" : "The username and password provided does not match any LobangKing accounts. Please try again.",
+    "INVALID_CREDENTIALS_ERROR" : "Invalid login credentials. Register a new account or try again.",
+    "INVALID_FIELDS_ERROR" : "There are some issues with the details provided.",
+    "INSUFFICIENT_COINS_ERROR" : "You need a minimum of 10 coins to boost!"
 }

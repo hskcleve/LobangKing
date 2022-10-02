@@ -1,0 +1,24 @@
+<Page loaded="onLoaded">
+    <GridLayout class="navbarBg" columns="*,*,*,*,*">
+        <FlexboxLayout col="0" class="flex-center" style="flex-direction:column" tap="homeOnTap">
+            <Image src="~/06 Assets/11 Navbar Icons/home.png" height="30"/>
+            <Label text="Feed" style="text-align:center"/>
+        </FlexboxLayout>
+        <FlexboxLayout col="1" class="flex-center" style="flex-direction:column" tap="groupsOnTap">
+            <Image src="~/06 Assets/11 Navbar Icons/group.png" height="30"/>
+            <Label text="Groups" style="text-align:center"/>
+        </FlexboxLayout>
+        <FlexboxLayout col="2" class="flex-center" style="flex-direction:column" tap="groupbuyOnTap">
+            <Image src="~/06 Assets/11 Navbar Icons/shop_bag.png" height="30"/>
+            <Label text="GroupBuy" style="text-align:center"/>
+        </FlexboxLayout>
+        <FlexboxLayout col="3" class="flex-center" style="flex-direction:column" tap="exploreOnTap">
+            <Image src="~/06 Assets/11 Navbar Icons/explore.png" height="30"/>
+            <Label text="Explore" style="text-align:center"/>
+        </FlexboxLayout>
+        <FlexboxLayout col="4" class="flex-center" style="flex-direction:column" tap="profileOnTap">
+            <Image src="~/06 Assets/11 Navbar Icons/account.png" height="30"/>
+            <Label text="Profile" style="text-align:center"/>
+        </FlexboxLayout>
+    </GridLayout>
+</Page>

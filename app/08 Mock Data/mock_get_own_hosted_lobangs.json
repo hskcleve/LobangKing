@@ -2,7 +2,7 @@
     "lobangs" : [
         {
             "lobang_id" : "1",
-            "lobang_name" : "Punggol Groceries Groupbuy",
+            "lobang_name" : "Punggol Groceries Groupbuy (MOCK)",
             "categories" : ["Groceries"],
             "description" : "Groceries GroupBuy for the Punggol Community!",
             "min_order" : "2",
@@ -37,7 +37,7 @@
         },
         {
             "lobang_id" : "2",
-            "lobang_name" : "Cheap Electronics Groupbuy",
+            "lobang_name" : "Cheap Electronics Groupbuy (MOCK)",
             "categories" : ["Electronics", "Technology"],
             "description" : "The cheapest electronics sourced from chinese wholesaler, new products added daily!",
             "min_order" : "1",

@@ -1,5 +1,6 @@
 const ProfilePageViewModel = require("~/02 View Models/06 Profile/profile_page_vm");
 const frameModule = require("@nativescript/core/ui/frame");
+const errorMsgs = require("~/00 Constants/error_messages");
 
 var page;
 var vm;
@@ -11,7 +12,7 @@ exports.onLoaded = function (args) {
 
 exports.onNavigatedTo = function (args) {
   const nvc = page.navigationContext;
-  vm = vm ? vm : new ProfilePageViewModel();
+  vm = new ProfilePageViewModel();
   page.bindingContext = vm;
   vm.set("user", nvc.user);
   vm.set("temp_user", Object.assign({}, nvc.user));
@@ -38,9 +39,11 @@ exports.joinedLobangOnTap = function (args) {
 };
 
 exports.boostListingOnTap = function (args) {
-  const listingTapped = args.object.parent.bindingContext;
-  console.log(args.object.parent.bindingContext);
-  alert("Unimplemented: Will boost for " + listingTapped.lobang_name);
+  const lobangTapped = args.object.parent.bindingContext;
+  vm.doBoostListing(lobangTapped, () => {
+    page.bindingContext = null;
+    page.bindingContext = vm;
+  });
 };
 
 exports.toggleCoinsTab = function () {
@@ -52,5 +55,22 @@ exports.toggleEditTab = function () {
 };
 
 exports.updateBtnOnTap = function () {
-  vm.doUserInfoUpdate();
+  const dataform = page.getViewById("myInfoDataForm");
+  if (dataform.hasValidationErrors()) {
+    alert(errorMsgs.INVALID_FIELDS_ERROR);
+    return;
+  }
+  vm.doUserInfoUpdate(() => {
+    page.bindingContext = null;
+    page.bindingContext = vm;
+  });
+};
+
+exports.logoutOnTap = function (args) {
+  const frame = frameModule.Frame.topmost();
+  const navigationEntry = {
+    moduleName: "~/01 Views/01 Login/login_page",
+    clearHistory: true,
+  };
+  frame.navigate(navigationEntry);
 };

@@ -2,7 +2,7 @@
     "lobangs" : [
         {
             "lobang_id" : "3",
-            "lobang_name" : "Urban Outfitters Groupbuy",
+            "lobang_name" : "Urban Outfitters Groupbuy (MOCK)",
             "categories" : ["Apparel"],
             "description" : "Urban Outfitter's warehouse clearance groupbuy!",
             "min_order" : "1",

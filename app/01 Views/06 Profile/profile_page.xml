@@ -1,4 +1,4 @@
-<Page id="profile_page" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:df="nativescript-ui-dataform">
+<Page id="profile_page" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:df="nativescript-ui-dataform" xmlns:customUI="~/04 Custom UI">
     <GridLayout class="gradientBg" rows="auto,auto,*,auto">
         <GridLayout class="topBar" row="0" columns="40,*">
             <Image col="0" src="~/06 Assets/00 General/back_arrow.png" height="20" tap="goBack"/>
@@ -8,7 +8,7 @@
         <GridLayout class="profileInfoContainer" row="1" columns="*,2*" height="22%">
             <StackLayout col="0" height="100%">
                 <GridLayout class="profilePicContainer">
-                    <Image class="profilePic" src="{{user.profile_pic_uri}}"></Image>
+                    <Image class="profilePic" src="{{user.profile_pic_uri}}" stretch="aspectFill"></Image>
                 </GridLayout>
                 <Label class="h2-large centered" text="{{user.first_name + ' ' + user.last_name}}"/>
                 <Label class="fineprint centered" text="{{'@' + user.user_id}}"/>
@@ -16,7 +16,7 @@
             <StackLayout col="1">
                 <GridLayout style="padding:10%" rows="auto,auto" columns="*,*,*" height="55%">
                     <Label class="h2-large centered" row="0" col="0" text="{{user.date_joined | displayDateJoined}}"/>
-                    <Label class="h2-large centered" row="0" col="1" text="{{user.rating}}"/>
+                    <Label class="h2-large centered" row="0" col="1" text="{{user.getRating()}}"/>
                     <Label class="h2-large centered" row="0" col="2" text="{{user.coins}}"/>
                     <Label class="fineprint centered" row="1" col="0" text="Joined"/>
                     <Label class="fineprint centered" row="1" col="1" text="Rating"/>
@@ -45,6 +45,7 @@
             <ScrollView hidden="{{tab!='lobangs'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
                 <StackLayout style="padding:10%">
                     <Label class="h1" text="Hosted Groupbuys"/>
+                    <Label text="You are not hosting any groupbuys yet..." hidden="{{hostedLobangs[0] != null}}"/>
                     <Repeater items="{{hostedLobangs}}">
                         <Repeater.itemsLayout>
                             <StackLayout orientation="vertical"/>
@@ -67,6 +68,7 @@
                         </Repeater.itemTemplate>
                     </Repeater>
                     <Label class="h1" text="Joined Groupbuys" style="margin-top:15"/>
+                    <Label text="You have not joined any groupbuys yet..." hidden="{{joinedLobangs[0] != null}}"/>
                     <Repeater items="{{joinedLobangs}}">
                         <Repeater.itemsLayout>
                             <StackLayout orientation="vertical"/>
@@ -108,15 +110,17 @@
                                 <GridLayout class="lobangPanel" tap="hostedLobangOnTap">
                                     <GridLayout style="{{getBackgroundImageCss()}}">
                                     </GridLayout>
-                                    <GridLayout rows="*,*,*,*,*" columns="auto,5,*" style="padding:10%">
+                                    <GridLayout rows="*,*,*,*,*,*" columns="auto,5,*" style="padding:10%">
                                         <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" text="{{lobang_name}}"/>
                                         <Label row="1" col="0" colSpan="3" text="{{joined.length + ' people joined'}}"/>
                                         <Label row="2" col="2" style="font-weight: bold" text="{{products.length + ' products'}}"/>
                                         <Label row="3" col="2" style="font-weight: bold" text="{{getTimeLeft()}}"/>
                                         <Label row="4" col="2" style="font-weight: bold" text="{{getTags()}}"/>
+                                        <Label row="5" col="2" style="font-weight: bold" text="{{coins + ' coin boost'}}"/>
                                         <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products.png" height="15"/>
                                         <Image row="3" col="0" src="~/06 Assets/10 Lobang Icons/time-left.png" height="15"/>
                                         <Image row="4" col="0" src="~/06 Assets/10 Lobang Icons/tag.png" height="15"/>
+                                        <Image row="5" col="0" src="~/06 Assets/00 General/token_white.png" height="15"/>
                                     </GridLayout>
                                 </GridLayout>
                                 <Button class="-primary" text="Boost GroupBuy" style="margin-bottom:10" tap="boostListingOnTap"/>
@@ -131,11 +135,46 @@
                     <Label class="h1" text="My Information"/>
                     <df:RadDataForm id="myInfoDataForm" source="{{temp_user}}">
                         <df:RadDataForm.properties>
-                            <df:EntityProperty name="user_id" displayName="Username"/>
-                            <df:EntityProperty name="first_name" displayName="First Name"/>
-                            <df:EntityProperty name="last_name" displayName="Last Name"/>
-                            <df:EntityProperty name="email" displayName="Email Address"/>
-                            <df:EntityProperty name="mobile" displayName="Mobile Number"/>
+                            <df:EntityProperty name="user_id" displayName="Username" hidden="true">
+                                <!--df:EntityProperty.validators>
+                                    <df:MinimumLengthValidator errorMessage="Username must be at least 6 characters." length="6" />
+                                    <df:NonEmptyValidator errorMessage="Username can't be empty." /> 
+                                    <df:MaximumLengthValidator errorMessage="Username can be at most 12 characters." length="12" /> 
+                                </df:EntityProperty.validators-->
+                            </df:EntityProperty>
+                            <df:EntityProperty name="password" displayName="Password">
+                                <df:EntityProperty.validators>
+                                    <df:MinimumLengthValidator errorMessage="Password must be at least 6 characters." length="6" />
+                                    <df:NonEmptyValidator errorMessage="Password can't be empty." /> 
+                                    <df:MaximumLengthValidator errorMessage="Password can be at most 12 characters." length="12" /> 
+                                </df:EntityProperty.validators>
+                                <df:EntityProperty.editor>
+                                    <df:PropertyEditor type="Password" />
+                                </df:EntityProperty.editor>
+                            </df:EntityProperty>
+                            <df:EntityProperty name="first_name" displayName="First Name">
+                                <df:EntityProperty.validators>
+                                    <df:NonEmptyValidator errorMessage="First name can't be empty." /> 
+                                    <df:MaximumLengthValidator errorMessage="First name can be at most 12 characters." length="12" /> 
+                                </df:EntityProperty.validators>
+                            </df:EntityProperty>
+                            <df:EntityProperty name="last_name" displayName="Last Name">
+                                <df:EntityProperty.validators>
+                                    <df:NonEmptyValidator errorMessage="Last name can't be empty." /> 
+                                    <df:MaximumLengthValidator errorMessage="Last name can be at most 12 characters." length="12" /> 
+                                </df:EntityProperty.validators>
+                            </df:EntityProperty>
+                            <df:EntityProperty name="email" displayName="Email Address">
+                                <df:EntityProperty.validators>
+                                    <df:EmailValidator /> 
+                                </df:EntityProperty.validators>
+                            </df:EntityProperty>
+                            <df:EntityProperty name="mobile" displayName="Mobile Number">
+                                <df:EntityProperty.validators>
+                                    <df:MinimumLengthValidator errorMessage="Invalid phone number format." length="8" />
+                                    <df:PhoneValidator errorMessage="Invalid phone number format."/> 
+                                </df:EntityProperty.validators>
+                            </df:EntityProperty>
                             <df:EntityProperty name="profile_pic_uri" displayName="Profile Picture URL"/>
                             <df:EntityProperty name="location" displayName="Town" valuesProvider="{{location_provider}}">
                                 <df:EntityProperty.editor>
@@ -155,9 +194,11 @@
                         </df:RadDataForm.properties>
                     </df:RadDataForm>
                     <Button class="-primary" text="Update" tap="updateBtnOnTap"/>
+                    <Button class="-primary" text="Logout" tap="logoutOnTap"/>
                 </StackLayout>
             </ScrollView>
         </GridLayout>
         
+        <customUI:navbar row="3"/>
     </GridLayout>
 </Page>
