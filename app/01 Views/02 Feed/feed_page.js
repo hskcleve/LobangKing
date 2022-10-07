@@ -24,23 +24,3 @@ exports.logoutOnTap = function (args) {
   };
   frame.navigate(navigationEntry);
 };
-
-exports.profileOnTap = function () {
-  const frame = frameModule.Frame.topmost();
-  const navigationEntry = {
-    moduleName: "~/01 Views/06 Profile/profile_page",
-    context: {
-      user: vm.user,
-    },
-  };
-  frame.navigate(navigationEntry);
-};
-
-exports.toggleBox = function () {
-  //assuming var 'page' had been set alr
-  const changingHeightBox = page.getViewById("myChangingHeightBox");
-  //obtains reference to the stacklayout
-  if (changingHeightBox.height == 200) {
-    changingHeightBox.height = 0;
-  } else changingHeightBox.height = 200;
-};

@@ -19,7 +19,7 @@ exports.doMockUserLogin = function (userId, password) {
   });
 };
 
-exports.getHostedGroupBuysByUserId = function (userId) {
+exports.getMockHostedGroupBuysByUserId = function (userId) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       let mockGetHostedGroupBuyResponse = require("~/08 Mock Data/mock_get_own_hosted_lobangs.json");
@@ -33,7 +33,7 @@ exports.getHostedGroupBuysByUserId = function (userId) {
   });
 };
 
-exports.getJoinedGroupBuysByUserId = function (userId) {
+exports.getMockJoinedGroupBuysByUserId = function (userId) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       let mockGetJoinedGroupBuyResponse = require("~/08 Mock Data/mock_get_joined_lobangs.json");

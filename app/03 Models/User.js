@@ -2,25 +2,27 @@ const observableModule = require("@nativescript/core/data/observable");
 
 function User(info) {
   info = info || {
-    user_id: undefined,
-    first_name: undefined,
-    last_name: undefined,
-    location: undefined,
-    profile_pic_uri: undefined,
-    email: undefined,
-    mobile: undefined,
-    verified: undefined,
-    coins: undefined,
-    rating: undefined,
-    disabled: undefined,
-    communities_joined: undefined,
-    lobangs_joined: undefined,
-    reviews: undefined,
-    date_joined: undefined,
+    user_id: "",
+    password: "",
+    first_name: "",
+    last_name: "",
+    location: "",
+    profile_pic_uri: "",
+    email: "",
+    mobile: "",
+    verified: "",
+    coins: "",
+    rating: "",
+    disabled: "",
+    communities_joined: "",
+    lobangs_joined: "",
+    reviews: "",
+    date_joined: "",
   };
 
   var userModel = observableModule.fromObject({
     user_id: info.user_id,
+    password: info.password,
     first_name: info.first_name,
     last_name: info.last_name,
     location: info.location,
@@ -38,9 +40,13 @@ function User(info) {
   });
 
   userModel.getVerifiedStatusString = function () {
-    if (userModel.verified == "true") {
+    if (userModel.verified) {
       return "Verified Account";
     } else return "Unverified";
+  };
+
+  userModel.getRating = function () {
+    return String(userModel.rating).substring(0, 3);
   };
 
   return userModel;

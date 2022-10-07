@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "162277508732",
+    "project_id": "lobangking-bf365",
+    "storage_bucket": "lobangking-bf365.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162277508732:android:7f6da991c9217d477fabf9",
+        "android_client_info": {
+          "package_name": "org.nativescript.LobangKing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162277508732-6v0jcgd45dmnnbata2jvepqea6leoujt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqHXXS_AiDEbRIOp0wUPt-2DLoDwiU__A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162277508732-6v0jcgd45dmnnbata2jvepqea6leoujt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
