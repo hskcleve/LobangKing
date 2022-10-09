@@ -1,0 +1,12 @@
+<Page id="create-post" loaded="onLoaded" navigatedTo="onNavigatedTo">
+
+    <StackLayout rows="*, auto, auto, *, auto">
+
+        <Label text="Create Post" row="1" class="h2 centered" />
+        <TextView hint="What's on your mind?" row="2" id="post-body" />
+        <Button class="add-image" text="Add Image" style="width: 50%; align-items: right" />
+        <Button text="Add Post" class="primary" style="margin-top:40" row="4" tap="createPostOnTap" />
+
+    </StackLayout>
+
+</Page>

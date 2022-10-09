@@ -1,4 +1,4 @@
-<Page id="my_communities" loaded="onLoaded">
+<Page id="my_communities" loaded="onLoaded" navigatedTo="onNavigatedTo">
     <ActionBar>
         <Label class="title-mycomms" text="My Communities" />
     </ActionBar>

@@ -2,8 +2,7 @@
     
     <StackLayout class="gradientBg" columns='2*,*' height='100%'>
         
-        <TextView class="add-post" loaded="onTextViewLoaded" hint="Write something" returnKeyType="done" autocorrect="false" maxLength="10">
-        </TextView>
+        <Button text="Create New Post" tap="navToCreatePost" />
         
         <ListView height='100%' items="{{ posts }}">
             <ListView.itemTemplate>

@@ -12,6 +12,7 @@ function Post(details) {
 var postModel = observableModule.fromObject({
     post_id: details.post_id,
     user_id: details.user_id,
+    community_id: details.community_id,
     body: details.body,
     image: details.image,
     time_posted: details.time_posted,
