@@ -4,20 +4,20 @@ function Community(details) {
   details = details || {
     community_id: undefined,
     name: undefined,
-    num_members: undefined,
     image: undefined,
-    posts: undefined,                                                                                                                                          
+    members: undefined,
+    posts: undefined,
   };
 
-var communityModel = observableModule.fromObject({
+  var communityModel = observableModule.fromObject({
     community_id: details.community_id,
     name: details.name,
-    num_members: details.num_members,
     image: details.image,
+    members: details.members,
     posts: details.posts,
-});
+  });
 
-return communityModel;
-}                          
+  return communityModel;
+}
 
-module.exports = Community;                 
+module.exports = Community;

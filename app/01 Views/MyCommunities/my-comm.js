@@ -1,15 +1,11 @@
-var observableModule = require("@nativescript/core/data/observable");
 var MyCommsViewModel = require("~/01 Views/MyCommunities/my-comm-vm");
 const frameModule = require("@nativescript/core/ui/frame");
-const { viewMatchesModuleContext } = require("@nativescript/core/ui/core/view");
+const { getCommunitiesByUserId } = require("~/07 Services/communities-service");
 
 var page;
+var vm;
 
-var commList = new MyCommsViewModel([]);
-var pageData = observableModule.fromObject({
-    communities: commList,
-    user: undefined
-})
+
 
 exports.onLoaded = function(args) {
     page = args.object;
@@ -18,13 +14,13 @@ exports.onLoaded = function(args) {
 }
 
 exports.onNavigatedTo = function(args) {
+    vm = new MyCommsViewModel();
     const nvc = page.navigationContext;
-    page.bindingContext = pageData
-    commList.set("user", nvc.user);
-    commList.empty();
-    commList.load();
-    console.log("At My Comms: " + commList.user.user_id);
-
+    page.bindingContext = vm;
+    vm.set("user", nvc.user);
+    vm.empty();
+    vm.load(vm.user.user_id);
+    console.log("User here is " + vm.user.user_id);
 }
 
 exports.selectCommunityOnTap = function(args) {
@@ -35,7 +31,7 @@ exports.selectCommunityOnTap = function(args) {
         moduleName: "~/01 Views/Community/community-page",
         context: {
             commName: param,
-            user: commList.user,
+            user: vm.user,
         },
     };
     frame.navigate(navigationEntry);
