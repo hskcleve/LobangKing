@@ -5,8 +5,6 @@ const { getCommunitiesByUserId } = require("~/07 Services/communities-service");
 var page;
 var vm;
 
-
-
 exports.onLoaded = function(args) {
     page = args.object;
     page.actionBarHidden = true;

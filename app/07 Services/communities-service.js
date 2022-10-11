@@ -43,4 +43,24 @@ exports.getCommunitiesByUserId = function (userId) {
   });
 };
 
-exports.getPostsByCommunity = function (communityId) {};
+exports.getPostsByCommunityId = function (communityId) {
+  return new Promise( (resolve, reject) => {
+    let communityPostsResponse = [];
+    firestore
+    .collection("posts")
+    .where("community_id", "==", communityId)
+    .get()
+    .then( (querySnapshot) => {
+      querySnapshot.forEach( (doc) => {
+        console.log(doc.data());
+      })
+    })
+    .then( () => {
+      resolve();
+    })
+    .catch( (firebaseError) => {
+      console.log(firebaseError);
+      reject(firebaseError);
+    })
+  })
+};
