@@ -28,23 +28,19 @@ function CommunityPageViewModel(communityPosts) {
 
     return communityPageViewModel;
 
-    // var vm = new ObservableArray(communityPosts);
-
-    // vm.load = function(communityName) {
+    // communityPageViewModel.load = function(communityName) {
     //     const arr = getCommunityPosts(communityName);
     //     console.log(arr);
-    //     for (const p of arr) {
-    //         vm.push(p)
+    //     communityPageViewModel.set("posts", arr)
+    // }
+
+    // communityPageViewModel.empty = function () {
+    //     while (communityPageViewModel.length) {
+    //         communityPageViewModel.pop();
     //     }
     // }
 
-    // vm.empty = function() {
-    //     while (vm.length) {
-    //         vm.pop();
-    //     }
-    // }
-
-    // return vm
+    // return communityPageViewModel;
 }
 
 module.exports = CommunityPageViewModel
