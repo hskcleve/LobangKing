@@ -1,6 +1,8 @@
 const error_messages = require("~/00 Constants/error_messages.json");
 const Lobang = require("~/03 Models/Lobang");
 const User = require("~/03 Models/User");
+const Announcement = require("~/03 Models/Announcement");
+const Product = require("~/03 Models/Product");
 
 exports.doMockUserLogin = function (userId, password) {
   return new Promise((resolve, reject) => {
@@ -46,3 +48,44 @@ exports.getMockJoinedGroupBuysByUserId = function (userId) {
     // no reject for this fx in mock
   });
 };
+
+exports.getMockLobangDetailsByLobangId = function (lobangId) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let mockGetLobangDetailsResponse = require("~/08 Mock Data/mock_lobangs.json");
+      let lobang = mockGetLobangDetailsResponse.lobangs.find((lobang) => lobang.lobang_id === lobangId);
+      resolve(lobang);
+    }, 0);
+    // no reject for this fx in mock
+  });
+}
+
+exports.getMockLobangAnnouncementsByLobangId = function (lobangId) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let mockGetLobangAnnouncementsResponse = require("~/08 Mock Data/mock_get_joined_lobangs.json");
+      let lobang = mockGetLobangAnnouncementsResponse.lobangs.find((lobang) => lobang.lobang_id == lobangId);
+      let announcements = [];
+      lobang.announcements.forEach((announcement) => {
+        announcements.push(new Announcement(announcement));
+      });
+      resolve(announcements);
+    }, 0);
+    // no reject for this fx in mock
+  });
+}
+
+exports.getMockLobangProductsByLobangId = function (lobangId) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let mockGetLobangProductsResponse = require("~/08 Mock Data/mock_get_joined_lobangs.json");
+      let lobang = mockGetLobangProductsResponse.lobangs.find((lobang) => lobang.lobang_id == lobangId);
+      let products = [];
+      lobang.products.forEach((product) => {
+        products.push(new Product(product));
+      });
+      resolve(products);
+    }, 0);
+    // no reject for this fx in mock
+  });
+}

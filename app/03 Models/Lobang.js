@@ -14,7 +14,7 @@ function Lobang(info) {
     products: undefined,
     announcements: undefined,
     coverPicture: undefined,
-    createdBy: undefined,
+    lobang_host: undefined,
     coins: undefined,
     joined: undefined,
     lobang_status: undefined,
@@ -33,7 +33,7 @@ function Lobang(info) {
     products: info.products,
     announcements: info.announcements,
     coverPicture: info.coverPicture,
-    createdBy: info.createdBy,
+    lobang_host: info.lobang_host,
     coins: info.coins,
     joined: info.joined,
     lobang_status: info.lobang_status,
@@ -57,6 +57,11 @@ function Lobang(info) {
     return displayString.substring(0, displayString.length - 2);
   };
 
+  lobangModel.getNumProducts = function() {
+    var num = lobangModel.products.length;
+    return num;
+  }
+
   lobangModel.getTimeLeft = function () {
     const timeLeft =
       new Date(lobangModel.last_order_date).getTime() - new Date();
@@ -73,6 +78,11 @@ function Lobang(info) {
     }
     return daysLeft + " days left";
   };
+
+  lobangModel.getNumUsersJoined = function() {
+    var num = lobangModel.joined.length;
+    return num;
+  }
 
   return lobangModel;
 }

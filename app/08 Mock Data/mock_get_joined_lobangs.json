@@ -17,7 +17,8 @@
                     "name" : "Classic Crew Tee (M)",
                     "price" : 13.90,
                     "max_quantity" : 20,
-                    "description" : "UO's Classic Crew Tee for men"
+                    "description" : "UO's Classic Crew Tee for men",
+                    "unit_qty" : "1 pc"
                 },
                 {
                     "product_id" : "6",
@@ -25,7 +26,8 @@
                     "name" : "Classic Tee (F)",
                     "price" : 13.90,
                     "max_quantity" : 20,
-                    "description" : "UO's Classic Tee for women"
+                    "description" : "UO's Classic Tee for women",
+                    "unit_qty" : "1 pc"
                 },
                 {
                     "product_id" : "7",
@@ -33,7 +35,8 @@
                     "name" : "Cargo Shorts",
                     "price" : 23.90,
                     "max_quantity" : 20,
-                    "description" : "Multi-purpose cargo shorts for all situations"
+                    "description" : "Multi-purpose cargo shorts for all situations",
+                    "unit_qty" : "1 pc"
                 },
                 {
                     "product_id" : "8",
@@ -41,12 +44,20 @@
                     "name" : "Khakis",
                     "price" : 23.90,
                     "max_quantity" : 20,
-                    "description" : "UO's standard Khakis, in dark blue colorway"
+                    "description" : "UO's standard Khakis, in dark blue colorway",
+                    "unit_qty" : "1 pc"
                 }
             ],
-            "announcements" : [],
+            "announcements" : [
+                {
+                    "announcement_id" : "1",
+                    "datetime" : "2022-12-20T23:59:00",
+                    "description" : "Closing group buy in 10 days! Submit your orders today!",
+                    "picture" : ""
+                }
+            ],
             "coverPicture" : "https://images.unsplash.com/photo-1597242261552-e4bfc7618aea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            "createdBy" : "lobang_queen",
+            "lobang_host" : "lobang_queen",
             "coins" : "0",
             "joined" : ["lobang_king"],
             "lobang_status" : "ACTIVE"
