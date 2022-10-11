@@ -4,7 +4,7 @@ var observableModule = require("@nativescript/core/data/observable");
 const MyCommsViewModel = require("../MyCommunities/my-comm-vm");
 const { getPostsByCommunityId } = require("~/07 Services/communities-service");
 
-function CommunityPageViewModel(communityPosts) {
+function CommunityPageViewModel() {
 
     var communityPageViewModel = observableModule.fromObject({
         posts: undefined,

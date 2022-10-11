@@ -28,13 +28,12 @@ exports.getCommunitiesByUserId = function (userId) {
               .get()
               .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
-                  getCommunitiesResponse.push(doc.data());       
+                  getCommunitiesResponse.push(doc.data());
                 });
                 resolve(getCommunitiesResponse);
               });
           }
         });
-        
       })
       .catch((firebaseError) => {
         console.log(firebaseError);
@@ -44,23 +43,21 @@ exports.getCommunitiesByUserId = function (userId) {
 };
 
 exports.getPostsByCommunityId = function (communityId) {
-  return new Promise( (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     let communityPostsResponse = [];
     firestore
-    .collection("posts")
-    .where("community_id", "==", communityId)
-    .get()
-    .then( (querySnapshot) => {
-      querySnapshot.forEach( (doc) => {
-        console.log(doc.data());
+      .collection("posts")
+      .where("community_id", "==", communityId)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          communityPostsResponse.push(doc.data());
+        });
+        resolve(communityPostsResponse);
       })
-    })
-    .then( () => {
-      resolve();
-    })
-    .catch( (firebaseError) => {
-      console.log(firebaseError);
-      reject(firebaseError);
-    })
-  })
+      .catch((firebaseError) => {
+        console.log(firebaseError);
+        reject(firebaseError);
+      });
+  });
 };

@@ -12,12 +12,12 @@ exports.onLoaded = function (args) {
 exports.onNavigatedTo = function (args) {
     vm = new CommunityPageViewModel([]);
     const nvc = page.navigationContext
-    page.bindingContext = pageData
+    page.bindingContext = vm
     vm.set("user", nvc.user);
     vm.set("communityName", nvc.commName);
     vm.empty();
     vm.load(vm.communityName);
-    console.log("At Community Page: " + communityPosts.user.user_id);
+    console.log("At Community Page: " + vm.user.user_id);
 }
 
 exports.navToCreatePost = function (args) {
