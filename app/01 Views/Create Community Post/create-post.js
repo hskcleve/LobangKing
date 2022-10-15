@@ -19,3 +19,7 @@ exports.onNavigatedTo = function (args) {
 exports.createPostOnTap = function (args) {
   vm.createPost(args);
 };
+
+exports.selectImageOnTap = function (args) {
+  vm.selectImage();
+}

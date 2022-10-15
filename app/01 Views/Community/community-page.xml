@@ -10,7 +10,7 @@
                     
                     <Label row="0" col="1" fontWeight="700" fontSize="18" text="{{ time_posted }}"/>
 
-                    <Label row='0' margin="10 10 0 10" fontWeight="700" fontSize="18" text="Ken Lee" />
+                    <Label row='0' margin="10 10 0 10" fontWeight="700" fontSize="18" text="{{ user_id }}" />
                     
                     <Label row="1" margin="10 10 0 10" fontWeight="700" fontSize="18" text="{{ body }}" />
                     

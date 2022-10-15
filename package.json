@@ -8,6 +8,7 @@
     "@nativescript/firebase-core": "^2.3.4",
     "@nativescript/firebase-firestore": "^2.3.4",
     "@nativescript/firebase-storage": "^2.3.4",
+    "@nativescript/imagepicker": "^1.0.7",
     "@nativescript/theme": "~3.0.2",
     "nativescript-ui-dataform": "^14.2.0"
   },
