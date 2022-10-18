@@ -4,6 +4,7 @@ const { Firestore } = require("@nativescript/firebase-firestore");
 
 const firestore = new Firestore();
 const Lobang = require("~/03 Models/Lobang");
+const Community = require("~/03 Models/Community");
 
 exports.getHostedGroupBuysByUserId = function (userId) {
   return new Promise((resolve, reject) => {
@@ -90,5 +91,53 @@ exports.boostLobang = function (lobang_id, curr_coins, user_id, user_coins) {
             reject(firebaseError);
           });
       });
+  });
+};
+
+exports.getGroupbuys = function () {
+  return new Promise((resolve, reject) => {
+      let getGroupbuysResponse = [];
+      const lobangs = firestore.collection("lobangs");
+      const query = lobangs
+
+      query
+          .get()
+          .then((querySnapshot) => {
+              console.log("getGroupbuys server response:");
+              console.log(querySnapshot);
+              querySnapshot.forEach((doc) => {
+                  const lobangData = doc.data();
+                  getGroupbuysResponse.push(new Lobang(lobangData));
+              });
+              resolve(getGroupbuysResponse);
+          })
+          .catch((firebaseError) => {
+              console.log(firebaseError);
+              reject(firebaseError);
+          });
+  });
+};
+
+exports.getCommunities = function () {
+  return new Promise((resolve, reject) => {
+      let getCommunitiesResponse = [];
+      const communities = firestore.collection("communities");
+      const query = communities
+
+      query
+          .get()
+          .then((querySnapshot) => {
+              console.log("getCommunities server response:");
+              console.log(querySnapshot);
+              querySnapshot.forEach((doc) => {
+                  const communityData = doc.data();
+                  getCommunitiesResponse.push(new Community(communityData));
+              });
+              resolve(getCommunitiesResponse);
+          })
+          .catch((firebaseError) => {
+              console.log(firebaseError);
+              reject(firebaseError);
+          });
   });
 };

@@ -1,0 +1,98 @@
+<Page id="explore_page" loaded="onLoaded" navigatedTo="onNavigatedTo" actionBarHidden="true" xmlns:customUI="~/04 Custom UI">
+    <GridLayout class="gradientBg" rows="auto,10,*,auto">
+
+        <GridLayout class="topRow" row="0" rows="50" columns="2*,5,*" style="padding-top:20%; padding-right:20%; padding-left:20%">
+            <GridLayout col="0" class="topRowContainer">
+                <TextField id="searchBar" hint="Enter search term " text="{{sbText}}" tap="toggleRecentSearch" row="0" col="0" />
+            </GridLayout>
+            <GridLayout col="2" class="topRowContainer">
+                <ListPicker id="searchTypeList" items="{{ searchType }}" selectedIndex="0" loaded="onListPickerLoaded" />
+            </GridLayout>
+        </GridLayout>
+
+        <GridLayout row="2" rows="*,10,2*,10,2*,10">
+            <GridLayout class="categoriesContainer" row="0">
+                <ScrollView row="1" orientation="horizontal" scrollBarIndicatorVisible="false">
+                    <StackLayout style="padding:10%">
+                        <Label class="containerHeaders" text="Categories" />
+                        <Repeater items="{{categories}}">
+                            <Repeater.itemsLayout>
+                                <StackLayout orientation="horizontal" />
+                            </Repeater.itemsLayout>
+                            <Repeater.itemTemplate>
+                                <GridLayout class="lobangPanel" tap="hostedLobangOnTap">
+                                    <GridLayout rows="*,auto" columns="auto,5,*" style="padding:10%">
+                                        <Image row="0" class="categoryImage" src="{{picture_url}}" />
+                                        <Label row="1" col="0" style="font-size: 15%" text="{{category_name}}" />
+                                    </GridLayout>
+                                </GridLayout>
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>
+                </ScrollView>
+            </GridLayout>
+
+            <GridLayout class="popularGroupbuysContainer" row="2" rows="*" columns="*">
+                <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false" row="1">
+                    <StackLayout style="padding:10%">
+                        <Label class="containerHeaders" text="Popular Groupbuys" />
+                        <Repeater items="{{popularGroupbuys}}">
+                            <Repeater.itemsLayout>
+                                <StackLayout orientation="horizontal" />
+                            </Repeater.itemsLayout>
+                            <Repeater.itemTemplate>
+                                <GridLayout class="lobangPanel" tap="lobangOnTap">
+                                    <GridLayout margin="25px" style="{{getBackgroundImageCss()}}"></GridLayout>
+                                    <GridLayout rows="*,*,*,*,*" columns="auto,5,*" style="padding:10%">
+                                        <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold; position: relative; left: 100px" text="{{lobang_name}}" />
+                                        <Label row="1" col="0" colSpan="3" text="{{joined.length + ' people joined'}}" />
+                                        <Label row="2" col="2" style="font-weight: bold" text="{{products.length + ' products'}}" />
+                                        <Label row="3" col="2" style="font-weight: bold" text="{{getTimeLeft()}}" />
+                                        <Label row="4" col="2" style="font-weight: bold" text="{{getTags()}}" />
+                                        <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products.png" height="15" />
+                                        <Image row="3" col="0" src="~/06 Assets/10 Lobang Icons/time-left.png" height="15" />
+                                        <Image row="4" col="0" src="~/06 Assets/10 Lobang Icons/tag.png" height="15" />
+                                    </GridLayout>
+                                </GridLayout>
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>
+                </ScrollView>
+            </GridLayout>
+
+            <GridLayout class="trendingCommunitiesContainer" row="4" rows="*" columns="*">
+                <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false" row="1">
+                    <StackLayout style="padding:10%">
+                        <Label class="containerHeaders" text="Trending Communities" />
+                        <Repeater items="{{trendingCommunities}}">
+                            <Repeater.itemsLayout>
+                                <StackLayout orientation="horizontal" />
+                            </Repeater.itemsLayout>
+                            <Repeater.itemTemplate>
+                                <GridLayout class="lobangPanel" tap="communityOnTap">
+                                    <GridLayout margin="25px" style="{{getBackgroundImageCss()}}"></GridLayout>
+                                    <GridLayout rows="*,*" columns="auto,5,*" style="padding:10%">
+                                        <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" text="{{name}}" />
+                                        <Label row="1" col="0" colSpan="3" text="{{members.length + ' members'}}" />
+                                    </GridLayout>
+                                </GridLayout>
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>
+                </ScrollView>
+            </GridLayout>
+        </GridLayout>
+     
+        <GridLayout id="recentSearchBox" row="2" height="0" class="categoriesContainer">
+            <GridLayout rows="auto,*" style="padding: 20%">
+                <GridLayout rows="auto, 50">
+                    <Label text="Filter By"/>
+                    <Button text="Location" tap="locationListOnTap"/>
+                    <ListPicker items="{{ categories:category_name }}" selectedIndex="0" loaded="onListPickerLoaded" />
+                </GridLayout>
+            </GridLayout>
+        </GridLayout>
+
+        <customUI:navbar row="3"/>
+    </GridLayout>
+</Page>

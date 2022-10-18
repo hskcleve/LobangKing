@@ -33,7 +33,14 @@ exports.groupbuyOnTap = function () {
 };
 
 exports.exploreOnTap = function () {
-  alert("Todo: wiring to explore page (HY)");
+  const frame = frameModule.Frame.topmost();
+  const navigationEntry = {
+    moduleName: "~/01 Views/03 Explore/explore_page",
+    context: {
+      user: frame.currentPage.bindingContext.user,
+    },
+  };
+  frame.navigate(navigationEntry);
 };
 
 exports.profileOnTap = function () {

@@ -1,0 +1,25 @@
+{
+    "communities" : [
+        {
+            "community_id" : "1",
+            "name" : "Groceries Community",
+            "num_members" : "10",
+            "image" : "https://media.self.com/photos/599c997a774b667d3bbe1214/16:9/w_1279,h_719,c_limit/groceries-family-month.jpg",
+            "posts" : []
+        },
+        {
+            "community_id" : "2",
+            "name" : "Japanese Community",
+            "num_members" : "100",
+            "image" : "https://media.timeout.com/images/105776865/750/562/image.jpg",
+            "posts" : []
+        },
+        {
+            "community_id" : "3",
+            "name" : "MCU Community",
+            "num_members" : "92",
+            "image" : "https://1.bp.blogspot.com/-hbShnAAir7E/XRx-_Q219dI/AAAAAAABMlE/sLub5aamImoinW1LIkKWfiGqmBCZLLL6gCLcBGAs/w1200-h630-p-k-no-nu/65623070_1118815258306063_4158223143682441216_o.jpg",
+            "posts" : []
+        }
+    ]
+}
