@@ -7,75 +7,68 @@
             <Label col="1" class="h1" text="Profile" tap="goBack"/>
         </GridLayout>
 
-        <GridLayout class="lobangInfoContainer" row="1" columns="*,2*" height="30%" >
+        <GridLayout class="lobangInfoContainer" row="1" height="30%" >
             <GridLayout style="{{lobang.getBackgroundImageCss()}}" >
             </GridLayout>
-            <StackLayout>
-                <Label class="h2-large" text="{{lobang.lobang_name}}"/>
-                <Label class="fineprint" text="{{getNumUsersJoined() + ' people joined'}}"/>
-                <GridLayout style="padding:10%" rows="auto,2,auto,2,auto" columns="*,*" >
-                    <Image class="iconPic" row="0" col="0" src="~/06 Assets/10 Lobang Icons/products.png" height="30"/>
-                    <Label class="fineprint" row="0" col="1" text="{{ getNumProducts() }}"/>
-                    <Image class="iconPic" row="2" col="0" src="~/06 Assets/10 Lobang Icons/tag.png" height="30"/>
-                    <Label class="fineprint" row="2" col="1" text="{{getTags()}}"/>
-                    <Image class="iconPic" row="4" col="0" src="~/06 Assets/10 Lobang Icons/time-left.png" height="30"/>
-                    <Label class="fineprint" row="4" col="1" text="{{getTimeLeft()}}"/>
-                </GridLayout>
-            </StackLayout>
+            <GridLayout rows="*,*,*,*,*,*" columns="auto,5,*" style="padding:10%">
+                <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" text="{{lobang.lobang_name}}"/>
+                <Label row="1" col="0" colSpan="3" text="{{lobang.joined.length + ' people joined'}}"/>
+                <Label row="2" col="2" style="font-weight: bold" text="{{lobang.products.length + ' products'}}"/>
+                <Label row="3" col="2" style="font-weight: bold" text="{{lobang.getTimeLeft()}}"/>
+                <Label row="4" col="2" style="font-weight: bold" text="{{lobang.getTags()}}"/>
+                <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products.png" height="30"/>
+                <Image row="3" col="0" src="~/06 Assets/10 Lobang Icons/time-left.png" height="30"/>
+                <Image row="4" col="0" src="~/06 Assets/10 Lobang Icons/tag.png" height="30"/>
+            </GridLayout>
         </GridLayout>
 
         <GridLayout class="lobangTabContainer" row="2" rows="60%, *" columns="5,*,5,*,5,*,5">
-            <GridLayout row="0" col="1" class="{{tab == 'lobangDetails' ? 'tabHeaderSelected' : 'tabHeaderUnselected'}}" tap="toggleLobangDetailsTab">
+            <GridLayout row="0" col="1" class="{{tab == 'lobangDetails' ? 'tabHeaderSelected' : 'tabHeaderUnselected'}}" tap="toggleDetailsTab">
                 <Image src="~/06 Assets/10 Lobang Icons/Details.png" height="75"/>
             </GridLayout>
-            <GridLayout row="0" col="3" class="{{tab == 'lobangAnnouncements' ? 'tabHeaderSelected' : 'tabHeaderUnselected'}}" tap="toggleLobangAnnouncementsTab">
+            <GridLayout row="0" col="3" class="{{tab == 'lobangAnnouncements' ? 'tabHeaderSelected' : 'tabHeaderUnselected'}}" tap="toggleAnnouncementsTab">
                 <Image src="~/06 Assets/10 Lobang Icons/Announcements.png" height="75"/>
             </GridLayout>
-            <GridLayout row="0" col="5" class="{{tab == 'lobangProducts' ? 'tabHeaderSelected' : 'tabHeaderUnselected'}}" tap="toggleLobangProductsTab">
+            <GridLayout row="0" col="5" class="{{tab == 'lobangProducts' ? 'tabHeaderSelected' : 'tabHeaderUnselected'}}" tap="toggleOrdersTab">
                 <Image src="~/06 Assets/10 Lobang Icons/Product.png" height="75"/>
             </GridLayout>
 
             <ScrollView hidden="{{tab!='lobangDetails'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
                 <StackLayout style="padding:10%">
-                    <GridLayout class="hostInfoContainer" row="1" columns="5,*,2*" height="22%">
-                        <Label col="0" class="h2-large" text="Hosted by" />
-                        <GridLayout col="1">
-                            <GridLayout class="profileInfoContainer" row="1" columns="*,2*" height="22%">
-                                <StackLayout col="0" height="100%">
-                                    <GridLayout class="profilePicContainer">
-                                        <Image class="profilePic" src="{{lobang_host.profile_pic_uri}}" stretch="aspectFill"></Image>
-                                    </GridLayout>
-                                    <Label class="h2-large" text="{{lobang_host.first_name + ' ' + lobang_host.last_name}}"/>
-                                    <Label class="fineprint" text="{{'@' + lobang_host.user_id}}"/>
-                                </StackLayout>
-                                <StackLayout col="1">
-                                    <GridLayout style="padding:10%" rows="auto,auto" columns="*,*,*" height="55%">
-                                        <Label class="h2-large" row="0" col="0" text="{{lobang_host.date_joined | displayDateJoined}}"/>
-                                        <Label class="h2-large" row="0" col="1" text="{{lobang_host.getRating()}}"/>
-                                        <Label class="h2-large" row="0" col="2" text="{{lobang_host.coins}}"/>
-                                        <Label class="fineprint" row="1" col="0" text="Joined"/>
-                                        <Label class="fineprint" row="1" col="1" text="Rating"/>
-                                        <Label class="fineprint" row="1" col="2" text="Lobang Coins"/>
-                                    </GridLayout>
-                                    <GridLayout columns="*,auto,auto,10,auto,auto,*" height="15%">
-                                        <Image col="1" height="12" src="{{lobang_host.verified | getVerifiedIcon}}" style="margin-bottom:3"/>
-                                        <Label class="fineprint" col="2" text="{{lobang_host.getVerifiedStatusString()}}" style="margin-left:2"/>
-                                        <Image col="4" height="12" src="~/06 Assets/06 Profile Page Icons/location-pin.png" style="margin-bottom:3"/>
-                                        <Label class="fineprint" col="5" text="{{lobang_host.location}}" style="margin-left:2"/>
-                                    </GridLayout>
-                                </StackLayout>
+                    <Label text="{{lobang_host.user_id}}"/>
+                    <GridLayout class="hostInfoContainer" columns="*,*,*" height="22%">
+                        <Label col="0" style="font-size: 17%; font-weight: bold" text="Hosted by" />
+                        <StackLayout col="1" height="100%">
+                            <GridLayout class="profilePicContainer">
+                                <Image class="profilePic" src="{{lobang_host.profile_pic_uri}}" stretch="aspectFill"></Image>
                             </GridLayout>
-                        </GridLayout>
+                            <Label class="h2-large" text="{{lobang_host.first_name + ' ' + lobang_host.last_name}}"/>
+                            <Label class="fineprint" text="{{'@' + lobang_host.user_id}}"/>
+                        </StackLayout>
+                        <StackLayout col="2">
+                            <GridLayout rows="auto,auto" columns="auto,auto" >
+                                <Label class="h2-large" row="0" col="0" text="{{lobang_host.date_joined | displayDateJoined}}"/>
+                                <Label class="h2-large" row="0" col="1" text="{{lobang_host.getRating()}}"/>
+                                <Label class="fineprint" row="1" col="0" text="Joined"/>
+                                <Label class="fineprint" row="1" col="1" text="Rating"/>
+                            </GridLayout>
+                             <GridLayout columns="auto,auto,10,auto,auto" height="15%">
+                                <Image col="0" height="12" src="{{lobang_host.verified | getVerifiedIcon}}" style="margin-bottom:3"/>
+                                <Label class="fineprint" col="1" text="{{lobang_host.getVerifiedStatusString()}}" style="margin-left:2"/>
+                                <Image col="3" height="12" src="~/06 Assets/06 Profile Page Icons/location-pin.png" style="margin-bottom:3"/>
+                                <Label class="fineprint" col="4" text="{{lobang_host.location}}" style="margin-left:2"/>
+                            </GridLayout>
+                        </StackLayout>
                     </GridLayout>
 
-                    <GridLayout class="collectionPointContainer" row="1" columns="*,2*" height="22%">
-                        <Label class="h2-large" col="0" text="Collection Point" />
-                        <Label class="fineprint" col="1" text="{{location}}" />
+                    <GridLayout class="collectionPointContainer" columns="*,*,*,*,*" height="22%">
+                        <Label style="font-size: 17%; font-weight: bold" col="0" colSpan="3" text="Collection Point" />
+                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{location}}" />
                     </GridLayout>
 
-                    <GridLayout class="collectionDatetimeContainer" row="1" columns="*,2*" height="22%">
-                        <Label class="h2-large" col="0" text="Collection Date, Time" />
-                        <Label class="fineprint" col="1" text="{{collection_date}}" />
+                    <GridLayout class="collectionDatetimeContainer" columns="*,*,*,*,*" height="22%">
+                        <Label style="font-size: 17%; font-weight: bold" col="0" colSpan="3" text="Collection Date, Time" />
+                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{collection_date}}" />
                     </GridLayout>
                 </StackLayout>
             </ScrollView>

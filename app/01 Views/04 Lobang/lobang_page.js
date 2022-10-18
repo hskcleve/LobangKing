@@ -15,9 +15,10 @@ exports.onNavigatedTo = function (args) {
     page.bindingContext = vm;
     vm.set("lobang", nvc.lobang);
     vm.set("temp_lobang", Object.assign({}, nvc.lobang));
-    vm.getLobangHost();
-    vm.getCollectionLocation();
-    vm.getCollectionDatetime();
+    vm.set("user", nvc.user);
+    vm.set("temp_user", Object.assign({}, nvc.user));
+    vm.getLobangDetails();
+    console.log(vm.get("lobang_host"));
 };
 
 exports.goBack = function () {

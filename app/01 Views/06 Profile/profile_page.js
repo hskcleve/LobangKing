@@ -29,23 +29,28 @@ exports.toggleLobangsTab = function () {
 };
 
 exports.hostedLobangOnTap = function (args) {
-  const lobangTapped = args.object.parent.bindingContext;
+  const lobangTapped = args.object.bindingContext;
+  const user = vm.user;
+  console.log(lobangTapped.lobang_name)
   const frame = frameModule.Frame.topmost();
   const navigationEntry = {
     moduleName: "~/01 Views/04 Lobang/lobang_page",
     context: {
-      lobang: lobangTapped,},
+      user: user,
+      lobang: lobangTapped,
+    },
   };
   frame.navigate(navigationEntry);
 };
 
 exports.joinedLobangOnTap = function (args) {
-  const lobangTapped = args.object.parent.bindingContext;
+  const lobangTapped = args.object.bindingContext;
   const frame = frameModule.Frame.topmost();
   const navigationEntry = {
     moduleName: "~/01 Views/04 Lobang/lobang_page",
     context: {
-      lobang: lobangTapped,},
+      lobang: lobangTapped,
+    },
   };
   frame.navigate(navigationEntry);
 };

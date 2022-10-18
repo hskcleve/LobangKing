@@ -53,7 +53,8 @@ exports.getMockLobangDetailsByLobangId = function (lobangId) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       let mockGetLobangDetailsResponse = require("~/08 Mock Data/mock_lobangs.json");
-      let lobang = mockGetLobangDetailsResponse.lobangs.find((lobang) => lobang.lobang_id === lobangId);
+      let lobang = mockGetLobangDetailsResponse.lobangs.find((lobang) => lobang.lobang_id == lobangId);
+      console.log("executed");
       resolve(lobang);
     }, 0);
     // no reject for this fx in mock
@@ -85,6 +86,17 @@ exports.getMockLobangProductsByLobangId = function (lobangId) {
         products.push(new Product(product));
       });
       resolve(products);
+    }, 0);
+    // no reject for this fx in mock
+  });
+}
+
+exports.getMockUserByUserId = function() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const mockGetUserResponse = require("~/08 Mock Data/mock_login_response.json");
+      let user = new User(mockGetUserResponse);
+      resolve(user);
     }, 0);
     // no reject for this fx in mock
   });
