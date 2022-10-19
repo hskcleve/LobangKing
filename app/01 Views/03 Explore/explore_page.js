@@ -37,7 +37,15 @@ exports.communityOnTap = function (args) {
 };
 
 exports.locationListOnTap = function (args) {
-    
+
+}
+
+exports.searchBySearchTerm = function (args) {
+    vm.doSearchBySearchTerm(() => {
+        page.bindingContext = null;
+        page.bindingContext = vm;
+    }
+    )
 }
 
 

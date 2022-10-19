@@ -141,3 +141,27 @@ exports.getCommunities = function () {
           });
   });
 };
+
+exports.getGroupbuysByLocation = function (locationFilter) {
+  return new Promise((resolve, reject) => {
+      let getGroupbuysByLocationResponse = [];
+      const lobangs = firestore.collection("lobangs");
+      const query = locationFilter==null ? lobangs : lobangs.where("location", "==", locationFilter)
+
+      query
+          .get()
+          .then((querySnapshot) => {
+              console.log("getGroupbuysByLocation server response:");
+              console.log(querySnapshot);
+              querySnapshot.forEach((doc) => {
+                  const lobangData = doc.data();
+                  getGroupbuysByLocationResponse.push(new Lobang(lobangData));
+              });
+              resolve(getGroupbuysByLocationResponse);
+          })
+          .catch((firebaseError) => {
+              console.log(firebaseError);
+              reject(firebaseError);
+          });
+  });
+};

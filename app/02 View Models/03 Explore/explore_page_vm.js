@@ -5,6 +5,7 @@ const { getPopularGroupbuys, getTrendingCommunities } = require("~/07 Services/m
 const {
     getGroupbuys,
     getCommunities,
+    getGroupbuysByLocation,
 } = require("~/07 Services/firestore_service");
 const possible_locations = require("~/00 Constants/towns_constants").town_names;
 const possible_categories = require("~/00 Constants/categories_constants").categories;
@@ -13,12 +14,14 @@ const errorMsgs = require("~/00 Constants/error_messages");
 
 function ExplorePageViewModel() {
     var explorePageViewModel = observableModule.fromObject({
-        sbText: undefined,
+        sbText: "",
         searchType: possible_searchTypes,
         popularGroupbuys: undefined,
         trendingCommunities: undefined,
         categories: possible_categories,
-        locations: possible_locations
+        locations: possible_locations,
+        locationFilter: null,
+        displayResults: undefined
     });
 
     explorePageViewModel.getPopularGroupbuysList = function () {
@@ -37,6 +40,15 @@ function ExplorePageViewModel() {
                 communities.sort((a,b) => (a.members.length > b.members.length) ? -1 : 1)
                 trendingComm = communities.slice(6)
                 explorePageViewModel.set("trendingCommunities", trendingComm)
+            }
+        )
+    }
+
+    explorePageViewModel.doSearchBySearchTerm = function () {
+        getGroupbuysByLocation(explorePageViewModel.locationFilter).then(
+            (lobangs) => {
+                const groupbuysSorted = lobangs.filter((item) => (typeof item == 'string' && item.indexOf("sbText") > -1))
+                explorePageViewModel.set("displayResults", groupbuysSorted)
             }
         )
     }
