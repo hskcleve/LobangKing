@@ -37,7 +37,7 @@ function ExplorePageViewModel() {
     explorePageViewModel.getTrendingCommunitiesList = function () {
         getCommunities().then(
             (communities) => {
-                communities.sort((a,b) => (a.members.length > b.members.length) ? -1 : 1)
+                communities.sort((a,b) => (b.members.lengtha - members.length))
                 trendingComm = communities.length > 5 ? communities.slice(6) : communities
                 explorePageViewModel.set("trendingCommunities", trendingComm)
             }
