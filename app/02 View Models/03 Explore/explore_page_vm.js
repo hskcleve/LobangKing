@@ -19,7 +19,7 @@ function ExplorePageViewModel() {
         popularGroupbuys: undefined,
         trendingCommunities: undefined,
         categories: possible_categories,
-        locations: possible_locations,
+        locations: Object.assign([],possible_locations.unshift("None")),
         locationFilter: null,
         displayResults: undefined
     });
@@ -27,8 +27,8 @@ function ExplorePageViewModel() {
     explorePageViewModel.getPopularGroupbuysList = function () {
         getGroupbuys().then(
             (lobangs) => {
-                lobangs.sort((a,b) => (a.joined.length > b.joined.length) ? -1 : 1)
-                popularLobangs = lobangs.slice(6)
+                lobangs.sort((a,b) => (b.joined.length - a.joined.length))
+                popularLobangs = lobangs.length > 5 ? lobangs.slice(6) : lobangs
                 explorePageViewModel.set("popularGroupbuys", lobangs)
             }
         )
@@ -38,7 +38,7 @@ function ExplorePageViewModel() {
         getCommunities().then(
             (communities) => {
                 communities.sort((a,b) => (a.members.length > b.members.length) ? -1 : 1)
-                trendingComm = communities.slice(6)
+                trendingComm = communities.length > 5 ? communities.slice(6) : communities
                 explorePageViewModel.set("trendingCommunities", trendingComm)
             }
         )
@@ -47,7 +47,7 @@ function ExplorePageViewModel() {
     explorePageViewModel.doSearchBySearchTerm = function () {
         getGroupbuysByLocation(explorePageViewModel.locationFilter).then(
             (lobangs) => {
-                const groupbuysSorted = lobangs.filter((item) => (typeof item == 'string' && item.indexOf("sbText") > -1))
+                const groupbuysSorted = lobangs.filter((item) => (typeof item.name.indexOf(explorePageViewModel.sbText) > -1))
                 explorePageViewModel.set("displayResults", groupbuysSorted)
             }
         )
