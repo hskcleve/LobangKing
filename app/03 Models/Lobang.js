@@ -4,19 +4,19 @@ function Lobang(info) {
   info = info || {
     lobang_id: undefined,
     lobang_name: undefined,
-    categories: undefined,
+    categories: [],
     description: undefined,
     min_order: undefined,
     location: undefined,
     collection_date: undefined,
     last_order_date: undefined,
-    tags: undefined,
-    products: undefined,
-    announcements: undefined,
+    tags: [],
+    products: [],
+    announcements: [],
     coverPicture: undefined,
     createdBy: undefined,
     coins: undefined,
-    joined: undefined,
+    joined: [],
     lobang_status: undefined,
   };
 
@@ -72,6 +72,10 @@ function Lobang(info) {
       return weeksLeft + " weeks, " + remainder + " days left";
     }
     return daysLeft + " days left";
+  };
+
+  lobangModel.belongsToCategory = function (category) {
+    return lobangModel.categories.includes(category);
   };
 
   return lobangModel;
