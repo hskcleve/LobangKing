@@ -1,9 +1,12 @@
 // for getting user's joined communities
 // and getting posts in the community
 
+const { firebase } = require("@nativescript/firebase-core");
 const {
   Firestore,
   QuerySnapshot,
+  FieldValue,
+  arrayUnion,
 } = require("@nativescript/firebase-firestore");
 
 const firestore = new Firestore();
@@ -54,6 +57,74 @@ exports.getPostsByCommunityId = function (communityId) {
           communityPostsResponse.push(doc.data());
         });
         resolve(communityPostsResponse);
+      })
+      .catch((firebaseError) => {
+        console.log(firebaseError);
+        reject(firebaseError);
+      });
+  });
+};
+
+exports.checkUserInCommunity = function (communityId, userId) {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection("communities")
+      .where("community_id", "==", communityId)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const joinedMembers = doc.data().members;
+          resolve(joinedMembers.includes(userId));
+        });
+      })
+      .catch((firebaseError) => {
+        console.log(firebaseError);
+        reject(firebaseError);
+      });
+  });
+};
+
+exports.getCommunityMembers = function (communityId) {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection("communities")
+      .where("community_id", "==", communityId)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const joinedMembers = doc.data().members;
+          resolve(joinedMembers);
+        });
+      })
+      .catch((firebaseError) => {
+        console.log(firebaseError);
+        reject(firebaseError);
+      });
+  });
+};
+
+exports.joinCommunity = function (communityId, communityMembers) {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection("communities")
+      .where("community_id", "==", communityId)
+      .get()
+      .then((querySnapshot) => {
+        const docId = querySnapshot.docs[0].id;
+        console.log(docId);
+        firestore
+          .collection("communities")
+          .doc(docId)
+          .update({
+            members: communityMembers
+          })
+          .then(() => {
+            resolve();
+          })
+          .catch((firebaseError) => {
+            console.log(firebaseError);
+            reject(firebaseError);
+          });
       })
       .catch((firebaseError) => {
         console.log(firebaseError);

@@ -17,7 +17,7 @@ exports.onNavigatedTo = function(args) {
     page.bindingContext = vm;
     vm.set("user", nvc.user);
     vm.empty();
-    vm.load(vm.user.user_id);
+    vm.load();
     console.log("User here is " + vm.user.user_id);
 }
 

@@ -1,9 +1,6 @@
 const observableModule = require("@nativescript/core/data/observable");
 const Post = require("~/03 Models/Post");
 const { doCreatePost } = require("~/07 Services/create_post-service");
-var imagepicker = require("@nativescript/imagepicker");
-const imageSourceModule = require("@nativescript/core/image-source");
-const fileSystemModule = require("@nativescript/core/file-system");
 
 function CreatePostViewModel() {
   var createPostViewModel = observableModule.fromObject({
@@ -15,10 +12,12 @@ function CreatePostViewModel() {
   createPostViewModel.createPost = function (args) {
     let btn = args.object;
     const postBody = btn.page.getViewById("post-body").text;
+    const postImage = btn.page.getViewById("post-image").text;
 
     createPostViewModel.post.body = postBody;
     createPostViewModel.post.user_id = createPostViewModel.user.user_id;
     createPostViewModel.post.community_id = createPostViewModel.communityName;
+    createPostViewModel.post.image = postImage;
 
     doCreatePost(createPostViewModel.post)
       .then(() => {
@@ -29,23 +28,6 @@ function CreatePostViewModel() {
       });
   };
 
-  createPostViewModel.selectImage = function (args) {
-    var context = imagepicker.create({ mode: "single" });
-
-    context
-      .authorize()
-      .then(() => {
-        return context.present();
-      })
-      .then((selection) => {
-        selection.forEach((selected) => {
-          console.log(selected)
-        });
-      })
-      .catch(function (e) {
-        console.log(e);
-      });
-  };
 
   return createPostViewModel;
 }
