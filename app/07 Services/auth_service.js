@@ -45,6 +45,7 @@ exports.doUserLogin = function (userId, password) {
       reject(error_messages.EMPTY_FIELD_ERROR);
     }
     const users = firestore.collection("users");
+    console.log("#### > ", users);
     const query = users
       .where("user_id", "==", userId)
       .where("password", "==", password);

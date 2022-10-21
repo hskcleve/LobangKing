@@ -37,8 +37,17 @@ exports.communityOnTap = function (args) {
 };
 
 exports.locationListOnTap = function (args) {
+    const option = {
+        context: { callback: (locationPicked) => {
+                vm.locationFilter = locationPicked;
+                page.bindingContext = undefined;
+                page.bindingContext = vm;
+            },
+        },
+    };
+    page.showModal("~/01 Views/10 Modals/location_modal", option);
+};
 
-}
 
 exports.searchBySearchTerm = function (args) {
     vm.doSearchBySearchTerm(() => {

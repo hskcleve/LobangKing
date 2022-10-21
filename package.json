@@ -6,6 +6,7 @@
   "dependencies": {
     "@nativescript/core": "~8.3.0",
     "@nativescript/firebase-core": "^2.3.4",
+    "@nativescript/firebase-database": "^2.4.1",
     "@nativescript/firebase-firestore": "^2.3.4",
     "@nativescript/firebase-storage": "^2.3.4",
     "@nativescript/theme": "~3.0.2",
