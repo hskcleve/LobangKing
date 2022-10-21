@@ -103,7 +103,7 @@ exports.getCommunityMembers = function (communityId) {
   });
 };
 
-exports.joinCommunity = function (communityId, communityMembers) {
+exports.joinCommunity = function (communityId, communityMembers, userId) {
   return new Promise((resolve, reject) => {
     firestore
       .collection("communities")
@@ -116,7 +116,20 @@ exports.joinCommunity = function (communityId, communityMembers) {
           .collection("communities")
           .doc(docId)
           .update({
-            members: communityMembers
+            members: FieldValue.arrayUnion([userId]),
+          });
+        firestore
+          .collection("users")
+          .where("user_id", "==", userId)
+          .get()
+          .then((querySnapshot) => {
+            const userDocId = querySnapshot.docs[0].id;
+            firestore
+              .collection("users")
+              .doc(userDocId)
+              .update({
+                communities_joined: FieldValue.arrayUnion([communityId]),
+              });
           })
           .then(() => {
             resolve();

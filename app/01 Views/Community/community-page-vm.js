@@ -64,7 +64,8 @@ function CommunityPageViewModel() {
     communityPageViewModel.members.push(communityPageViewModel.user.user_id);
     joinCommunity(
       communityPageViewModel.communityName,
-      communityPageViewModel.members
+      communityPageViewModel.members,
+      communityPageViewModel.user.user_id
     )
       .then((resolved) => {
         alert("Successfully joined community");
