@@ -1,15 +1,15 @@
 <Page id="explore_page" loaded="onLoaded" navigatedTo="onNavigatedTo" actionBarHidden="true" xmlns:customUI="~/04 Custom UI">
     <GridLayout class="gradientBg" rows="auto,10,*,auto">
 
-        <GridLayout class="topRow" row="0" rows="50" columns="2*,5,*" style="padding-top:20%; padding-right:20%; padding-left:20%">
-            <GridLayout col="0" class="topRowContainer">
+        <GridLayout class="topRowContainer" row="0" rows="50" columns="3*,5,*" style="padding-top:20%; padding-right:20%; padding-left:20%">
+            <GridLayout col="0" >
                 <GridLayout rows="auto" columns="2*,*">
                     <TextField id="searchBar" hint="Enter search term " text="{{sbText}}" tap="toggleRecentSearch" row="0" col="0" />
                     <Button text="Submit" tap="searchBySearchTerm" col="1" />
                 </GridLayout>
             </GridLayout>
-            <GridLayout col="2" class="topRowContainer">
-                <ListPicker id="searchTypeList" items="{{ searchType }}" selectedIndex="0" loaded="onListPickerLoaded" />
+            <GridLayout col="2" >
+                <Label text="{{searchTypePicked}}" />
             </GridLayout>
         </GridLayout>
 
@@ -23,7 +23,7 @@
                                 <StackLayout orientation="horizontal" />
                             </Repeater.itemsLayout>
                             <Repeater.itemTemplate>
-                                <GridLayout class="lobangPanel" tap="hostedLobangOnTap">
+                                <GridLayout class="categoryPanel" tap="lobangsInCategoryOnTap">
                                     <GridLayout rows="*,auto" columns="auto,5,*" style="padding:10%">
                                         <Image row="0" class="categoryImage" src="{{picture_url}}" />
                                         <Label row="1" col="0" style="font-size: 15%" text="{{category_name}}" />
@@ -116,11 +116,15 @@
         </GridLayout>
 
         <GridLayout id="recentSearchBox" row="2" height="0" class="categoriesContainer">
-            <GridLayout rows="auto,*" style="padding: 20%">
-                <GridLayout rows="auto, 50">
-                    <Label text="Filter By" />
-                    <Button text="Location" tap="locationListOnTap" />
-                    <ListPicker items="{{ categories:category_name }}" selectedIndex="0" loaded="onListPickerLoaded" />
+            <GridLayout rows="auto,20,auto" style="padding: 20%">
+                <GridLayout rows="auto, 50" row="0">
+                    <Label row="0" text="Searching for" />
+                    <Button row="1" text="Search Type" tap="searchTypesOnTap" />
+                </GridLayout>
+                <GridLayout rows="auto,auto,auto" row="2">
+                    <Label row="0" text="Filter By" />
+                    <Button row="1" text="Category" tap="categoryListOnTap" />
+                    <Button row="2" text="Location" tap="locationListOnTap" />
                 </GridLayout>
             </GridLayout>
         </GridLayout>

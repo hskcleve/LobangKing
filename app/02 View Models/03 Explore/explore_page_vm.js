@@ -6,6 +6,7 @@ const {
     getGroupbuys,
     getCommunities,
     getGroupbuysByLocation,
+    getFilteredGroupbuys,
 } = require("~/07 Services/firestore_service");
 const possible_locations = require("~/00 Constants/towns_constants").town_names;
 const possible_categories = require("~/00 Constants/categories_constants").categories;
@@ -16,19 +17,21 @@ function ExplorePageViewModel() {
     var explorePageViewModel = observableModule.fromObject({
         user: undefined,
         sbText: "",
-        searchType: possible_searchTypes,
         popularGroupbuys: undefined,
         trendingCommunities: undefined,
+        searchType: possible_searchTypes,
+        searchTypePicked: "GroupBuy",
         categories: possible_categories,
-        locations: Object.assign([],possible_locations.unshift("None")),
-        locationFilter: null,
+        categoryFilter: undefined,
+        locations: Object.assign([], possible_locations.unshift("None")),
+        locationFilter: undefined,
         displayResults: undefined
     });
 
     explorePageViewModel.getPopularGroupbuysList = function () {
         getGroupbuys().then(
             (lobangs) => {
-                lobangs.sort((a,b) => (b.joined.length - a.joined.length))
+                lobangs.sort((a, b) => (b.joined.length - a.joined.length))
                 popularLobangs = lobangs.length > 5 ? lobangs.slice(6) : lobangs
                 explorePageViewModel.set("popularGroupbuys", lobangs)
             }
@@ -38,7 +41,7 @@ function ExplorePageViewModel() {
     explorePageViewModel.getTrendingCommunitiesList = function () {
         getCommunities().then(
             (communities) => {
-                communities.sort((a,b) => (b.members.lengtha - members.length))
+                communities.sort((a, b) => (b.members.lengtha - a.members.length))
                 trendingComm = communities.length > 5 ? communities.slice(6) : communities
                 explorePageViewModel.set("trendingCommunities", trendingComm)
             }
@@ -46,12 +49,33 @@ function ExplorePageViewModel() {
     }
 
     explorePageViewModel.doSearchBySearchTerm = function () {
-        getGroupbuysByLocation(explorePageViewModel.locationFilter).then(
-            (lobangs) => {
-                const groupbuysSorted = lobangs.filter((item) => (typeof item.name.indexOf(explorePageViewModel.sbText) > -1))
-                explorePageViewModel.set("displayResults", groupbuysSorted)
-            }
-        )
+        console.log("In VM method!");
+        //search by lobangs
+        if (explorePageViewModel.searchTypePicked == explorePageViewModel.searchType[0]) {
+            const locationFilterChosen = (explorePageViewModel.locationFilter != null || explorePageViewModel.locationFilter != "None") ? explorePageViewModel.locationFilter : "";
+            const categoryFilterChosen = (explorePageViewModel.categoryFilter != null || explorePageViewModel.categoryFilter != "None") ? explorePageViewModel.categoryFilter : "";
+
+            //getFilteredGroupbuys(locationFilterChosen, categoryFilterChosen)
+            getGroupbuys().then(
+                    (lobangs) => {
+                        console.log("going to filter")
+                        //const groupbuyResults = lobangs.filter((item) => (typeof item.name.indexOf(explorePageViewModel.sbText) > -1))
+                        const groupbuyResults = lobangs.filter(item => item.name.includes(explorePageViewModel.sbText))
+                        console.log("is it empty? " + groupbuyResults.length > 0)
+                        explorePageViewModel.set("displayResults", groupbuyResults)
+                    }
+                )
+            
+        }
+        //search by communities
+        else {
+            getCommunities().then(
+                (communities) => {
+                    const communitiesResult = communities.filter((item) => (typeof item.name.indexOf(explorePageViewModel.sbText) > -1))
+                    explorePageViewModel.set("displayResults", communitiesResult)
+                }
+            )
+        }
     }
 
     return explorePageViewModel;

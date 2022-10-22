@@ -36,9 +36,22 @@ exports.communityOnTap = function (args) {
     alert("Will route to selected community page");
 };
 
+exports.searchTypesOnTap = function (args) {
+    const option = {
+        context: {
+            callback: (searchTypePicked) => {
+                vm.searchTypePicked = searchTypePicked;
+                page.bindingContext = undefined;
+                page.bindingContext = vm;
+            },
+        },
+    };
+    page.showModal("~/01 Views/10 Modals/search_types_modal", option);
+};
+
 exports.locationListOnTap = function (args) {
     const option = {
-        context: { 
+        context: {
             callback: (locationPicked) => {
                 vm.locationFilter = locationPicked;
                 page.bindingContext = undefined;
@@ -46,16 +59,30 @@ exports.locationListOnTap = function (args) {
             },
         },
     };
-    page.showModal("~/01 Views/10 Modals/location_modal", option);
+    page.showModal("~/01 Views/10 Modals/location_filter_modal", option);
 };
 
+exports.categoryListOnTap = function (args) {
+    const option = {
+        context: {
+            callback: (categoryPicked) => {
+                vm.categoryFilter = categoryPicked;
+                page.bindingContext = undefined;
+                page.bindingContext = vm;
+            },
+        },
+    };
+    page.showModal("~/01 Views/10 Modals/category_filter_modal", option);
+};
 
 exports.searchBySearchTerm = function (args) {
+    console.log("in code-behind!");
     vm.doSearchBySearchTerm(() => {
         page.bindingContext = null;
         page.bindingContext = vm;
-    }
-    )
+    })
+
+    page.toggleRecentSearch;
 }
 
 

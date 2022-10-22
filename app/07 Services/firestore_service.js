@@ -98,7 +98,7 @@ exports.getGroupbuys = function () {
   return new Promise((resolve, reject) => {
       let getGroupbuysResponse = [];
       const lobangs = firestore.collection("lobangs");
-      const query = lobangs
+      const query = lobangs;
 
       query
           .get()
@@ -122,7 +122,7 @@ exports.getCommunities = function () {
   return new Promise((resolve, reject) => {
       let getCommunitiesResponse = [];
       const communities = firestore.collection("communities");
-      const query = communities
+      const query = communities;
 
       query
           .get()
@@ -146,7 +146,7 @@ exports.getGroupbuysByLocation = function (locationFilter) {
   return new Promise((resolve, reject) => {
       let getGroupbuysByLocationResponse = [];
       const lobangs = firestore.collection("lobangs");
-      const query = locationFilter==null ? lobangs : lobangs.where("location", "==", locationFilter)
+      const query = locationFilter==null ? lobangs : lobangs.where("location", "==", locationFilter);
 
       query
           .get()
@@ -165,3 +165,30 @@ exports.getGroupbuysByLocation = function (locationFilter) {
           });
   });
 };
+
+
+exports.getFilteredGroupbuys = function(locationFilter, categoryFilter) {
+  console.log("In firestore_service");
+  return new Promise((resolve, reject) => {
+    let getFilteredGroupbuysResponse = [];
+    const lobangs = firestore.collection("lobangs");
+    const query = lobangs.where("location", "==", locationFilter).where("category", "==", categoryFilter);
+
+    query
+        .get()
+        .then((querySnapshot) => {
+            console.log("getFilteredGroupbuys server response:");
+            console.log(querySnapshot);
+            querySnapshot.forEach((doc) => {
+                const lobangData = doc.data();
+                getFilteredGroupbuysResponse.push(new Lobang(lobangData));
+            });
+            resolve(getFilteredGroupbuysResponse);
+        })
+        .catch((firebaseError) => {
+            console.log(firebaseError);
+            reject(firebaseError);
+        });
+});
+}
+
