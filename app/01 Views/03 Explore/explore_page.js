@@ -38,7 +38,8 @@ exports.communityOnTap = function (args) {
 
 exports.locationListOnTap = function (args) {
     const option = {
-        context: { callback: (locationPicked) => {
+        context: { 
+            callback: (locationPicked) => {
                 vm.locationFilter = locationPicked;
                 page.bindingContext = undefined;
                 page.bindingContext = vm;

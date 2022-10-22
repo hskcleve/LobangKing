@@ -14,10 +14,10 @@
         </GridLayout>
 
         <GridLayout hidden="{{sbText.length != 0}}" row="2" rows="*,10,2*,10,2*,10">
-            <GridLayout class="categoriesContainer" row="0">
+            <GridLayout class="categoriesContainer" row="0" rows="auto,*">
+                <Label class="containerHeaders" text="Categories" />
                 <ScrollView row="1" orientation="horizontal" scrollBarIndicatorVisible="false">
                     <StackLayout style="padding:10%">
-                        <Label class="containerHeaders" text="Categories" />
                         <Repeater items="{{categories}}">
                             <Repeater.itemsLayout>
                                 <StackLayout orientation="horizontal" />
@@ -35,10 +35,10 @@
                 </ScrollView>
             </GridLayout>
 
-            <GridLayout class="popularGroupbuysContainer" row="2" rows="*" columns="*">
+            <GridLayout class="popularGroupbuysContainer" row="2" rows="auto,*" columns="*">
+                <Label class="containerHeaders" text="Popular Groupbuys" />
                 <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false" row="1">
                     <StackLayout style="padding:10%">
-                        <Label class="containerHeaders" text="Popular Groupbuys" />
                         <Repeater items="{{popularGroupbuys}}">
                             <Repeater.itemsLayout>
                                 <StackLayout orientation="horizontal" />
@@ -63,16 +63,16 @@
                 </ScrollView>
             </GridLayout>
 
-            <GridLayout class="trendingCommunitiesContainer" row="4" rows="*" columns="*">
+            <GridLayout class="trendingCommunitiesContainer" row="4" rows="auto,*" columns="*">
+                <Label class="containerHeaders" text="Trending Communities" />
                 <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false" row="1">
                     <StackLayout style="padding:10%">
-                        <Label class="containerHeaders" text="Trending Communities" />
                         <Repeater items="{{trendingCommunities}}">
                             <Repeater.itemsLayout>
                                 <StackLayout orientation="horizontal" />
                             </Repeater.itemsLayout>
                             <Repeater.itemTemplate>
-                                <GridLayout class="lobangPanel" tap="communityOnTap">
+                                <GridLayout class="communityPanel" tap="communityOnTap">
                                     <GridLayout margin="25px" style="{{getBackgroundImageCss()}}"></GridLayout>
                                     <GridLayout rows="*,*" columns="auto,5,*" style="padding:10%">
                                         <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" text="{{name}}" />

@@ -14,6 +14,7 @@ const errorMsgs = require("~/00 Constants/error_messages");
 
 function ExplorePageViewModel() {
     var explorePageViewModel = observableModule.fromObject({
+        user: undefined,
         sbText: "",
         searchType: possible_searchTypes,
         popularGroupbuys: undefined,

@@ -14,10 +14,11 @@
     border-width: 0, 0, 3, 0;
     border-color: rgb(184, 184, 184);
     color: black;
+    padding: 10px;
 }
 
 .trendingCommunitiesContainer {
-    background-color: white;
+    background-color: blueviolet;
     width: 90%;
     border-radius: 10%, 10%, 10%, 10%;
     border-width: 0, 0, 3, 0;
