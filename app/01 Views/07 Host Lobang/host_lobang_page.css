@@ -1,0 +1,63 @@
+.hostLobangForm {
+  background-color: white;
+  width: 95%;
+  border-radius: 25%, 25%, 25%, 25%;
+  border-width: 0.75, 1.5, 2, 1;
+  border-color: rgb(163, 162, 162);
+  color: black;
+  padding: 20%;
+}
+
+.categoryChipDefault {
+  background-color: white;
+  padding: 7%;
+  margin: 5;
+  border-radius: 25%;
+  border-color: grey;
+  border-width: 1;
+  font-size: 12;
+}
+
+.categoryChipSelected {
+  background-color: rgb(119, 149, 224);
+  padding: 7%;
+  margin: 5;
+  border-radius: 25%;
+  border-color: rgb(72, 91, 140);
+  border-width: 1;
+  font-size: 12;
+}
+
+TextField,
+TextView {
+  font-size: 12;
+  margin-bottom: 10;
+}
+
+ListPicker {
+  font-size: 10;
+  height: 100;
+  outline: 0;
+  border: 0;
+}
+
+.largeAddButton {
+  background-color: rgba(199, 199, 199, 0.304);
+  padding: 7%;
+  margin: 5;
+  border-radius: 25%;
+  border-color: grey;
+  border-width: 0.75, 1.5, 2, 1;
+  font-size: 12;
+  opacity: 0.3;
+}
+
+.productContainer {
+  background-color: rgba(199, 199, 199, 0.304);
+  padding: 7%;
+  margin: 5;
+  border-radius: 25%;
+  border-color: rgba(128, 128, 128, 0.231);
+  border-width: 0.75, 1.5, 2, 1;
+  font-size: 12;
+}

@@ -1,0 +1,12 @@
+<Page id="locationPickerModal" shownModally="onShownModally">
+    <GridLayout rows="auto,*" height="40%">
+        <FlexboxLayout class="modalHeader">
+            <Label row="0" text="Select Collection Location"/>
+        </FlexboxLayout>
+        <StackLayout row="1" style="padding:10%">
+            <ListPicker id="listPicker" items="{{locations}}"/>
+             <Button class="-primary" text="Confirm" tap="confirmOnTap"/>
+        </StackLayout>
+       
+    </GridLayout>
+</Page>
