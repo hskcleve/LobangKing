@@ -1,7 +1,19 @@
 {
-    "EMPTY_FIELD_ERROR" : "Please provide input for all fields.",
-    "USER_DOES_NOT_EXIST_ERROR" : "The username and password provided does not match any LobangKing accounts. Please try again.",
-    "INVALID_CREDENTIALS_ERROR" : "Invalid login credentials. Register a new account or try again.",
-    "INVALID_FIELDS_ERROR" : "There are some issues with the details provided.",
-    "INSUFFICIENT_COINS_ERROR" : "You need a minimum of 10 coins to boost!"
+  "EMPTY_FIELD_ERROR": "Please provide input for all fields.",
+  "USER_DOES_NOT_EXIST_ERROR": "The username and password provided does not match any LobangKing accounts. Please try again.",
+  "INVALID_CREDENTIALS_ERROR": "Invalid login credentials. Register a new account or try again.",
+  "INVALID_FIELDS_ERROR": "There are some issues with the details provided.",
+  "INSUFFICIENT_COINS_ERROR": "You need a minimum of 10 coins to boost!",
+  "NO_CATEGORY_SELECTED_ERROR": "Please select a category!",
+  "MAX_TAGS_REACHED_ERROR": "Lobangs can only have a maximum of 3 tags!",
+  "LOBANG_NAME_MIN_LENGTH_ERROR": "Lobang name needs to be at least 5 characters long!",
+  "LOBANG_MIN_ORDER_INVALID_ERROR": "You have not specified a minimum order quantity!",
+  "LOBANG_DESCRIPTION_MIN_LENGTH_ERROR": "Lobang description needs to be at least 10 characters long!",
+  "LOBANG_LOCATION_NOT_SET_ERROR": "You have not specified a location!",
+  "LOBANG_DATE_NOT_SET_ERROR": "There are some issues with the dates provided.",
+  "LOBANG_NO_PRODUCTS_ERROR": "A lobang must have at least one product!",
+  "PRODUCT_NAME_MIN_LENGTH_ERROR": "Product name needs to be at least 5 characters long!",
+  "PRODUCT_NO_PRICE_ERROR": "You have not specified a price for this product!",
+  "PRODUCT_DESCRIPTION_MIN_LENGTH_ERROR": "Product description needs to be at least 10 characters long!",
+  "PRODUCT_MAX_QTY_NOT_SET_ERROR": "You have not specified the max quantity of products!"
 }

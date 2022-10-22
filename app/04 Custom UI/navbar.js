@@ -29,7 +29,17 @@ exports.groupsOnTap = function () {
 };
 
 exports.groupbuyOnTap = function () {
-  alert("Todo: wiring to groupbuy page (YQ)");
+  const frame = frameModule.Frame.topmost();
+  if (frame.currentPage.id == "host_lobang_page") {
+    return;
+  }
+  const navigationEntry = {
+    moduleName: "~/01 Views/07 Host Lobang/host_lobang_page",
+    context: {
+      user: frame.currentPage.bindingContext.user,
+    },
+  };
+  frame.navigate(navigationEntry);
 };
 
 exports.exploreOnTap = function () {
@@ -45,6 +55,9 @@ exports.exploreOnTap = function () {
 
 exports.profileOnTap = function () {
   const frame = frameModule.Frame.topmost();
+  if (frame.currentPage.id == "profile_page") {
+    return;
+  }
   const navigationEntry = {
     moduleName: "~/01 Views/06 Profile/profile_page",
     context: {
