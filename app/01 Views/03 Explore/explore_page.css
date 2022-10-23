@@ -40,5 +40,10 @@
 
 .topRowContainer {
     background-color: white;
-    border-radius: 10%, 10%, 10%, 10%;
+}
+
+.searchTypeLabel {
+    word-wrap: break-word;
+    overflow-wrap: break-word; 
+    height: fit-content;
 }

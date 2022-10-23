@@ -76,7 +76,6 @@ exports.categoryListOnTap = function (args) {
 };
 
 exports.searchBySearchTerm = function (args) {
-    console.log("in code-behind!");
     vm.doSearchBySearchTerm(() => {
         page.bindingContext = null;
         page.bindingContext = vm;

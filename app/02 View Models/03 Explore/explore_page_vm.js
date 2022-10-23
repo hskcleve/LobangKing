@@ -12,6 +12,7 @@ const possible_locations = require("~/00 Constants/towns_constants").town_names;
 const possible_categories = require("~/00 Constants/categories_constants").categories;
 const possible_searchTypes = require("~/00 Constants/search_type_constants").searchType;
 const errorMsgs = require("~/00 Constants/error_messages");
+const { itemsLayoutProperty } = require("@nativescript/core/ui/repeater");
 
 function ExplorePageViewModel() {
     var explorePageViewModel = observableModule.fromObject({
@@ -20,7 +21,7 @@ function ExplorePageViewModel() {
         popularGroupbuys: undefined,
         trendingCommunities: undefined,
         searchType: possible_searchTypes,
-        searchTypePicked: "GroupBuy",
+        searchTypePicked: "Community",
         categories: possible_categories,
         categoryFilter: undefined,
         locations: Object.assign([], possible_locations.unshift("None")),
@@ -49,29 +50,46 @@ function ExplorePageViewModel() {
     }
 
     explorePageViewModel.doSearchBySearchTerm = function () {
-        console.log("In VM method!");
-        //search by lobangs
+        /*
         if (explorePageViewModel.searchTypePicked == explorePageViewModel.searchType[0]) {
             const locationFilterChosen = (explorePageViewModel.locationFilter != null || explorePageViewModel.locationFilter != "None") ? explorePageViewModel.locationFilter : "";
             const categoryFilterChosen = (explorePageViewModel.categoryFilter != null || explorePageViewModel.categoryFilter != "None") ? explorePageViewModel.categoryFilter : "";
 
-            //getFilteredGroupbuys(locationFilterChosen, categoryFilterChosen)
+            //getFilteredGroupbuys(locationFilterChosen, categoryFilterChosen).then(
             getGroupbuys().then(
                     (lobangs) => {
                         console.log("going to filter")
                         //const groupbuyResults = lobangs.filter((item) => (typeof item.name.indexOf(explorePageViewModel.sbText) > -1))
-                        const groupbuyResults = lobangs.filter(item => item.name.includes(explorePageViewModel.sbText))
-                        console.log("is it empty? " + groupbuyResults.length > 0)
+                        const groupbuyResults = lobangs.filter(item => 
+                            item.lobang_name.includes(explorePageViewModel.sbText))
                         explorePageViewModel.set("displayResults", groupbuyResults)
                     }
                 )
             
         }
+        */
+
+        //search by lobangs
+        if (explorePageViewModel.searchTypePicked == explorePageViewModel.searchType[0]) {
+            getGroupbuys().then(
+                (lobangs) => {
+                    const filteredLocation = (explorePageViewModel.locationFilter != null && explorePageViewModel.locationFilter != "None")
+                        ? lobangs.filter((item) => item.location == explorePageViewModel.locationFilter) : lobangs.map((item) => item)
+                    const filteredCategory = (explorePageViewModel.categoryFilter != null && explorePageViewModel.categoryFilter != "None")
+                        ? filteredLocation.filter((item) => item.categories.filter((category => category == explorePageViewModel.categoryFilter))) : filteredLocation.map((item) => item)
+
+                    const groupbuyResults = filteredCategory.filter(item =>
+                        item.lobang_name.toLowerCase().includes(explorePageViewModel.sbText.toLowerCase()))
+                    explorePageViewModel.set("displayResults", groupbuyResults)
+
+                }
+            )
+        }
         //search by communities
         else {
             getCommunities().then(
                 (communities) => {
-                    const communitiesResult = communities.filter((item) => (typeof item.name.indexOf(explorePageViewModel.sbText) > -1))
+                    const communitiesResult = communities.filter((item) => item.name.toLowerCase().includes(explorePageViewModel.sbText.toLowerCase()))
                     explorePageViewModel.set("displayResults", communitiesResult)
                 }
             )
