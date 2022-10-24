@@ -52,11 +52,11 @@ exports.getJoinedGroupBuysByUserId = function (userId) {
   });
 };
 
-exports.boostLobang = function (lobang_id, curr_coins, user_id, user_coins) {
+exports.boostLobang = function (lobang_name, curr_coins, user_id, user_coins) {
   return new Promise((resolve, reject) => {
     firestore
       .collection("lobangs")
-      .where("lobang_id", "==", lobang_id)
+      .where("lobang_name", "==", lobang_name)
       .get()
       .then((querySnapshot) => {
         const docId = querySnapshot.docs[0].id;
@@ -96,99 +96,102 @@ exports.boostLobang = function (lobang_id, curr_coins, user_id, user_coins) {
 
 exports.getGroupbuys = function () {
   return new Promise((resolve, reject) => {
-      let getGroupbuysResponse = [];
-      const lobangs = firestore.collection("lobangs");
-      const query = lobangs;
+    let getGroupbuysResponse = [];
+    const lobangs = firestore.collection("lobangs");
+    const query = lobangs;
 
-      query
-          .get()
-          .then((querySnapshot) => {
-              console.log("getGroupbuys server response:");
-              console.log(querySnapshot);
-              querySnapshot.forEach((doc) => {
-                  const lobangData = doc.data();
-                  getGroupbuysResponse.push(new Lobang(lobangData));
-              });
-              resolve(getGroupbuysResponse);
-          })
-          .catch((firebaseError) => {
-              console.log(firebaseError);
-              reject(firebaseError);
-          });
+    query
+      .get()
+      .then((querySnapshot) => {
+        console.log("getGroupbuys server response:");
+        console.log(querySnapshot);
+        querySnapshot.forEach((doc) => {
+          const lobangData = doc.data();
+          getGroupbuysResponse.push(new Lobang(lobangData));
+        });
+        resolve(getGroupbuysResponse);
+      })
+      .catch((firebaseError) => {
+        console.log(firebaseError);
+        reject(firebaseError);
+      });
   });
 };
 
 exports.getCommunities = function () {
   return new Promise((resolve, reject) => {
-      let getCommunitiesResponse = [];
-      const communities = firestore.collection("communities");
-      const query = communities;
+    let getCommunitiesResponse = [];
+    const communities = firestore.collection("communities");
+    const query = communities;
 
-      query
-          .get()
-          .then((querySnapshot) => {
-              console.log("getCommunities server response:");
-              console.log(querySnapshot);
-              querySnapshot.forEach((doc) => {
-                  const communityData = doc.data();
-                  getCommunitiesResponse.push(new Community(communityData));
-              });
-              resolve(getCommunitiesResponse);
-          })
-          .catch((firebaseError) => {
-              console.log(firebaseError);
-              reject(firebaseError);
-          });
+    query
+      .get()
+      .then((querySnapshot) => {
+        console.log("getCommunities server response:");
+        console.log(querySnapshot);
+        querySnapshot.forEach((doc) => {
+          const communityData = doc.data();
+          getCommunitiesResponse.push(new Community(communityData));
+        });
+        resolve(getCommunitiesResponse);
+      })
+      .catch((firebaseError) => {
+        console.log(firebaseError);
+        reject(firebaseError);
+      });
   });
 };
 
 exports.getGroupbuysByLocation = function (locationFilter) {
   return new Promise((resolve, reject) => {
-      let getGroupbuysByLocationResponse = [];
-      const lobangs = firestore.collection("lobangs");
-      const query = locationFilter==null ? lobangs : lobangs.where("location", "==", locationFilter);
+    let getGroupbuysByLocationResponse = [];
+    const lobangs = firestore.collection("lobangs");
+    const query =
+      locationFilter == null
+        ? lobangs
+        : lobangs.where("location", "==", locationFilter);
 
-      query
-          .get()
-          .then((querySnapshot) => {
-              console.log("getGroupbuysByLocation server response:");
-              console.log(querySnapshot);
-              querySnapshot.forEach((doc) => {
-                  const lobangData = doc.data();
-                  getGroupbuysByLocationResponse.push(new Lobang(lobangData));
-              });
-              resolve(getGroupbuysByLocationResponse);
-          })
-          .catch((firebaseError) => {
-              console.log(firebaseError);
-              reject(firebaseError);
-          });
+    query
+      .get()
+      .then((querySnapshot) => {
+        console.log("getGroupbuysByLocation server response:");
+        console.log(querySnapshot);
+        querySnapshot.forEach((doc) => {
+          const lobangData = doc.data();
+          getGroupbuysByLocationResponse.push(new Lobang(lobangData));
+        });
+        resolve(getGroupbuysByLocationResponse);
+      })
+      .catch((firebaseError) => {
+        console.log(firebaseError);
+        reject(firebaseError);
+      });
   });
 };
 
-
-exports.getFilteredGroupbuys = function(locationFilter, categoryFilter) {
+exports.getFilteredGroupbuys = function (locationFilter, categoryFilter) {
   console.log("In firestore_service");
   return new Promise((resolve, reject) => {
     let getFilteredGroupbuysResponse = [];
     const lobangs = firestore.collection("lobangs");
-    const query = lobangs.where("location", "==", locationFilter).where("category", "==", categoryFilter);
+    const query = lobangs
+      .where("location", "==", locationFilter)
+      .where("category", "==", categoryFilter);
 
     query
-        .get()
-        .then((querySnapshot) => {
-            console.log("getFilteredGroupbuys server response:");
-            console.log(querySnapshot);
-            querySnapshot.forEach((doc) => {
-                const lobangData = doc.data();
-                getFilteredGroupbuysResponse.push(new Lobang(lobangData));
-            });
-            resolve(getFilteredGroupbuysResponse);
-        })
-        .catch((firebaseError) => {
-            console.log(firebaseError);
-            reject(firebaseError);
+      .get()
+      .then((querySnapshot) => {
+        console.log("getFilteredGroupbuys server response:");
+        console.log(querySnapshot);
+        querySnapshot.forEach((doc) => {
+          const lobangData = doc.data();
+          getFilteredGroupbuysResponse.push(new Lobang(lobangData));
         });
-});
-}
-
+        resolve(getFilteredGroupbuysResponse);
+      })
+      .catch((firebaseError) => {
+        console.log(firebaseError);
+        reject(firebaseError);
+      });
+  });
+};
