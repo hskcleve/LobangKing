@@ -4,7 +4,7 @@
             <Label row="0" text="Select Search Type"/>
         </FlexboxLayout>
         <StackLayout row="1" style="padding:10%">
-            <ListPicker id="listPicker" items="{{searchtypes}}"/>
+            <ListPicker id="listPicker" items="{{searchTypes}}"/>
              <Button class="-primary" text="Confirm" tap="confirmOnTap"/>
         </StackLayout>
        

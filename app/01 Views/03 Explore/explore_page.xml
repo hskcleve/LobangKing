@@ -3,7 +3,7 @@
 
         <GridLayout class="topRowContainer" row="0" rows="auto" columns="*,5,3*" style="padding-top:20%; padding-right:20%; padding-left:20%">
             <GridLayout col="0">
-                <Label text="Search by: {{searchTypePicked}}" class="searchTypeLabel"/>
+                <Label textWrap="true" text="{{'Search by: ' + searchTypePicked}}" class="searchTypeLabel"/>
             </GridLayout>
             <GridLayout col="2">
                 <GridLayout rows="auto" columns="2*,*">
@@ -45,8 +45,8 @@
                             </Repeater.itemsLayout>
                             <Repeater.itemTemplate>
                                 <GridLayout class="lobangPanel" tap="lobangOnTap">
-                                    <GridLayout margin="25px" style="{{getBackgroundImageCss()}}"></GridLayout>
-                                    <GridLayout rows="*,*,*,*,*" columns="auto,5,*" style="padding:10%">
+                                    <GridLayout style="{{getBackgroundImageCss()}}"></GridLayout>
+                                    <GridLayout rows="*,*,*,*,*" columns="15,5,*" style="padding:10%">
                                         <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold; position: relative; left: 100px" text="{{lobang_name}}" />
                                         <Label row="1" col="0" colSpan="3" text="{{joined.length + ' people joined'}}" />
                                         <Label row="2" col="2" style="font-weight: bold" text="{{products.length + ' products'}}" />
@@ -142,7 +142,7 @@
                 </GridLayout>
                 <GridLayout rows="auto,auto,auto" row="2">
                     <Label row="0" text="Filter By" />
-                    <Button row="1" text="Category" tap="categoryListOnTap" />
+                    <Button row="1" text="{{!categoryFilter ? 'Category' : 'Category Picked: ' + categoryFilter}}" tap="categoryListOnTap" />
                     <Button row="2" text="Location" tap="locationListOnTap" />
                 </GridLayout>
             </GridLayout>

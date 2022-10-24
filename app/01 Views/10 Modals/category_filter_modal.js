@@ -7,7 +7,9 @@ exports.onShownModally = function (args) {
   page = args.object;
   page.actionBarHidden = true;
   pageData = observableModule.fromObject({
-    categories: require("~/00 Constants/categories_constants").category_names,
+    categories: require("~/00 Constants/categories_constants").categories.map(
+      (x) => x.category_name
+    ),
     callback: args.context.callback,
   });
   page.bindingContext = pageData;
