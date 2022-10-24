@@ -2,14 +2,29 @@
     <GridLayout class="gradientBg" rows="auto,auto,auto,auto,*,auto">
 
         <GridLayout height="10%" class="topBar" row="0" columns="20,*">
-            <Label col="1" class="h1" text="{{'Welcome, ' + user.first_name + ' ' + user.last_name}}"/>
+            <Label col="1" class="h1" text="{{'Welcome, ' + user.first_name + ' ' + user.last_name}}" />
         </GridLayout>
 
         <StackLayout row="1">
-            <Button class="-primary" text="Back to Login" tap="logoutOnTap"/>
+            <Button class="-primary" text="Back to Login" tap="logoutOnTap" />
+            <Button class="-primary" text="View Announcements" tap="announcementsOnTap" />
+            <ScrollView orientation="vertical">
+                <Repeater items="{{posts}}">
+                    <Repeater.itemsLayout>
+                        <StackLayout orientation="vertical" />
+                    </Repeater.itemsLayout>
+                    <Repeater.itemsTemplate>
+                        <GridLayout rows="*,*,*" style="padding: 10%">
+                            <Label row='0' margin="10 10 0 10" fontWeight="700" fontSize="18" text="{{user_id}}" />
+                            <Label row="1" margin="10 10 0 10" fontWeight="700" fontSize="18" text="{{body}}" />
+                            <Image row="2" margin="0" colSpan="2" stretch="aspectFill" src="{{image}}" />
+                        </GridLayout>
+                    </Repeater.itemsTemplate>
+                </Repeater>
+            </ScrollView>
         </StackLayout>
-        
-        <customUI:navbar row="5"/>
-        
+
+        <customUI:navbar row="5" />
+
     </GridLayout>
 </Page>

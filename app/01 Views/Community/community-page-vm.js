@@ -43,7 +43,6 @@ function CommunityPageViewModel() {
         communityPageViewModel.user.user_id
       ).then((isMember) => {
         communityPageViewModel.set("userIsMember", isMember);
-        console.log(communityPageViewModel.userIsMember);
       });
       // get community members
       getCommunityMembers(communityPageViewModel.communityName).then(

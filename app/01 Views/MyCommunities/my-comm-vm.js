@@ -20,11 +20,6 @@ function MyCommsViewModel() {
     }
   };
 
-  //   myCommsViewModel.load = function () {
-  //     const arr = getMyCommunities();
-  //     myCommsViewModel.set("communities", arr);
-  //   };
-
   myCommsViewModel.empty = function () {
     while (myCommsViewModel.length) {
       myCommsViewModel.pop();
