@@ -1,0 +1,57 @@
+.categoriesContainer {
+  background-color: white;
+  width: 90%;
+  border-radius: 10%, 10%, 10%, 10%;
+  border-width: 0, 0, 3, 0;
+  border-color: rgb(184, 184, 184);
+  color: black;
+}
+
+.popularGroupbuysContainer {
+  background-color: white;
+  width: 90%;
+  border-radius: 10%, 10%, 10%, 10%;
+  border-width: 0, 0, 3, 0;
+  border-color: rgb(184, 184, 184);
+  color: black;
+  padding: 10px;
+}
+
+.trendingCommunitiesContainer {
+  background-color: white;
+  width: 90%;
+  border-radius: 10%, 10%, 10%, 10%;
+  border-width: 0, 0, 3, 0;
+  border-color: rgb(184, 184, 184);
+  color: black;
+}
+
+.containerHeaders {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 25px;
+}
+
+.categoryImage {
+  height: 150px;
+  width: 150px;
+  object-fit: contain;
+}
+
+.topRowContainer {
+  background-color: white;
+}
+
+.searchTypeLabel {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  height: fit-content;
+}
+
+.lobangPanel {
+  color: white;
+  border-width: 0, 0.5, 0.5, 0;
+  margin: 5;
+  background-color: rgb(52, 52, 52);
+  border-radius: 10%;
+}
