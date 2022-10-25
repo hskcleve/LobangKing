@@ -42,7 +42,7 @@ function CommunityPageViewModel() {
         communityPageViewModel.communityName,
         communityPageViewModel.user.user_id
       ).then((isMember) => {
-        communityPageViewModel.set("userIsMember", isMember);
+        communityPageViewModel.set("userIsMember", false);
       });
       // get community members
       getCommunityMembers(communityPageViewModel.communityName).then(

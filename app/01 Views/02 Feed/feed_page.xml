@@ -13,13 +13,13 @@
                     <Repeater.itemsLayout>
                         <StackLayout orientation="vertical" />
                     </Repeater.itemsLayout>
-                    <Repeater.itemsTemplate>
-                        <GridLayout rows="*,*,*" style="padding: 10%">
-                            <Label row='0' margin="10 10 0 10" fontWeight="700" fontSize="18" text="{{user_id}}" />
-                            <Label row="1" margin="10 10 0 10" fontWeight="700" fontSize="18" text="{{body}}" />
+                    <Repeater.itemTemplate>
+                        <GridLayout class="card" rows="*,*,*" style="padding: 10%">
+                            <Label row='0'  fontWeight="700" fontSize="18" text="{{user_id}}" />
+                            <Label textWrap="true" row="1" margin="10 10 0 10" fontWeight="700" fontSize="18" text="{{body}}" />
                             <Image row="2" margin="0" colSpan="2" stretch="aspectFill" src="{{image}}" />
                         </GridLayout>
-                    </Repeater.itemsTemplate>
+                    </Repeater.itemTemplate>
                 </Repeater>
             </ScrollView>
         </StackLayout>
