@@ -24,6 +24,7 @@ function CommunityPageViewModel() {
     user: undefined,
     userIsMember: false,
     members: undefined,
+    image: undefined,
     displayPostedTime,
   });
 
@@ -42,7 +43,7 @@ function CommunityPageViewModel() {
         communityPageViewModel.communityName,
         communityPageViewModel.user.user_id
       ).then((isMember) => {
-        communityPageViewModel.set("userIsMember", false);
+        communityPageViewModel.set("userIsMember", isMember);
       });
       // get community members
       getCommunityMembers(communityPageViewModel.communityName).then(

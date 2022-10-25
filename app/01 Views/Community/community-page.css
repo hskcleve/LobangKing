@@ -1,0 +1,44 @@
+.banner-image {
+  height: 160;
+  opacity: 0.5;
+}
+
+.topBar {
+  margin: 0;
+  padding: 0;
+  color: white;
+  background-color: rgb(52, 52, 52);
+}
+
+.community-banner-name {
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+  margin: 100px;
+}
+
+.joinButton {
+  width: 20%;
+  height: 100px;
+  margin-top: 300px;
+  color: black;
+}
+
+.createPostButton {
+  background-color: white;
+  border-radius: 20%;
+  margin: 30px;
+  text-align: left;
+  padding-left: 100px;
+}
+
+.card {
+  border-color: black;
+  border-width: 2px;
+  background-color: white;
+  margin: 5;
+}
+
+Label {
+    margin-bottom: 10;
+}

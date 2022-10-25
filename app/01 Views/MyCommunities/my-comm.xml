@@ -1,23 +1,25 @@
-<Page id="my_communities" loaded="onLoaded" navigatedTo="onNavigatedTo">
+<Page id="my_communities" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:customUI="~/04 Custom UI">
     <ActionBar>
         <Label class="title-mycomms" text="My Communities" />
     </ActionBar>
+    <GridLayout>
+        <StackLayout class="gradientBg" height='100%'>
+            <SearchBar hint='Search communities...' />
+            <ListView height='100%' items="{{ communities }}">
+                <ListView.itemTemplate>
+                    <GridLayout
+                        height="280"
+                        borderRadius="10"
+                        columns="*"
+                        rows="auto"
+                    >
+                        <Image class="comm-image" row="0" margin="0" stretch="aspectFill" src="{{ image }}" param="{{ name }}" imageToPass="{{image}}" tap="selectCommunityOnTap" />
+                        <Label class="comm-name" row='1' margin="10 10 0 10" text="{{ name }}" />
+                    </GridLayout>
 
-    <StackLayout class="gradientBg" height='100%'>
-        <SearchBar hint='Search communities...' />
-        <ListView height='100%' items="{{ communities }}">
-            <ListView.itemTemplate>
-                <GridLayout 
-                height="280"
-                borderRadius="10"
-                columns="*"
-                rows="auto"
-                >
-                    <Image class="comm-image" row="0" margin="0" stretch="aspectFill" src="{{ image }}" param="{{ name }}" tap="selectCommunityOnTap"/>
-                    <Label class="comm-name" row='1' margin="10 10 0 10" text="{{ name }}" />
-                </GridLayout>
-
-            </ListView.itemTemplate>
-        </ListView>
-    </StackLayout>
+                </ListView.itemTemplate>
+            </ListView>
+        </StackLayout>
+        <customUI:navbar row="5" />
+    </GridLayout>
 </Page> 

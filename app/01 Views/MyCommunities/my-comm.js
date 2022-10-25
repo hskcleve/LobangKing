@@ -23,6 +23,7 @@ exports.onNavigatedTo = function(args) {
 
 exports.selectCommunityOnTap = function(args) {
     const param = args.object.param;
+    const imageToPass = args.object.imageToPass;
 
     const frame = frameModule.Frame.topmost();
     const navigationEntry = {
@@ -30,6 +31,7 @@ exports.selectCommunityOnTap = function(args) {
         context: {
             commName: param,
             user: vm.user,
+            community_image: imageToPass,
         },
     };
     frame.navigate(navigationEntry);

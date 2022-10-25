@@ -1,20 +1,35 @@
-<Page id="community-page" loaded="onLoaded" navigatedTo="onNavigatedTo">
-
-    <StackLayout class="gradientBg" columns='2*,*' height='100%'>
-
-        <Button text="Create New Post" tap="navToCreatePost" />
-
-        <Button hidden="{{ userIsMember == true }}" text="Join Community" tap="joinCommunityOnTap" />
-
-        <ListView height='100%' items="{{ posts }}">
-            <ListView.itemTemplate>
-                <GridLayout height="280" borderRadius="10" rows="*, auto, auto" columns="*, 2*" margin="5 10" padding="0">
-                    <Label row="0" col="1" fontWeight="700" fontSize="18" text="{{ time_posted | displayPostedTime }}" />
-                    <Label row='0' margin="10 10 0 10" fontWeight="700" fontSize="18" text="{{ user_id }}" />
-                    <Label row="1" margin="10 10 0 10" fontWeight="700" fontSize="18" text="{{ body }}" />
-                    <Image row="2" margin="0" colSpan="2" stretch="aspectFill" src="{{ image }}" />
-                </GridLayout>
-            </ListView.itemTemplate>
-        </ListView>
-    </StackLayout>
+<Page id="community-page" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:customUI="~/04 Custom UI">
+    <GridLayout class="gradientBg" rows="auto,auto,*,auto">
+        <!-- Banner image + back button -->
+        <GridLayout class="topBar" row="0" columns="40,*,auto">
+            <Image class="banner-image" src="{{image}}" stretch="aspectFill" colSpan="3" />
+            <Image class="back-icon" col="0" src="~/06 Assets/00 General/back_arrow.png" height="20" tap="goBack" />
+            <Label text="{{communityName}}" textWrap="true" col="1" class="community-banner-name" textAlignment="center" colSpan="2" />
+            <Button class="joinButton" hidden="{{ userIsMember == true }}" text="Join" tap="joinCommunityOnTap" col="2" />
+        </GridLayout>
+        <!-- Add Post Button -->
+        <GridLayout row="1">
+            <StackLayout>
+                <Button class="createPostButton" text="What's on your mind?" tap="navToCreatePost" />
+            </StackLayout>
+        </GridLayout>
+        <!-- Community posts -->
+        <ScrollView row="2" orientation="vertical" scrollBarIndicatorVisible="false">
+            <StackLayout>
+                <Repeater items="{{posts}}">
+                    <Repeater.itemsLayout>
+                        <StackLayout orientation="vertical" />
+                    </Repeater.itemsLayout>
+                    <Repeater.itemTemplate>
+                        <GridLayout class="card" rows="*,*,*" columns="*, *">
+                            <Label row="0" text="{{user_id}}" />
+                            <Label row="1" text="{{body}}" textWrap="true" colSpan="2" />
+                            <Image row="2" stretch="aspectFill" colSpan="2" src="{{image}}" />
+                        </GridLayout>
+                    </Repeater.itemTemplate>
+                </Repeater>
+            </StackLayout>
+        </ScrollView>
+        <customUI:navbar row="3" />
+    </GridLayout>
 </Page> 
