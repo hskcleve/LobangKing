@@ -9,8 +9,7 @@ const {
 const {
   getGroupbuys,
   getCommunities,
-  getGroupbuysByLocation,
-  getFilteredGroupbuys,
+  getGroupbuysByCategory
 } = require("~/07 Services/firestore_service");
 const possible_locations = require("~/00 Constants/towns_constants").town_names;
 const possible_categories =
@@ -30,6 +29,8 @@ function ExplorePageViewModel() {
     searchTypePicked: "GroupBuy",
     categories: possible_categories,
     categoryFilter: undefined,
+    categoryToDisplay: undefined,
+    lobangsInCategory: undefined,
     locations: Object.assign([], possible_locations.unshift("None")),
     locationFilter: undefined,
     displayResults: undefined,
@@ -52,26 +53,15 @@ function ExplorePageViewModel() {
     });
   };
 
+  explorePageViewModel.getLobangsInCategory = function (category) {
+    explorePageViewModel.set("categoryToDisplay", category);
+    getGroupbuysByCategory(category).then((lobangs) => {
+      lobangs.sort((a, b) => b.joined.length - a.joined.length);
+      explorePageViewModel.set("lobangsInCategory", lobangs);
+    })
+  }
+
   explorePageViewModel.doSearchBySearchTerm = function () {
-    /*
-        if (explorePageViewModel.searchTypePicked == explorePageViewModel.searchType[0]) {
-            const locationFilterChosen = (explorePageViewModel.locationFilter != null || explorePageViewModel.locationFilter != "None") ? explorePageViewModel.locationFilter : "";
-            const categoryFilterChosen = (explorePageViewModel.categoryFilter != null || explorePageViewModel.categoryFilter != "None") ? explorePageViewModel.categoryFilter : "";
-
-            //getFilteredGroupbuys(locationFilterChosen, categoryFilterChosen).then(
-            getGroupbuys().then(
-                    (lobangs) => {
-                        console.log("going to filter")
-                        //const groupbuyResults = lobangs.filter((item) => (typeof item.name.indexOf(explorePageViewModel.sbText) > -1))
-                        const groupbuyResults = lobangs.filter(item => 
-                            item.lobang_name.includes(explorePageViewModel.sbText))
-                        explorePageViewModel.set("displayResults", groupbuyResults)
-                    }
-                )
-            
-        }
-        */
-
     //search by lobangs
     if (
       explorePageViewModel.searchTypePicked ==

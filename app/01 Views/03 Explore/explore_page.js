@@ -28,6 +28,23 @@ toggleRecentSearchLocal = function () {
 
 exports.toggleRecentSearch = toggleRecentSearchLocal;
 
+exports.lobangsInCategoryOnTap = function (args) {
+  console.log(args.object.bindingContext);
+  const category = args.object.bindingContext.category_name;
+  vm.getLobangsInCategory(category, () => {
+    page.bindingContext = null;
+    page.bindingContext = vm;
+  });
+}
+
+exports.goBack = function (args) {
+  vm.categoryToDisplay = null;
+  vm.lobangsInCategory = null;
+
+  page.bindingContext = undefined;
+  page.bindingContext = vm;
+}
+
 exports.lobangOnTap = function (args) {
   console.log(args.object.bindingContext);
   alert("Will route to selected lobang page");
