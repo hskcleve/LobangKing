@@ -143,7 +143,7 @@ exports.getCommunities = function () {
 };
 
 exports.getGroupbuysByCategory = function(categoryChosen) {
-  console.log("In firestore_service");
+  console.log("In firestore_service, category is " + categoryChosen);
   return new Promise((resolve, reject) => {
     let getGroupbuysByCategoryResponse = [];
     const lobangs = firestore.collection("lobangs");

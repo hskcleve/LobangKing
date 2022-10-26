@@ -27,14 +27,20 @@ function ExplorePageViewModel() {
     trendingCommunities: undefined,
     searchType: possible_searchTypes,
     searchTypePicked: "GroupBuy",
-    categories: possible_categories,
+    categories: undefined,
     categoryFilter: undefined,
     categoryToDisplay: undefined,
     lobangsInCategory: undefined,
-    locations: Object.assign([], possible_locations.unshift("None")),
+    //locations: Object.assign([], possible_locations.unshift("None")),
     locationFilter: undefined,
     displayResults: undefined,
   });
+
+  explorePageViewModel.getCategoriesList = function () {
+    const options = possible_categories.map((item) => item);
+    options.shift();
+    explorePageViewModel.set("categories", options);
+  }
 
   explorePageViewModel.getPopularGroupbuysList = function () {
     getGroupbuys().then((lobangs) => {
@@ -55,11 +61,25 @@ function ExplorePageViewModel() {
 
   explorePageViewModel.getLobangsInCategory = function (category) {
     explorePageViewModel.set("categoryToDisplay", category);
-    getGroupbuysByCategory(category).then((lobangs) => {
-      lobangs.sort((a, b) => b.joined.length - a.joined.length);
-      explorePageViewModel.set("lobangsInCategory", lobangs);
+    console.log("set categoryToDisplay var as: " + explorePageViewModel.categoryToDisplay);
+    getGroupbuys().then((lobangs) => {
+      console.log("back in vm!");
+      const inCat = lobangs.filter((item) => {
+        console.log(item.categories);
+        console.log(item.categories.includes(explorePageViewModel.categoryToDisplay));
+        item.categories.includes(category)
+      });
+      console.log("after filter by cat:");
+      console.log(inCat);
+      inCat.sort((a, b) => {
+        b.coins - a.coins;
+      });
+      console.log("after sort by coins:");
+      console.log(inCat);
+      explorePageViewModel.set("lobangsInCategory", inCat);
     })
   }
+
 
   explorePageViewModel.doSearchBySearchTerm = function () {
     //search by lobangs
@@ -70,24 +90,25 @@ function ExplorePageViewModel() {
       getGroupbuys().then((lobangs) => {
         const filteredLocation =
           explorePageViewModel.locationFilter != null &&
-          explorePageViewModel.locationFilter != "None"
+            explorePageViewModel.locationFilter != "None"
             ? lobangs.filter(
-                (item) => item.location == explorePageViewModel.locationFilter
-              )
+              (item) => item.location == explorePageViewModel.locationFilter
+            )
             : lobangs.map((item) => item);
+
         const filteredCategory =
           explorePageViewModel.categoryFilter != null &&
-          explorePageViewModel.categoryFilter != "None"
+            explorePageViewModel.categoryFilter != "None"
             ? filteredLocation.filter((item) =>
-                item.categories.includes(explorePageViewModel.categoryFilter)
-              )
+              item.categories.includes(explorePageViewModel.categoryFilter)
+            )
             : filteredLocation.map((item) => item);
 
         const groupbuyResults = filteredCategory.filter((item) =>
           item.lobang_name
             .toLowerCase()
             .includes(explorePageViewModel.sbText.toLowerCase())
-        );
+        ).sort((a, b) => b.coins - a.coins);
         explorePageViewModel.set("displayResults", groupbuyResults);
       });
     }
@@ -100,6 +121,7 @@ function ExplorePageViewModel() {
             .includes(explorePageViewModel.sbText.toLowerCase())
         );
         explorePageViewModel.set("displayResults", communitiesResult);
+        console.log("Done setting display results");
       });
     }
   };

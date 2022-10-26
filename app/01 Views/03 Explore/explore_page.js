@@ -15,6 +15,7 @@ exports.onNavigatedTo = function (args) {
   vm.set("temp_user", Object.assign({}, nvc.user));
   vm.getPopularGroupbuysList();
   vm.getTrendingCommunitiesList();
+  vm.getCategoriesList();
 };
 
 toggleRecentSearchLocal = function () {
@@ -31,6 +32,7 @@ exports.toggleRecentSearch = toggleRecentSearchLocal;
 exports.lobangsInCategoryOnTap = function (args) {
   console.log(args.object.bindingContext);
   const category = args.object.bindingContext.category_name;
+  console.log("category name is " + category);
   vm.getLobangsInCategory(category, () => {
     page.bindingContext = null;
     page.bindingContext = vm;
@@ -96,6 +98,7 @@ exports.categoryListOnTap = function (args) {
 
 exports.searchBySearchTerm = function (args) {
   vm.doSearchBySearchTerm(() => {
+    console.log('done in js file too');
     page.bindingContext = null;
     page.bindingContext = vm;
   });
