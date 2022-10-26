@@ -1,12 +1,29 @@
 .title-mycomms {
-    font-weight: bold;
-    font-size: 20px;
-  }
+  font-weight: bold;
+  font-size: 20px;
+}
 
-  .comm-name {
-    text-align: center;
-    color: white;
-    font-size: 40px;
-  }
+.searchbar {
+  background-color: white;
+  margin: 10;
+  box-shadow: 2px;
+}
+
+.community{
+  margin: 0;
+  padding: 0;
+  color: white;
+  background-color: rgb(52, 52, 52);
+}
+
+.community-img {
+  height: 160;
+  opacity: 0.5;
+}
+
+.community-name {
+  margin-top: 150px;
+  font-size: 30px;
+}
 
 

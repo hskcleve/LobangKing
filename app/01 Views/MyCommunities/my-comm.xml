@@ -2,7 +2,33 @@
     <ActionBar>
         <Label class="title-mycomms" text="My Communities" />
     </ActionBar>
-    <GridLayout>
+
+    <GridLayout class="gradientBg" rows="auto,auto,*,auto">
+        <!-- search bar -->
+        <GridLayout row="0">
+            <TextField class="searchbar" row="0" hint="Search my communities" textWrap="true" />
+        </GridLayout>
+        <Label class="h2" row="1" text="My Communities" textAlignment="center" />
+        <!-- my communities -->
+        <ScrollView row="2" orientation="vertical" scrollBarIndicatorVisible="false">
+            <StackLayout>
+                <Repeater items="{{communities}}">
+                    <Repeater.itemsLayout>
+                        <StackLayout orientation="vertical" />
+                    </Repeater.itemsLayout>
+                    <Repeater.itemTemplate>
+                        <GridLayout class="community"> 
+                            <Image class="community-img" src="{{image}}" stretch="aspectFill" param="{{name}}" imageToPass="{{image}}"
+                                tap="selectCommunityOnTap" />
+                            <Label class="community-name" text="{{name}}" textAlignment="center" textWrap="true" />
+                        </GridLayout>
+                    </Repeater.itemTemplate>
+                </Repeater>
+            </StackLayout>
+        </ScrollView>
+        <customUI:navbar row="3" />
+    </GridLayout>
+    <!-- <GridLayout>
         <StackLayout class="gradientBg" height='100%'>
             <SearchBar hint='Search communities...' />
             <ListView height='100%' items="{{ communities }}">
@@ -20,6 +46,5 @@
                 </ListView.itemTemplate>
             </ListView>
         </StackLayout>
-        <customUI:navbar row="5" />
-    </GridLayout>
+    </GridLayout> -->
 </Page> 

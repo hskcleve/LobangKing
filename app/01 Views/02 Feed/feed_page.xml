@@ -1,11 +1,47 @@
 <Page id="feed_page" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:customUI="~/04 Custom UI">
-    <GridLayout class="gradientBg" rows="auto,auto,auto,auto,*,auto">
+    <GridLayout class="gradientBg" rows="auto,auto,auto,*,auto">
 
-        <GridLayout height="10%" class="topBar" row="0" columns="20,*">
-            <Label col="1" class="h1" text="{{'Welcome, ' + user.first_name + ' ' + user.last_name}}" />
+        <GridLayout class="topBar" row="0" columns="30,*">
+            <Image col="0" src="~/06 Assets/00 General/back_arrow.png" height="10" tap="goBack" />
+            <Label col="1" class="h2" text="Logout" tap="logoutOnTap" />
         </GridLayout>
 
-        <StackLayout row="1">
+        <GridLayout height="10%" class="welcome" row="1">
+            <Label class="h1" text="{{'Welcome, ' + user.first_name + ' ' + user.last_name}}" textAlignment="center" />
+        </GridLayout>
+        <!-- announcements -->
+        <GridLayout row="2" class="announcements-container" tap="announcementsOnTap">
+                <StackLayout rows="auto,*">
+                    <Label class="container-title" text="Announcements" textAlignment="center"  row="0" />
+                    <GridLayout class="featured-announcement" row="1" rows="auto,*" columns="*,*" tap="communitiesOnTap">
+                        <Label row="0" text="{{featured_announcement.lobang_name}}" />
+                        <Label row="1" text="{{featured_announcement.description}}" />
+                    </GridLayout>
+                </StackLayout>
+        </GridLayout>
+        <!-- featured community posts -->
+        <GridLayout row="3" class="posts-container" >
+            <ScrollView orientation="vertical" scrollBarIndicatorVisible="false">
+                <StackLayout rows="auto,*">
+                    <Label class="container-title" text="Featured" textAlignment="center"  row="0" />
+                    <Repeater items="{{posts}}" row="1">
+                        <Repeater.itemsLayout>
+                            <StackLayout orientation="vertical" />
+                        </Repeater.itemsLayout>
+                        <Repeater.itemTemplate>
+                            <GridLayout class="card" rows="*,*,*" columns="*, *" >
+                                <Label row="0" text="{{user_id}}" />
+                                <Label row="1" text="{{body}}" textWrap="true" colSpan="2" />
+                                <Image row="2" stretch="aspectFill" colSpan="2" src="{{image}}" />
+                            </GridLayout>
+                        </Repeater.itemTemplate>
+                    </Repeater>
+                </StackLayout>
+            </ScrollView>
+        </GridLayout>
+
+
+        <!-- <StackLayout row="1">
             <Button class="-primary" text="Back to Login" tap="logoutOnTap" />
             <Button class="-primary" text="View Announcements" tap="announcementsOnTap" />
             <ScrollView orientation="vertical">
@@ -22,9 +58,7 @@
                     </Repeater.itemTemplate>
                 </Repeater>
             </ScrollView>
-        </StackLayout>
-
-        <customUI:navbar row="5" />
-
+        </StackLayout> -->
+        <customUI:navbar row="4" />
     </GridLayout>
 </Page>

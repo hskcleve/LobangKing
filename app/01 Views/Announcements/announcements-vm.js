@@ -11,11 +11,15 @@ function AnnouncementsViewModel() {
     if (process.env.USE_MOCK == "true") {
       console.log("Mock Announcements");
     } else {
+      let results = [];
       getAnnouncements(announcementsViewModel.user.user_id).then(
         (announcementsResponse) => {
-          console.log("Client side announcements");
-          console.log(announcementsResponse);
-          announcementsViewModel.set("announcements", announcementsResponse);
+          for (const a of announcementsResponse) {
+            a.then((res) => {
+              results.push(res.data());
+              announcementsViewModel.set("announcements", results);
+            });
+          }
         }
       );
     }

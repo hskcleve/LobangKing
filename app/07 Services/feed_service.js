@@ -27,6 +27,31 @@ exports.getFeedPosts = function (userId) {
   });
 };
 
+// exports.getAnnouncements = function (userId) {
+//   return new Promise((resolve, reject) => {
+//     let getAnnouncementsResponse = [];
+//     firestore
+//       .collection("lobangs")
+//       .where("joined", "array-contains", userId)
+//       .get()
+//       .then((querySnapshot) => {
+//         querySnapshot.forEach((doc) => {
+//           const announcements = doc.data().announcements;
+//           for (const a of announcements) {
+//             a.get().then((res) => {
+//               getAnnouncementsResponse.push(res.data());
+//               resolve(getAnnouncementsResponse);
+//             });
+//           }
+//         });
+//       })
+//       .catch((firebaseError) => {
+//         console.log(firebaseError);
+//         reject(firebaseError);
+//       });
+//   });
+// };
+
 exports.getAnnouncements = function (userId) {
   return new Promise((resolve, reject) => {
     let getAnnouncementsResponse = [];
@@ -37,9 +62,11 @@ exports.getAnnouncements = function (userId) {
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           const announcements = doc.data().announcements;
-          getAnnouncementsResponse.push(...announcements);
+          for (const a of announcements) {
+            getAnnouncementsResponse.push(a.get()); // this will become array of Promises
+          }
+          resolve(getAnnouncementsResponse);
         });
-        resolve(getAnnouncementsResponse);
       })
       .catch((firebaseError) => {
         console.log(firebaseError);
@@ -47,3 +74,4 @@ exports.getAnnouncements = function (userId) {
       });
   });
 };
+

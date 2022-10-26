@@ -14,6 +14,7 @@ exports.onNavigatedTo = function (args) {
   page.bindingContext = vm;
   vm.set("user", nvc.user);
   vm.set("communityName", nvc.communityName);
+  vm.set("community_image", nvc.community_image);
 };
 
 exports.createPostOnTap = function (args) {

@@ -6,6 +6,7 @@ function CreatePostViewModel() {
   var createPostViewModel = observableModule.fromObject({
     user: undefined,
     communityName: undefined,
+    community_image: undefined,
     post: new Post(),
   });
 

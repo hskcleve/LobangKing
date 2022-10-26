@@ -29,6 +29,7 @@ exports.navToCreatePost = function (args) {
     context: {
       communityName: vm.communityName,
       user: vm.user,
+      community_image: vm.image,
     },
   };
   frame.navigate(navigationEntry);
