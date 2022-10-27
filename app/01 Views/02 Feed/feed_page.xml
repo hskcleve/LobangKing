@@ -14,8 +14,8 @@
                 <StackLayout rows="auto,*">
                     <Label class="container-title" text="Announcements" textAlignment="center"  row="0" />
                     <GridLayout class="featured-announcement" row="1" rows="auto,*" columns="*,*" tap="communitiesOnTap">
-                        <Label row="0" text="{{featured_announcement.lobang_name}}" />
-                        <Label row="1" text="{{featured_announcement.description}}" />
+                        <Label class="h2" row="0" text="{{featured_announcement.lobang_name}}" />
+                        <Label row="1" text="{{featured_announcement.description}}" textWrap="true" />
                     </GridLayout>
                 </StackLayout>
         </GridLayout>
@@ -39,26 +39,6 @@
                 </StackLayout>
             </ScrollView>
         </GridLayout>
-
-
-        <!-- <StackLayout row="1">
-            <Button class="-primary" text="Back to Login" tap="logoutOnTap" />
-            <Button class="-primary" text="View Announcements" tap="announcementsOnTap" />
-            <ScrollView orientation="vertical">
-                <Repeater items="{{posts}}">
-                    <Repeater.itemsLayout>
-                        <StackLayout orientation="vertical" />
-                    </Repeater.itemsLayout>
-                    <Repeater.itemTemplate>
-                        <GridLayout class="card" rows="*,*,*" style="padding: 10%">
-                            <Label row='0'  fontWeight="700" fontSize="18" text="{{user_id}}" />
-                            <Label textWrap="true" row="1" margin="10 10 0 10" fontWeight="700" fontSize="18" text="{{body}}" />
-                            <Image row="2" margin="0" colSpan="2" stretch="aspectFill" src="{{image}}" />
-                        </GridLayout>
-                    </Repeater.itemTemplate>
-                </Repeater>
-            </ScrollView>
-        </StackLayout> -->
         <customUI:navbar row="4" />
     </GridLayout>
 </Page>

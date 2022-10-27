@@ -17,6 +17,7 @@ function AnnouncementsViewModel() {
           for (const a of announcementsResponse) {
             a.then((res) => {
               results.push(res.data());
+              console.log(announcementsViewModel.announcements);
               announcementsViewModel.set("announcements", results);
             });
           }
