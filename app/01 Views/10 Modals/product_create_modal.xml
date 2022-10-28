@@ -1,0 +1,24 @@
+<Page id="productCreateModal" shownModally="onShownModally">
+    <GridLayout rows="auto,*,auto,auto" height="{{isEdit ? '55%' : '52%'}}">
+        <FlexboxLayout class="modalHeader">
+            <Label row="0" text="{{isEdit ? 'Edit Product' : 'Add Product'}}"/>
+        </FlexboxLayout>
+        <ScrollView row="1">
+            <StackLayout style="padding:10%">
+                <Label text="Product Name"/>
+                <TextField hint="Enter Product Name" text="{{temp_product.name}}" autocorrect="false" maxLength="30"></TextField>
+                <Label text="Max Quantity"/>
+                <TextField hint="Enter Max Quantity" text="{{temp_product.max_quantity}}" keyboardType="integer" maxLength="3"></TextField>
+                <Label text="Unit Quantity"/>
+                <TextField hint="Enter Unit Quantity" text="{{temp_product.unit_quantity}}" keyboardType="integer" maxLength="3"></TextField>
+                <Label text="Product Description"/>
+                <TextView hint="Short Description" text="{{temp_product.description}}" autocorrect="false" maxLength="80"></TextView>
+                <Label text="Price"/>
+                <TextField hint="Enter Price" text="{{temp_product.price}}" keyboardType="number"></TextField>
+            </StackLayout>
+        </ScrollView>
+        <Button row="2" class="-primary" text="Confirm" tap="confirmOnTap" hidden="{{isEdit}}"/>
+        <Button row="2" class="-secondary" text="Delete Product" tap="deleteOnTap" hidden="{{!isEdit}}"/>
+        <Button row="3" class="-primary" text="Update Product" tap="updateOnTap" hidden="{{!isEdit}}"/>
+    </GridLayout>
+</Page>

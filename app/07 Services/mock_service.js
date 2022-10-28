@@ -3,6 +3,8 @@ const Lobang = require("~/03 Models/Lobang");
 const User = require("~/03 Models/User");
 const Announcement = require("~/03 Models/Announcement");
 const Product = require("~/03 Models/Product");
+const Order = require("~/03 Models/Order");
+const Rating = require("~/03 Models/Rating");
 
 exports.doMockUserLogin = function (userId, password) {
   return new Promise((resolve, reject) => {
@@ -59,12 +61,12 @@ exports.getMockLobangDetailsByLobangId = function (lobangId) {
     }, 0);
     // no reject for this fx in mock
   });
-}
+};
 
 exports.getMockLobangAnnouncementsByLobangId = function (lobangId) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      let mockGetLobangAnnouncementsResponse = require("~/08 Mock Data/mock_get_joined_lobangs.json");
+      let mockGetLobangAnnouncementsResponse = require("~/08 Mock Data/mock_get_own_hosted_lobangs.json");
       let lobang = mockGetLobangAnnouncementsResponse.lobangs.find((lobang) => lobang.lobang_id == lobangId);
       let announcements = [];
       lobang.announcements.forEach((announcement) => {
@@ -74,12 +76,12 @@ exports.getMockLobangAnnouncementsByLobangId = function (lobangId) {
     }, 0);
     // no reject for this fx in mock
   });
-}
+};
 
 exports.getMockLobangProductsByLobangId = function (lobangId) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      let mockGetLobangProductsResponse = require("~/08 Mock Data/mock_get_joined_lobangs.json");
+      let mockGetLobangProductsResponse = require("~/08 Mock Data/mock_get_own_hosted_lobangs.json");
       let lobang = mockGetLobangProductsResponse.lobangs.find((lobang) => lobang.lobang_id == lobangId);
       let products = [];
       lobang.products.forEach((product) => {
@@ -89,7 +91,7 @@ exports.getMockLobangProductsByLobangId = function (lobangId) {
     }, 0);
     // no reject for this fx in mock
   });
-}
+};
 
 exports.getMockUserByUserId = function() {
   return new Promise((resolve, reject) => {
@@ -100,4 +102,32 @@ exports.getMockUserByUserId = function() {
     }, 0);
     // no reject for this fx in mock
   });
-}
+};
+
+exports.getMockLobangOrdersByLobangId = function() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const mockGetOrdersResponse = require("~/08 Mock Data/mock_get_orders.json");
+      let orders = [];
+      mockGetOrdersResponse.orders.forEach((order) => {
+        orders.push(new Order(order));
+      });
+      resolve(orders);
+    }, 0);
+    // no reject for this fx in mock
+  });
+};
+
+exports.getMockLobangRatingsByLobangId = function() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const mockGetRatingsResponse = require("~/08 Mock Data/mock_get_ratings.json");
+      let ratings = [];
+      mockGetRatingsResponse.ratings.forEach((rating) => {
+        ratings.push(new Rating(rating));
+      });
+      resolve(ratings);
+    }, 0);
+    // no reject for this fx in mock
+  });
+};

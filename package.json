@@ -9,6 +9,7 @@
     "@nativescript/firebase-firestore": "^2.3.4",
     "@nativescript/firebase-storage": "^2.3.4",
     "@nativescript/theme": "~3.0.2",
+    "@react-native-firebase/app": "^15.7.0",
     "nativescript-ui-dataform": "^14.2.0"
   },
   "devDependencies": {

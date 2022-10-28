@@ -1,130 +1,167 @@
 <Page id="lobang_page" loaded="onLoaded" navigatedTo="onNavigatedTo"
+    xmlns:lv="nativescript-ui-listview"
     xmlns:df="nativescript-ui-dataform"
     xmlns:customUI="~/04 Custom UI">
     <GridLayout class="gradientBg" rows="auto,auto,*,auto">
         <GridLayout class="topBar" row="0" columns="40,*">
-            <Image col="0" src="~/06 Assets/00 General/back_arrow.png" height="20" tap="goBack"/>
-            <Label col="1" class="h1" text="Profile" tap="goBack"/>
+            <Image col="0" src="~/06 Assets/00 General/back_arrow.png" height="20" tap="goBack" />
+            <Label col="1" class="h1" text="Profile" tap="goBack" />
         </GridLayout>
 
-        <GridLayout class="lobangInfoContainer" row="1" height="30%" >
-            <GridLayout style="{{lobang.getBackgroundImageCss()}}" >
-            </GridLayout>
+        <GridLayout class="lobangInfoContainer" row="1" height="30%">
+            <GridLayout style="{{lobang.getBackgroundImageCss()}}"></GridLayout>
             <GridLayout rows="*,*,*,*,*,*" columns="auto,5,*" style="padding:10%">
-                <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" text="{{lobang.lobang_name}}"/>
-                <Label row="1" col="0" colSpan="3" text="{{lobang.joined.length + ' people joined'}}"/>
-                <Label row="2" col="2" style="font-weight: bold" text="{{lobang.products.length + ' products'}}"/>
-                <Label row="3" col="2" style="font-weight: bold" text="{{lobang.getTimeLeft()}}"/>
-                <Label row="4" col="2" style="font-weight: bold" text="{{lobang.getTags()}}"/>
-                <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products.png" height="30"/>
-                <Image row="3" col="0" src="~/06 Assets/10 Lobang Icons/time-left.png" height="30"/>
-                <Image row="4" col="0" src="~/06 Assets/10 Lobang Icons/tag.png" height="30"/>
+                <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" text="{{lobang.lobang_name}}" />
+                <Label row="1" col="0" colSpan="3" text="{{lobang.joined.length + ' people joined'}}" />
+                <Label row="2" col="2" style="font-weight: bold" text="{{lobang.products.length + ' products'}}" />
+                <Label row="3" col="2" style="font-weight: bold" text="{{lobang.getTimeLeft()}}" />
+                <Label row="4" col="2" style="font-weight: bold" text="{{lobang.getTags()}}" textWrap="true" />
+                <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products.png" height="30" />
+                <Image row="3" col="0" src="~/06 Assets/10 Lobang Icons/time-left.png" height="30" />
+                <Image row="4" col="0" src="~/06 Assets/10 Lobang Icons/tag.png" height="30" />
             </GridLayout>
         </GridLayout>
 
         <GridLayout class="lobangTabContainer" row="2" rows="60%, *" columns="5,*,5,*,5,*,5">
             <GridLayout row="0" col="1" class="{{tab == 'lobangDetails' ? 'tabHeaderSelected' : 'tabHeaderUnselected'}}" tap="toggleDetailsTab">
-                <Image src="~/06 Assets/10 Lobang Icons/Details.png" height="75"/>
+                <Image src="~/06 Assets/10 Lobang Icons/Details.png" height="75" />
             </GridLayout>
             <GridLayout row="0" col="3" class="{{tab == 'lobangAnnouncements' ? 'tabHeaderSelected' : 'tabHeaderUnselected'}}" tap="toggleAnnouncementsTab">
-                <Image src="~/06 Assets/10 Lobang Icons/Announcements.png" height="75"/>
+                <Image src="~/06 Assets/10 Lobang Icons/Announcements.png" height="75" />
             </GridLayout>
-            <GridLayout row="0" col="5" class="{{tab == 'lobangProducts' ? 'tabHeaderSelected' : 'tabHeaderUnselected'}}" tap="toggleOrdersTab">
-                <Image src="~/06 Assets/10 Lobang Icons/Product.png" height="75"/>
+            <GridLayout row="0" col="5" class="{{tab == 'lobangOrders' ? 'tabHeaderSelected' : 'tabHeaderUnselected'}}" tap="toggleOrdersTab">
+                <Image src="~/06 Assets/10 Lobang Icons/Product.png" height="75" />
             </GridLayout>
 
             <ScrollView hidden="{{tab!='lobangDetails'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
-                <StackLayout style="padding:10%">
-                    <Label text="{{lobang_host.user_id}}"/>
+                <StackLayout>
                     <GridLayout class="hostInfoContainer" columns="*,*,*" height="22%">
                         <Label col="0" style="font-size: 17%; font-weight: bold" text="Hosted by" />
                         <StackLayout col="1" height="100%">
                             <GridLayout class="profilePicContainer">
                                 <Image class="profilePic" src="{{lobang_host.profile_pic_uri}}" stretch="aspectFill"></Image>
                             </GridLayout>
-                            <Label class="h2-large" text="{{lobang_host.first_name + ' ' + lobang_host.last_name}}"/>
-                            <Label class="fineprint" text="{{'@' + lobang_host.user_id}}"/>
                         </StackLayout>
                         <StackLayout col="2">
-                            <GridLayout rows="auto,auto" columns="auto,auto" >
-                                <Label class="h2-large" row="0" col="0" text="{{lobang_host.date_joined | displayDateJoined}}"/>
-                                <Label class="h2-large" row="0" col="1" text="{{lobang_host.getRating()}}"/>
-                                <Label class="fineprint" row="1" col="0" text="Joined"/>
-                                <Label class="fineprint" row="1" col="1" text="Rating"/>
-                            </GridLayout>
-                             <GridLayout columns="auto,auto,10,auto,auto" height="15%">
-                                <Image col="0" height="12" src="{{lobang_host.verified | getVerifiedIcon}}" style="margin-bottom:3"/>
-                                <Label class="fineprint" col="1" text="{{lobang_host.getVerifiedStatusString()}}" style="margin-left:2"/>
-                                <Image col="3" height="12" src="~/06 Assets/06 Profile Page Icons/location-pin.png" style="margin-bottom:3"/>
-                                <Label class="fineprint" col="4" text="{{lobang_host.location}}" style="margin-left:2"/>
+                            <Label style="font-size: 15%" text="{{lobang_host.first_name + ' ' + lobang_host.last_name}}" />
+                            <Label style="font-size: 15%" text="{{'@' + lobang_host.user_id}}" />
+                            <Label style="font-size: 15%" text="{{lobang_host.date_joined | displayDateJoined }}" />
+                            <Label style="font-size: 15%" text="{{lobang_host.getRating()}}" />
+
+                            <GridLayout columns="auto, auto" height="15%">
+                                <Image col="0" height="12" src="{{lobang_host.verified | getVerifiedIcon}}" style="margin-bottom:3" />
+                                <Label class="fineprint" col="1" text="{{lobang_host.getVerifiedStatusString()}}" style="margin-left:2" />
                             </GridLayout>
                         </StackLayout>
                     </GridLayout>
 
                     <GridLayout class="collectionPointContainer" columns="*,*,*,*,*" height="22%">
                         <Label style="font-size: 17%; font-weight: bold" col="0" colSpan="3" text="Collection Point" />
-                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{location}}" />
+                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{lobang.location}}" />
                     </GridLayout>
 
                     <GridLayout class="collectionDatetimeContainer" columns="*,*,*,*,*" height="22%">
                         <Label style="font-size: 17%; font-weight: bold" col="0" colSpan="3" text="Collection Date, Time" />
-                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{collection_date}}" />
+                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{lobang.collection_date}}" />
+                    </GridLayout>
+
+                    <GridLayout class="descriptionContainer" columns="*,*,*,*,*" height="22%">
+                        <Label style="font-size: 17%; font-weight: bold" col="0" colSpan="3" text="Description" />
+                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{lobang.description}}" textWrap="true" />
                     </GridLayout>
                 </StackLayout>
             </ScrollView>
-            
-            <ScrollView hidden="{{tab!='lobangAnnouncements'}}"  row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
+
+            <ScrollView hidden="{{tab!='lobangAnnouncements'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
                 <StackLayout style="padding:10%">
                     <Repeater items="{{announcements}}">
                         <Repeater.itemsLayout>
-                            <StackLayout orientation="vertical"/>
+                            <StackLayout orientation="vertical" />
                         </Repeater.itemsLayout>
                         <Repeater.itemTemplate>
-                            <StackLayout>
-                                <GridLayout class="announcementPanel" >
-                                    <GridLayout rows="*,*,*" columns="3, 3, 3, auto" style="padding:10%">
-                                        <GridLayout class="announcementProfilePicContainer" row="0" col="0" >
-                                            <Image class="announcementProfilePic" src="{{lobang_host.profile_pic_uri}}" stretch="aspectFill" />
-                                        </GridLayout>
-                                        <Label class="h2-large" row="0" col="1" text="{{lobang_host.first_name + ' ' + lobang_host.last_name}}"/>
-                                        <Label class="fineprint" row="0" col="2" text="{{'@' + lobang_host.user_id}}"/>
-                                        <Label class="fineprint" row="0" col="3" text="{{announcement.date}}"/>
-                                        <Label class="h2-large" row="1" colSpan="4" text="{{announcement.description}}"/>
-                                        <GridLayout class="announcementPicContainer" row="2" colSpan="4">
-                                            <Image class="announcementPic" src="{{announcement.pic}}" stretch="aspectFill" />
-                                        </GridLayout>
+                            <GridLayout class="announcementPanel">
+                                <GridLayout rows="50,auto,*" columns="40, auto, auto, *" style="padding:10%">
+                                    <Label class="fineprint" row="0" col="1" text="{{lobang_name}}" />
+                                    <Label class="fineprint" row="0" col="3" text="{{datetime}}" />
+                                    <Label class="fineprint" row="1" col="0" colSpan="4" text="{{description}}" />
+                                    <GridLayout class="announcementPicContainer" row="2" col="0" colSpan="4">
+                                        <Image class="announcementPic" src="{{picture}}" stretch="aspectFill" />
                                     </GridLayout>
                                 </GridLayout>
-                            </StackLayout>
-                        </Repeater.itemTemplate> 
-                    </Repeater>   
+                            </GridLayout>
+                        </Repeater.itemTemplate>
+                    </Repeater>
+                    <Button visibility="{{ lobang_host.user_id === user.user_id ? 'visible' : 'collapsed' }}" text="Create Announcement" class='-primary -rounded-sm' tap='createAnnouncementDialog' />
                 </StackLayout>
             </ScrollView>
 
-            <ScrollView hidden="{{tab!='lobangOrders'}}"  row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
-                <StackLayout hidden ="{{lobang_host.hasOrder(lobang) != true}}" style="padding:10%" >
-                    <Label class="h2-large" text="{{ 'Products (' + products.length + ')' }}"/>
-                    <StackLayout style="padding:10%" >
-                        <Repeater items="{{products}}">
+            <ScrollView hidden="{{tab!='lobangOrders'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
+                <GridLayout visibility="{{ lobang_host.user_id === user.user_id ? 'collapsed' : 'visible' }}">
+                    <StackLayout visibility="{{ !lobang.hasOrder(user.user_id) ? 'visible' : 'collapsed' }}" style="padding:10%">
+                        <Label style="font-size: 17%; font-weight: bold" text="{{ 'Products (' + lobang.products.length + ')' }}" />
+                        <StackLayout style="padding:10%">
+                            <Repeater items="{{lobang.products}}">
+                                <Repeater.itemsLayout>
+                                    <StackLayout orientation="vertical" />
+                                </Repeater.itemsLayout>
+                                <Repeater.itemTemplate>
+                                    <StackLayout>
+                                        <GridLayout class="productPanel">
+                                            <GridLayout rows="*,*" columns="3,auto" style="padding:10%">
+                                                <Label class="h2-large" row="0" colSpan="2" text="{{name}}" />
+                                                <Label class="fineprint" row="1" col="0" text="{{ '$' + price}}" />
+                                                <TextField class="fineprint" row="1" col="1" text="1" />
+                                            </GridLayout>
+                                        </GridLayout>
+                                    </StackLayout>
+                                </Repeater.itemTemplate>
+                            </Repeater>
+                            <Button text="Submit Order" class='-primary -rounded-sm' tap='submitOrderOnTap' />
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout visibility="{{ lobang.hasOrder(user.user_id) ? 'collapsed' : 'visible' }}" style="padding:10%">
+                        <Label style="font-size: 17%; font-weight: bold" text="View Order Summary" />
+                    </StackLayout>
+                </GridLayout>
+                <GridLayout visibility="{{ lobang_host.user_id === user.user_id ? 'visible' : 'collapsed' }}">
+                    <StackLayout style="padding:10%">
+                        <Label style="font-size: 17%; font-weight: bold" text="{{ 'Orders (' + orders.length + ')' }}" />
+                        <Repeater items="{{orders}}">
                             <Repeater.itemsLayout>
-                                <StackLayout orientation="vertical"/>
+                                <StackLayout orientation="vertical" />
                             </Repeater.itemsLayout>
                             <Repeater.itemTemplate>
-                                <StackLayout>
-                                    <GridLayout class="productPanel">
-                                        <GridLayout rows="*,*" columns="3,auto" style="padding:10%">
-                                            <Label class="h2-large" row="0" colSpan="2" text="{{product.name + ' (' + product.unit_qty +')'}}"/>
-                                            <Label class="fineprint" row="1" col="0" text="{{ '$' + product.price}}"/>
-                                            <Label class="fineprint" row="1" col="1" text="1"/>
-                                        </GridLayout>
+                                <StackLayout class="list-group-item">
+                                    <Label style="font-size: 12%; font-weight: bold" text="{{user_id}}" />
+                                    <GridLayout rows="*" columns="3,auto" style="padding:10%">
+                                        <Label class="fineprint" row="0" col="0" text="Product Id" />
+                                        <Label class="fineprint" row="0" col="1" text="Quantity ordered" />
+                                    </GridLayout>
+                                    <Repeater items="{{line_items}}">
+                                        <Repeater.itemsLayout>
+                                            <StackLayout orientation="vertical" />
+                                        </Repeater.itemsLayout>
+                                        <Repeater.itemTemplate>
+                                            <StackLayout>
+                                                <GridLayout rows="*" columns="3,auto" style="padding:10%">
+                                                    <Label class="fineprint" row="0" col="0" text="{{ product_id }}" />
+                                                    <Label class="fineprint" row="0" col="1" text="{{ qty }}" />
+                                                </GridLayout>
+                                            </StackLayout>
+                                        </Repeater.itemTemplate>
+                                    </Repeater>
+                                    <GridLayout rows="*,*" columns="3,auto" style="padding:10%">
+                                        <Label class="fineprint" row="0" col="0" text="Total Price" />
+                                        <Label class="fineprint" row="0" col="1" text="{{total_price}}" />
+                                        <Button row="1" colSpan="2" text="Update Status" class='-primary -rounded-sm' tap='updateOrderStatusDialog' />
                                     </GridLayout>
                                 </StackLayout>
-                            </Repeater.itemTemplate> 
-                        </Repeater>   
+                            </Repeater.itemTemplate>
+                        </Repeater>
                     </StackLayout>
-                </StackLayout>
+                </GridLayout>
             </ScrollView>
         </GridLayout>
-        <customUI:navbar row="3"/>
+        <customUI:navbar row="3" />
     </GridLayout>
 </Page>

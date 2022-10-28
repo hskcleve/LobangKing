@@ -85,7 +85,6 @@
 
 .announcementPanel {
   color: white;
-  border-width: 0, 0.5, 0.5, 0;
   margin: 5;
   background-color: rgb(217, 212, 212);
   border-radius: 10%;
@@ -108,20 +107,32 @@
 .announcementPicContainer {
   border-radius: 10%;
   border-width: 0, 0.5, 0.5, 0;
-  height: 30;
-  width: 30;
 }
 
 .announcementPic {
   border-radius: 10%;
-  border-width: 0, 0.5, 0.5, 0;
-  height: 30;
-  width: 30;
 }
 
 .productPanel {
+  color: black;
+  margin: 5;
+  background-color: rgb(217, 212, 212);
+  border-radius: 10%;
+}
+
+.descriptionContainer {
+  padding: 20%;
+}
+
+.orderPanel {
+  color: black;
+  margin: 5;
+  background-color: rgb(217, 212, 212);
+  border-radius: 10%;
+}
+
+.orderContainer {
   color: white;
-  border-width: 0, 0.5, 0.5, 0;
   margin: 5;
   background-color: rgb(217, 212, 212);
   border-radius: 10%;

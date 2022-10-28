@@ -51,6 +51,7 @@ exports.doUserLogin = function (userId, password) {
     query
       .get()
       .then((querySnapshot) => {
+        console.log(querySnapshot);
         if (querySnapshot.size > 0) {
           console.log(querySnapshot.docs[0].data().password);
           resolve(new User(querySnapshot.docs[0].data()));

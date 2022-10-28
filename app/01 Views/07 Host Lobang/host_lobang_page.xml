@@ -1,0 +1,107 @@
+<Page id="host_lobang_page" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:df="nativescript-ui-dataform" xmlns:customUI="~/04 Custom UI">
+    <GridLayout class="gradientBg" rows="auto,auto,*,auto" height="100%">
+        <GridLayout class="topBar" row="0" columns="40,*">
+            <Image col="0" src="~/06 Assets/00 General/back_arrow.png" height="20" tap="goBack"/>
+            <Label col="1" class="h1" text="GroupBuy" tap="goBack"/>
+        </GridLayout>
+
+        <GridLayout class="hostLobangForm" row="1" height="80%" rows="auto,*,auto">
+            <Label row="0" class="h1" text="Create Lobang"/>
+
+            <GridLayout row="1" rows="auto,auto,auto" hidden="{{status != 'categorySelect'}}">
+                <Label row="0" class="h2" style="margin-top:10%" text="Select Category"/>
+                <Label row="1" class="italic fineprint" style="margin-left:2%" text="You may select up to 3 categories"/>
+                <ScrollView row="2">
+                <Repeater items="{{categories}}" itemTemplateSelector="determineIfSelected">
+                    <Repeater.itemsLayout>
+                        <FlexboxLayout style="flex-wrap:wrap"/>
+                    </Repeater.itemsLayout>
+                    <Repeater.itemTemplates>
+                        <template key="selected">
+                            <StackLayout class="categoryChipSelected" tap="addCategoryOnTap">
+                                <Label text="{{$value}}"/>
+                            </StackLayout>
+                        </template>
+                        <template key="unselected">
+                            <StackLayout class="categoryChipDefault" tap="addCategoryOnTap">
+                                <Label text="{{$value}}"/>
+                            </StackLayout>
+                        </template>
+                    </Repeater.itemTemplates>
+                </Repeater>
+                </ScrollView>
+            </GridLayout>
+
+            <StackLayout row="1" hidden="{{status != 'detailsInput'}}">
+                <Label class="h2" style="margin-top:10%" text="Details"/>
+                <ScrollView height="100%">
+                    <StackLayout style="padding:5%">
+                        <Label text="Lobang Name"/>
+                        <TextField hint="Enter Lobang Name" text="{{temp_lobang.lobang_name}}" autocorrect="false" maxLength="30"></TextField>
+                        <Label text="Minimum Order"/>
+                        <TextField hint="Enter Minimum Order" text="{{temp_lobang.min_order}}" keyboardType="integer" maxLength="3"></TextField>
+                        <Label text="Enter Description"/>
+                        <TextView hint="Short Description" text="{{temp_lobang.description}}" autocorrect="false" maxLength="250"></TextView>
+                        <Label text="Collection Location"/>
+                        <TextView hint="Enter Location" text="{{temp_lobang.location}}" editable="false" tap="chooseLocation"/>
+                        <Label text="Collection Date"/>
+                        <TextView hint="Enter Date" text="{{temp_lobang.collection_date | displayDate}}" editable="false" tap="chooseCollectionDate"/>
+                        <Label text="Lobang Deadline"/>
+                        <TextView hint="Enter Date" text="{{temp_lobang.last_order_date | displayDate}}" editable="false" tap="chooseDeadlineDate"/>
+                        <Label text="Cover Picture URL"/>
+                        <TextField hint="URL" text="{{temp_lobang.coverPicture}}" autocorrect="false"></TextField>
+                        <Label text="Tags (Optional)"/>
+                        <GridLayout columns="*,50">
+                            <TextField id="addTagBox" col="0" maxLength="10" hint="Enter Tag"/>
+                            <Button col="1" class="-primary" text="Add" tap="addTagOnTap" height="35"/>
+                        </GridLayout>
+                        <FlexboxLayout style="margin-bottom:5">
+                            <Repeater items="{{temp_lobang.tags}}">
+                                <Repeater.itemsLayout>
+                                    <FlexboxLayout style="flex-wrap:wrap"/>
+                                </Repeater.itemsLayout>
+                                <Repeater.itemTemplate>
+                                    <GridLayout class="categoryChipSelected" columns="auto,3,10">
+                                        <Label col="0" text="{{$value}}"/>
+                                        <Image col="2" height="10" src="~/06 Assets/00 General/close.png" tap="removeTagOnTap"/>
+                                    </GridLayout>
+                                </Repeater.itemTemplate>
+                            </Repeater>
+                        </FlexboxLayout>
+                        <Label text="Products"/>
+                        <ScrollView orientation="horizontal">
+                            <!--Repeater items="{{temp_lobang.products}}"-->
+                            <Repeater items="{{mockProducts}}">
+                                <Repeater.itemsLayout>
+                                    <StackLayout orientation="horizontal"/>
+                                </Repeater.itemsLayout>
+                                <Repeater.itemTemplate>
+                                    <StackLayout class="{{isAddButton ? 'largeAddButton' : 'productContainer'}}" height="150" width="150">
+                                        <GridLayout tap="productEditOnTap" style="padding:3" rows="auto,*,auto,auto" columns="20,10,*" hidden="{{isAddButton ? 'true' : 'false'}}">
+                                            <Label style="font-size:12;font-weight:bold" row="0" colSpan="3" text="{{name != undefined ? name : ''}}" textWrap="true"/>
+                                            <Label row="1" colSpan="3" text="{{description != undefined ? description : ''}}" textWrap="true"/>
+                                            <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products_black.png" height="17"/>
+                                            <Image row="3" col="0" src="~/06 Assets/10 Lobang Icons/price.png" height="17"/>
+                                            <Label style="font-size:12;font-weight:bold" row="2" col="2" text="{{max_quantity != undefined ? max_quantity + ' in stock' : ''}}"/>
+                                            <Label style="font-size:12;font-weight:bold" row="3" col="2" text="{{price != undefined ? '$' + price : ''}}"/>
+                                        </GridLayout>
+                                        <FlexboxLayout style="justify-content:center;align-items:center" hidden="{{isAddButton ? 'false' : 'true'}}" height="150" width="150" tap="addProductOnTap">
+                                            <Image src="~/06 Assets/00 General/add.png" height="50"/>
+                                        </FlexboxLayout>
+                                    </StackLayout>
+                                </Repeater.itemTemplate>
+                            </Repeater>
+                        </ScrollView>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+
+            <GridLayout row="2" columns="auto,*,auto">
+                <Button col="0" class="-secondary" text="Back" tap="backOnTap" hidden="{{status != 'detailsInput'}}"/>
+                <Button col="2" class="-primary" text="Next" tap="nextOnTap"/>
+            </GridLayout>
+        </GridLayout>
+
+        <customUI:navbar row="3"/>
+    </GridLayout>
+</Page>

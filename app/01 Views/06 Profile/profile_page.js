@@ -8,16 +8,18 @@ var vm;
 exports.onLoaded = function (args) {
   page = args.object;
   page.actionBarHidden = true;
-};
-
-exports.onNavigatedTo = function (args) {
   const nvc = page.navigationContext;
   vm = new ProfilePageViewModel();
-  page.bindingContext = vm;
+  
   vm.set("user", nvc.user);
   vm.set("temp_user", Object.assign({}, nvc.user));
   vm.getHostedLobangs();
   vm.getJoinedLobangs();
+  page.bindingContext = vm;
+};
+
+exports.onNavigatedTo = function (args) {
+ 
 };
 
 exports.goBack = function () {

@@ -4,25 +4,28 @@ function Lobang(info) {
   info = info || {
     lobang_id: undefined,
     lobang_name: undefined,
-    categories: undefined,
+    createdBy: undefined,
+    categories: [],
     description: undefined,
     min_order: undefined,
     location: undefined,
     collection_date: undefined,
     last_order_date: undefined,
-    tags: undefined,
-    products: undefined,
-    announcements: undefined,
+    tags: [],
+    products: [],
+    announcements: [],
+    orders: [],
+    ratings: [],
     coverPicture: undefined,
-    lobang_host: undefined,
     coins: undefined,
-    joined: undefined,
+    joined: [],
     lobang_status: undefined,
   };
 
   var lobangModel = observableModule.fromObject({
     lobang_id: info.lobang_id,
     lobang_name: info.lobang_name,
+    createdBy: info.createdBy,
     categories: info.categories,
     description: info.description,
     min_order: info.min_order,
@@ -32,8 +35,9 @@ function Lobang(info) {
     tags: info.tags,
     products: info.products,
     announcements: info.announcements,
+    orders: info.orders,
+    ratings: info.ratings,
     coverPicture: info.coverPicture,
-    lobang_host: info.lobang_host,
     coins: info.coins,
     joined: info.joined,
     lobang_status: info.lobang_status,
@@ -60,7 +64,7 @@ function Lobang(info) {
   lobangModel.getNumProducts = function() {
     var num = lobangModel.products.length;
     return num;
-  }
+  };
 
   lobangModel.getTimeLeft = function () {
     const timeLeft =
@@ -82,7 +86,20 @@ function Lobang(info) {
   lobangModel.getNumUsersJoined = function() {
     var num = lobangModel.joined.length;
     return num;
-  }
+  };
+
+  lobangModel.belongsToCategory = function (category) {
+    return lobangModel.categories.includes(category);
+  };
+
+  lobangModel.hasOrder = function (userId) {
+    for (order of lobangModel.joined) {
+      if (userId === order) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   return lobangModel;
 }

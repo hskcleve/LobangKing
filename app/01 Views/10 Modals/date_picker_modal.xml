@@ -1,0 +1,11 @@
+<Page id="datePickerModal" shownModally="onShownModally">
+    <GridLayout rows="auto,*" height="45%">
+        <FlexboxLayout class="modalHeader">
+            <Label row="0" text="{{headerText}}"/>
+        </FlexboxLayout>
+        <StackLayout row="1" style="padding:10%">
+            <DatePicker id="datePicker"></DatePicker>
+            <Button row="2" class="-primary" text="Confirm" tap="confirmOnTap"/>
+        </StackLayout>
+    </GridLayout>
+</Page>
