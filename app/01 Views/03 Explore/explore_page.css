@@ -32,20 +32,20 @@
   margin: 25px;
 }
 
+.headers {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 25px;
+}
+
 .categoryImage {
-  height: 150px;
-  width: 150px;
+  height: 200px;
+  width: 200px;
   object-fit: contain;
 }
 
 .topRowContainer {
   background-color: white;
-}
-
-.searchTypeLabel {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  height: fit-content;
 }
 
 .lobangPanel {
@@ -54,4 +54,31 @@
   margin: 5;
   background-color: rgb(52, 52, 52);
   border-radius: 10%;
+  width: 230;
+}
+
+.searchLobangPanel {
+  color: white;
+  border-width: 0, 0.5, 0.5, 0;
+  margin: 5;
+  background-color: rgb(52, 52, 52);
+  border-radius: 10%;
+}
+
+.communityPanel {
+  color: white;
+  border-width: 0, 0.5, 0.5, 0;
+  margin: 5;
+  background-color: rgb(52, 52, 52);
+  border-radius: 10%;
+  width: 150;
+}
+
+.searchCommunityPanel {
+  color: white;
+  border-width: 0, 0.5, 0.5, 0;
+  margin: 5;
+  background-color: rgb(52, 52, 52);
+  border-radius: 10%;
+  height: 100;
 }
