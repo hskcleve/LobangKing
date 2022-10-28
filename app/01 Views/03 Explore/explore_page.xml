@@ -1,16 +1,11 @@
 <Page id="explore_page" loaded="onLoaded" navigatedTo="onNavigatedTo" actionBarHidden="true" xmlns:customUI="~/04 Custom UI">
     <GridLayout class="gradientBg" rows="auto,10,*,auto">
 
-        <GridLayout class="topRowContainer" row="0" rows="auto" columns="*,5,3*" style="padding-top:20%; padding-right:20%; padding-left:20%">
-            <GridLayout col="0">
-                <Label textWrap="true" text="{{'Search by: ' + searchTypePicked}}" />
-            </GridLayout>
-            <GridLayout col="2">
-                <GridLayout rows="auto" columns="2*,*">
-                    <TextField id="searchBar" hint="Enter search term " text="{{sbText}}" tap="toggleRecentSearch" row="0" col="0" />
-                    <Button text="Submit" tap="searchBySearchTerm" col="1" />
-                </GridLayout>
-            </GridLayout>
+        <GridLayout class="topRowContainer" row="0" rows="auto" columns="auto,5,2*,*" style="padding-top:20%; padding-right:20%; padding-left:20%">
+            <Image src="~/06 Assets/03 Explore Page Icons/filter.png" height="30" tap="toggleRecentSearch" row="0" col="0" />
+            <TextField id="searchBar" hint="Enter search term " text="{{sbText}}" row="0" col="2" />
+            <Button text="Submit" tap="searchBySearchTerm" row="0" col="3" />
+            
         </GridLayout>
 
         <GridLayout hidden="{{sbText.length != 0 &amp;&amp; lobangsInCategory == null}}" row="2" rows="*,10,2*,10,2*,10">
