@@ -32,6 +32,12 @@
   margin: 25px;
 }
 
+.headers {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 25px;
+}
+
 .categoryImage {
   height: 200px;
   width: 200px;
@@ -40,12 +46,6 @@
 
 .topRowContainer {
   background-color: white;
-}
-
-.searchTypeLabel {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  height: fit-content;
 }
 
 .lobangPanel {

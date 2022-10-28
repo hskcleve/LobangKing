@@ -3,7 +3,7 @@
 
         <GridLayout class="topRowContainer" row="0" rows="auto" columns="*,5,3*" style="padding-top:20%; padding-right:20%; padding-left:20%">
             <GridLayout col="0">
-                <Label textWrap="true" text="{{'Search by: ' + searchTypePicked}}" class="searchTypeLabel" />
+                <Label textWrap="true" text="{{'Search by: ' + searchTypePicked}}" />
             </GridLayout>
             <GridLayout col="2">
                 <GridLayout rows="auto" columns="2*,*">
@@ -86,7 +86,7 @@
             </GridLayout>
         </GridLayout>
 
-        <GridLayout hidden="{{sbText.length == 0}}" id="searchResultsContainer" row="2">
+        <GridLayout hidden="{{sbText.length == 0 &amp;&amp; lobangsInCategory == null}}" id="searchResultsContainer" row="2">
             <GridLayout hidden="{{searchTypePicked != 'GroupBuy'}}" class="popularGroupbuysContainer" rows="auto,*" columns="*">
                 <Label class="containerHeaders" text="{{displayResults.length + ' Result(s) Matching Your Search:'}}" />
                 <ScrollView row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
@@ -144,7 +144,7 @@
             <GridLayout class="popularGroupbuysContainer" rows="auto,*" columns="*">
                 <GridLayout columns="5,auto,10,*" row="0">
                     <Image col="1" src="~/06 Assets/00 General/back_arrow.png" height="20" tap="goBack" />
-                    <Label col="3" text="{{'Lobangs In ' + categoryToDisplay + ' Category:'}}" textWrap="true" class="containerHeaders" />
+                    <Label col="3" text="{{categoryToDisplay + ' Lobangs:'}}" textWrap="true" class="headers" />
                 </GridLayout>
                 <ScrollView row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
                     <StackLayout style="padding:10%">
@@ -154,7 +154,7 @@
                                 <StackLayout orientation="vertical" />
                             </Repeater.itemsLayout>
                             <Repeater.itemTemplate>
-                                <GridLayout class="lobangPanel" tap="lobangOnTap">
+                                <GridLayout class="searchLobangPanel" tap="lobangOnTap">
                                     <GridLayout style="{{getBackgroundImageCss()}}"></GridLayout>
                                     <GridLayout rows="*,*,*,*,*" columns="15,5,*" style="padding:10%">
                                         <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" text="{{lobang_name}}" />

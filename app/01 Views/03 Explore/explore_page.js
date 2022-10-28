@@ -9,7 +9,7 @@ exports.onLoaded = function (args) {
 
 exports.onNavigatedTo = function (args) {
   const nvc = page.navigationContext;
-  vm = vm ? vm : new ExplorePageViewModel();
+  vm = new ExplorePageViewModel();
   page.bindingContext = vm;
   vm.set("user", nvc.user);
   vm.set("temp_user", Object.assign({}, nvc.user));

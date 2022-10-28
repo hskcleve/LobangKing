@@ -64,11 +64,9 @@ function ExplorePageViewModel() {
     console.log("set categoryToDisplay var as: " + explorePageViewModel.categoryToDisplay);
     getGroupbuys().then((lobangs) => {
       console.log("back in vm!");
-      const inCat = lobangs.filter((item) => {
-        console.log(item.categories);
-        console.log(item.categories.includes(explorePageViewModel.categoryToDisplay));
+      const inCat = lobangs.filter((item) => 
         item.categories.includes(category)
-      });
+      );
       console.log("after filter by cat:");
       console.log(inCat);
       inCat.sort((a, b) => {
