@@ -23,11 +23,11 @@
                                 <StackLayout orientation="horizontal" />
                             </Repeater.itemsLayout>
                             <Repeater.itemTemplate>
-                                <GridLayout class="categoryPanel" tap="lobangsInCategoryOnTap">
-                                    <GridLayout rows="*,auto" columns="auto,5,*" style="padding:10%">
-                                        <Image row="0" class="categoryImage" src="{{picture_url}}" />
-                                        <Label row="1" col="0" style="font-size: 15%" text="{{category_name}}" />
-                                    </GridLayout>
+                                <GridLayout style="margin-right:5; padding:2" tap="lobangsInCategoryOnTap">
+                                    <StackLayout>
+                                        <Image row="0" class="categoryImage" height="30" src="{{picture_url}}" />
+                                        <Label row="1" col="0" style="font-size: 15%; text-align:center" text="{{category_name}}" />
+                                    </StackLayout>
                                 </GridLayout>
                             </Repeater.itemTemplate>
                         </Repeater>
