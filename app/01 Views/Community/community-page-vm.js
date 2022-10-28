@@ -9,12 +9,7 @@ const {
 } = require("~/07 Services/communities-service");
 
 const displayPostedTime = function (datetimePosted) {
-  datetimePosted = new Date(datetimePosted);
-  return (
-    datetimePosted.toLocaleString().split(" ")[1] +
-    " '" +
-    (datetimePosted.getYear() - 100)
-  );
+ return datetimePosted.toDate();
 };
 
 function CommunityPageViewModel() {

@@ -37,8 +37,13 @@
   border-width: 2px;
   background-color: white;
   margin: 5;
+  padding: 5;
 }
 
 Label {
     margin-bottom: 10;
+}
+
+.post-img {
+  height: 650px;
 }

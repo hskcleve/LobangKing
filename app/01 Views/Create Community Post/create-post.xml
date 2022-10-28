@@ -14,13 +14,13 @@
         <Label class="h1 featured-text" row="2" text="Create New Post" textAlignment="center" />
         <!-- text area to write post -->
         <GridLayout row="3">
-            <TextView class="textbox" hint="Enter text here" />
+            <TextView class="textbox" hint="Enter text here" id="post-body" />
         </GridLayout>
         <!-- text area to paste image url -->
         <GridLayout row="4">
-            <TextView class="image-url" hint="Paste Image URL here" />
+            <TextView class="image-url" hint="Paste Image URL here" id="post-image" />
         </GridLayout>
-        <Button class="post-btn" row="5" text="Post" />
+        <Button class="post-btn" row="5" text="Post" tap="createPostOnTap" />
         <customUI:navbar row="6" />
     </GridLayout>
 </Page>

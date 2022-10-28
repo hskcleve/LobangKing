@@ -1,4 +1,5 @@
 const CreatePostViewModel = require("~/01 Views/Create Community Post/create-post-vm");
+const frameModule = require("@nativescript/core/ui/frame");
 
 var page;
 var vm;
@@ -17,7 +18,10 @@ exports.onNavigatedTo = function (args) {
   vm.set("community_image", nvc.community_image);
 };
 
+exports.goBack = function () {
+  frameModule.Frame.topmost().goBack();
+};
+
 exports.createPostOnTap = function (args) {
   vm.createPost(args);
 };
-

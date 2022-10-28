@@ -3,7 +3,7 @@
         <!-- title + back button -->
         <GridLayout class="topBar" row="0" columns="30,*">
             <Image row="0" col="0" src="~/06 Assets/00 General/back_arrow.png" height="10" tap="goBack" />
-            <Label row="0" col="1" class="h2" text="Back" tap="logoutOnTap" />
+            <Label row="0" col="1" class="h2" text="Back" tap="goBack" />
         </GridLayout>
         <!-- announcements -->
         <GridLayout row="1" class="announcements-container">
@@ -16,8 +16,9 @@
                         </Repeater.itemsLayout>
                         <Repeater.itemTemplate>
                             <GridLayout class="announcement-card" rows="auto,*" columns="*,*">
-                                <Label class="card-content" col="0" row="0" text="{{lobang_name}}" />
+                                <Label class="card-content" textWrap="true" col="0" row="0" text="{{lobang_name}}" />
                                 <Label class="card-content description" row="1" colSpan="2" text="{{description}}" textWrap="true" />
+                                <Label class="date" row="0" col="1" text="{{datetime | displayDateTime}}" />
                             </GridLayout>
                         </Repeater.itemTemplate>
                     </Repeater>

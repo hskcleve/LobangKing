@@ -14,8 +14,8 @@
                 <StackLayout rows="auto,*">
                     <Label class="container-title" text="Announcements" textAlignment="center"  row="0" />
                     <GridLayout class="featured-announcement" row="1" rows="auto,*" columns="*,*" tap="communitiesOnTap">
-                        <Label class="h2" row="0" text="{{featured_announcement.lobang_name}}" />
-                        <Label row="1" text="{{featured_announcement.description}}" textWrap="true" />
+                        <Label class="card-content" row="0" text="{{featured_announcement.lobang_name}}" textWrap="true" />
+                        <Label class="card-content description" row="1" text="{{featured_announcement.description}}" textWrap="true" colSpan="2" />
                     </GridLayout>
                 </StackLayout>
         </GridLayout>

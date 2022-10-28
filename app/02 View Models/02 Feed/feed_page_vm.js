@@ -22,9 +22,8 @@ function FeedPageViewModel() {
         feedPageViewModel.set("posts", feedPostResult);
       });
       getAnnouncements(feedPageViewModel.user.user_id).then((res) => {
-        res[0].then((result) => {
-          feedPageViewModel.set("featured_announcement", result.data());
-        });
+        console.log(res);
+        feedPageViewModel.set("featured_announcement", res[0]);
       });
     }
   };

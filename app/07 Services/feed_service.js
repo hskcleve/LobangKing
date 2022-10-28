@@ -4,6 +4,7 @@ const { Firestore } = require("@nativescript/firebase-firestore");
 
 const firestore = new Firestore();
 const error_messages = require("~/00 Constants/error_messages.json");
+const MyCommsViewModel = require("~/01 Views/MyCommunities/my-comm-vm");
 const Post = require("~/03 Models/Post");
 
 exports.getFeedPosts = function (userId) {
@@ -27,46 +28,36 @@ exports.getFeedPosts = function (userId) {
   });
 };
 
-// exports.getAnnouncements = function (userId) {
-//   return new Promise((resolve, reject) => {
-//     let getAnnouncementsResponse = [];
-//     firestore
-//       .collection("lobangs")
-//       .where("joined", "array-contains", userId)
-//       .get()
-//       .then((querySnapshot) => {
-//         querySnapshot.forEach((doc) => {
-//           const announcements = doc.data().announcements;
-//           for (const a of announcements) {
-//             a.get().then((res) => {
-//               getAnnouncementsResponse.push(res.data());
-//               resolve(getAnnouncementsResponse);
-//             });
-//           }
-//         });
-//       })
-//       .catch((firebaseError) => {
-//         console.log(firebaseError);
-//         reject(firebaseError);
-//       });
-//   });
-// };
-
 exports.getAnnouncements = function (userId) {
   return new Promise((resolve, reject) => {
-    let getAnnouncementsResponse = [];
+    let announcementsResponse = [];
+    let promiseArray = [];
     firestore
       .collection("lobangs")
       .where("joined", "array-contains", userId)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          const announcements = doc.data().announcements;
-          for (const a of announcements) {
-            getAnnouncementsResponse.push(a.get()); // this will become array of Promises
-          }
-          resolve(getAnnouncementsResponse);
+          // console.log(doc.ref);
+          const lobangPromise = firestore
+            .collection("announcements")
+            .where("lobang", "==", doc.ref)
+            .get();
+          promiseArray.push(lobangPromise);
         });
+        Promise.all(promiseArray)
+          .then((snapshots) => {
+            snapshots.forEach((snapshot) => {
+              snapshot.forEach((doc) => {
+                announcementsResponse.push(doc.data());
+              });
+            });
+            resolve(announcementsResponse);
+          })
+          .catch((firebaseError) => {
+            console.log(firebaseError);
+            reject(firebaseError);
+          });
       })
       .catch((firebaseError) => {
         console.log(firebaseError);
@@ -74,4 +65,3 @@ exports.getAnnouncements = function (userId) {
       });
   });
 };
-

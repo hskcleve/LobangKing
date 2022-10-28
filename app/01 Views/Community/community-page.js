@@ -22,6 +22,10 @@ exports.onNavigatedTo = function (args) {
   console.log("At Community Page: " + vm.user.user_id);
 };
 
+exports.goBack = function () {
+  frameModule.Frame.topmost().goBack();
+};
+
 exports.navToCreatePost = function (args) {
   const frame = frameModule.Frame.topmost();
   const navigationEntry = {

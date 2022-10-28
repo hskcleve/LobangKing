@@ -7,6 +7,7 @@ function MyCommsViewModel() {
   var myCommsViewModel = observableModule.fromObject({
     communities: undefined,
     user: undefined,
+    sbText: "",
   });
 
   myCommsViewModel.load = function () {
@@ -15,6 +16,8 @@ function MyCommsViewModel() {
       myCommsViewModel.set("communities", arr);
     } else {
       getCommunitiesByUserId(myCommsViewModel.user.user_id).then((res) => {
+        // console.log("Client side communities");
+        // console.log(res);
         myCommsViewModel.set("communities", res);
       });
     }
@@ -24,6 +27,17 @@ function MyCommsViewModel() {
     while (myCommsViewModel.length) {
       myCommsViewModel.pop();
     }
+  };
+
+  myCommsViewModel.doSearch = function () {
+    getCommunitiesByUserId(myCommsViewModel.user.user_id).then(
+      (communities) => {
+        const result = communities.filter((item) =>
+          item.name.toLowerCase().includes(myCommsViewModel.sbText.toLowerCase())
+        );
+        myCommsViewModel.set("communities", result);
+      }
+    );
   };
 
   return myCommsViewModel;

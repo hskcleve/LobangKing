@@ -1,4 +1,5 @@
 const AnnouncementsViewModel = require("~/01 Views/Announcements/announcements-vm");
+const frameModule = require("@nativescript/core/ui/frame");
 
 var page;
 var vm;
@@ -6,6 +7,10 @@ var vm;
 exports.onLoaded = function (args) {
   page = args.object;
   page.actionBarHidden = true;
+};
+
+exports.goBack = function () {
+  frameModule.Frame.topmost().goBack();
 };
 
 exports.onNavigatedTo = function (args) {

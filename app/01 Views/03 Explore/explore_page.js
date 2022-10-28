@@ -78,10 +78,7 @@ exports.categoryListOnTap = function (args) {
 };
 
 exports.searchBySearchTerm = function (args) {
-  vm.doSearchBySearchTerm(() => {
-    page.bindingContext = null;
-    page.bindingContext = vm;
-  });
+  vm.doSearchBySearchTerm();
 
   toggleRecentSearchLocal();
 };

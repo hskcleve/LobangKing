@@ -1,25 +1,27 @@
 const observableModule = require("@nativescript/core/data/observable");
 const { getAnnouncements } = require("~/07 Services/feed_service");
 
+const displayDateTime = function (dateJoined) {
+  return dateJoined.toDate();
+};
+
 function AnnouncementsViewModel() {
   var announcementsViewModel = observableModule.fromObject({
     user: undefined,
     announcements: undefined,
+    displayDateTime,
   });
 
   announcementsViewModel.load = function () {
     if (process.env.USE_MOCK == "true") {
       console.log("Mock Announcements");
     } else {
-      let results = [];
       getAnnouncements(announcementsViewModel.user.user_id).then(
         (announcementsResponse) => {
-          for (const a of announcementsResponse) {
-            a.then((res) => {
-              results.push(res.data());
-              console.log(announcementsViewModel.announcements);
-              announcementsViewModel.set("announcements", results);
-            });
+          // console.log("client side");
+          // console.log(announcementsResponse);
+          if (announcementsResponse.length > 0) {
+            announcementsViewModel.set("announcements", announcementsResponse);
           }
         }
       );

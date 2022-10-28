@@ -2,12 +2,7 @@
 // and getting posts in the community
 
 const { firebase } = require("@nativescript/firebase-core");
-const {
-  Firestore,
-  QuerySnapshot,
-  FieldValue,
-  arrayUnion,
-} = require("@nativescript/firebase-firestore");
+const { Firestore, FieldValue } = require("@nativescript/firebase-firestore");
 
 const firestore = new Firestore();
 const Community = require("~/03 Models/Community");
@@ -17,26 +12,15 @@ exports.getCommunitiesByUserId = function (userId) {
   return new Promise((resolve, reject) => {
     let getCommunitiesResponse = [];
     firestore
-      .collection("users")
-      .where("user_id", "==", userId)
+      .collection("communities")
+      .where("members", "array-contains", userId)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          const communityIdArray = doc.data().communities_joined;
-          console.log(communityIdArray);
-          for (const id of communityIdArray) {
-            firestore
-              .collection("communities")
-              .where("community_id", "==", id)
-              .get()
-              .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                  getCommunitiesResponse.push(doc.data());
-                });
-                resolve(getCommunitiesResponse);
-              });
-          }
+          const communitiesJoined = doc.data();
+          getCommunitiesResponse.push(communitiesJoined);
         });
+        resolve(getCommunitiesResponse);
       })
       .catch((firebaseError) => {
         console.log(firebaseError);

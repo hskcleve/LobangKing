@@ -24,7 +24,8 @@
                         <GridLayout class="card" rows="*,*,*" columns="*, *">
                             <Label row="0" text="{{user_id}}" />
                             <Label row="1" text="{{body}}" textWrap="true" colSpan="2" />
-                            <Image row="2" stretch="aspectFill" colSpan="2" src="{{image}}" />
+                            <Label row="0" text="{{time_posted}}" col="1" />
+                            <Image row="2" stretch="aspectFill" colSpan="2" src="{{image}}" class="post-img" />
                         </GridLayout>
                     </Repeater.itemTemplate>
                 </Repeater>

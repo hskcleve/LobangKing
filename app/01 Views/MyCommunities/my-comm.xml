@@ -1,12 +1,9 @@
 <Page id="my_communities" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:customUI="~/04 Custom UI">
-    <ActionBar>
-        <Label class="title-mycomms" text="My Communities" />
-    </ActionBar>
-
     <GridLayout class="gradientBg" rows="auto,auto,*,auto">
         <!-- search bar -->
         <GridLayout row="0">
-            <TextField class="searchbar" row="0" hint="Search my communities" textWrap="true" />
+            <TextView class="searchbar" row="0" hint="Search my communities" textWrap="true" textChange="onTextChange" 
+            text="{{sbText}}" />
         </GridLayout>
         <Label class="h2" row="1" text="My Communities" textAlignment="center" />
         <!-- my communities -->
@@ -17,7 +14,7 @@
                         <StackLayout orientation="vertical" />
                     </Repeater.itemsLayout>
                     <Repeater.itemTemplate>
-                        <GridLayout class="community"> 
+                        <GridLayout class="community">
                             <Image class="community-img" src="{{image}}" stretch="aspectFill" param="{{name}}" imageToPass="{{image}}"
                                 tap="selectCommunityOnTap" />
                             <Label class="community-name" text="{{name}}" textAlignment="center" textWrap="true" />
