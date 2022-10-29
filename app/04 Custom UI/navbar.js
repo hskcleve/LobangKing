@@ -25,7 +25,14 @@ exports.homeOnTap = function () {
 };
 
 exports.groupsOnTap = function () {
-  alert("Todo: wiring to group page (WG)");
+  const frame = frameModule.Frame.topmost();
+  const navigationEntry = {
+    moduleName: "~/01 Views/05 MyCommunities/my-comm",
+    context: {
+      user: frame.currentPage.bindingContext.user,
+    },
+  };
+  frame.navigate(navigationEntry);
 };
 
 exports.groupbuyOnTap = function () {

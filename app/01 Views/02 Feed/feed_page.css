@@ -1,0 +1,54 @@
+.card {
+  border-color: black;
+  border-width: 2px;
+  background-color: #d9d9d9;
+  margin: 10px;
+  border-radius: 10%;
+}
+
+.posts-container {
+  background-color: white;
+  height: 100%;
+  border-width: 0, 0, 0, 0;
+  border-color: rgb(184, 184, 184);
+  color: black;
+}
+
+Label {
+  margin: 20px;
+}
+
+.container-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.announcements-container {
+  background-color: white;
+  height: 350px;
+  border-width: 0, 0, 0, 0;
+  border-color: rgb(184, 184, 184);
+  color: black;
+  margin-bottom: 20px;
+}
+
+.featured-announcement {
+  border-color: black;
+  border-width: 2px;
+  background-color: #d9d9d9;
+  margin: 10px;
+  border-radius: 10%;
+}
+
+.description {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card-content {
+  margin: 10px;
+}
+
+.post-img {
+  height: 650px;
+}

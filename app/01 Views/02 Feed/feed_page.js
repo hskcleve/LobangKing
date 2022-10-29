@@ -14,6 +14,8 @@ exports.onNavigatedTo = function (args) {
   vm = new FeedPageViewModel();
   vm.user = nvc.user;
   page.bindingContext = vm;
+  vm.empty();
+  vm.load();
 };
 
 exports.logoutOnTap = function (args) {
@@ -21,6 +23,18 @@ exports.logoutOnTap = function (args) {
   const navigationEntry = {
     moduleName: "~/01 Views/01 Login/login_page",
     clearHistory: true,
+  };
+  frame.navigate(navigationEntry);
+};
+
+exports.announcementsOnTap = function (args) {
+  // navigate to view announcements page
+  const frame = frameModule.Frame.topmost();
+  const navigationEntry = {
+    moduleName: "~/01 Views/04 Announcements/announcements",
+    context: {
+      user: vm.user,
+    },
   };
   frame.navigate(navigationEntry);
 };
