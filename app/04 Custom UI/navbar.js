@@ -27,7 +27,7 @@ exports.homeOnTap = function () {
 exports.groupsOnTap = function () {
   const frame = frameModule.Frame.topmost();
   const navigationEntry = {
-    moduleName: "~/01 Views/MyCommunities/my-comm",
+    moduleName: "~/01 Views/05 MyCommunities/my-comm",
     context: {
       user: frame.currentPage.bindingContext.user,
     },

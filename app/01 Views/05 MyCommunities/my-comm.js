@@ -32,7 +32,7 @@ exports.selectCommunityOnTap = function (args) {
 
   const frame = frameModule.Frame.topmost();
   const navigationEntry = {
-    moduleName: "~/01 Views/Community/community-page",
+    moduleName: "~/01 Views/08 Community/community-page",
     context: {
       commName: param,
       user: vm.user,

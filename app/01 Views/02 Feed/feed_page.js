@@ -31,7 +31,7 @@ exports.announcementsOnTap = function (args) {
   // navigate to view announcements page
   const frame = frameModule.Frame.topmost();
   const navigationEntry = {
-    moduleName: "~/01 Views/Announcements/announcements",
+    moduleName: "~/01 Views/04 Announcements/announcements",
     context: {
       user: vm.user,
     },

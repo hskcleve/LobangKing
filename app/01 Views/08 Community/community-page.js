@@ -29,7 +29,7 @@ exports.goBack = function () {
 exports.navToCreatePost = function (args) {
   const frame = frameModule.Frame.topmost();
   const navigationEntry = {
-    moduleName: "~/01 Views/Create Community Post/create-post",
+    moduleName: "~/01 Views/09 Create Community Post/create-post",
     context: {
       communityName: vm.communityName,
       user: vm.user,
