@@ -1,0 +1,30 @@
+<Page id="announcements" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:customUI="~/04 Custom UI">
+    <GridLayout class="gradientBg" rows="auto,*,auto">
+        <!-- title + back button -->
+        <GridLayout class="topBar" row="0" columns="30,*">
+            <Image row="0" col="0" src="~/06 Assets/00 General/back_arrow.png" height="10" tap="goBack" />
+            <Label row="0" col="1" class="h2" text="Back" tap="goBack" />
+        </GridLayout>
+        <!-- announcements -->
+        <GridLayout row="1" class="announcements-container">
+            <ScrollView orientation="vertical" scrollBarIndicatorVisible="false">
+                <StackLayout rows="auto,*">
+                    <Label row="0" text="Announcements" class="h1" textAlignment="center" />
+                    <Repeater items="{{announcements}}" row="1">
+                        <Repeater.itemsLayout>
+                            <StackLayout orientation="vertical" />
+                        </Repeater.itemsLayout>
+                        <Repeater.itemTemplate>
+                            <GridLayout class="announcement-card" rows="auto,*" columns="*,auto">
+                                <Label class="card-content" textWrap="true" col="0" row="0" text="{{lobang_name}}" />
+                                <Label class="card-content description" row="1" colSpan="2" text="{{description}}" textWrap="true" />
+                                <Label class="date" row="0" col="1" text="{{datetime | displayDateTime}}" />
+                            </GridLayout>
+                        </Repeater.itemTemplate>
+                    </Repeater>
+                </StackLayout>
+            </ScrollView>
+        </GridLayout>
+        <customUI:navbar row="2" />
+    </GridLayout>
+</Page>

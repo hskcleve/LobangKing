@@ -1,0 +1,47 @@
+<Page id="my_communities" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:customUI="~/04 Custom UI">
+    <GridLayout class="gradientBg" rows="auto,auto,*,auto">
+        <!-- search bar -->
+        <GridLayout row="0">
+            <TextView class="searchbar" row="0" hint="Search my communities" textWrap="true" textChange="onTextChange" 
+            text="{{sbText}}" />
+        </GridLayout>
+        <Label class="communities-title" row="1" text="My Communities" textAlignment="center" />
+        <!-- my communities -->
+        <ScrollView row="2" orientation="vertical" scrollBarIndicatorVisible="false">
+            <StackLayout>
+                <Repeater items="{{communities}}">
+                    <Repeater.itemsLayout>
+                        <StackLayout orientation="vertical" />
+                    </Repeater.itemsLayout>
+                    <Repeater.itemTemplate>
+                        <GridLayout class="community">
+                            <Image class="community-img" src="{{image}}" stretch="aspectFill" param="{{name}}" imageToPass="{{image}}"
+                                tap="selectCommunityOnTap" />
+                            <Label class="community-name" text="{{name}}" textAlignment="center" textWrap="true" />
+                        </GridLayout>
+                    </Repeater.itemTemplate>
+                </Repeater>
+            </StackLayout>
+        </ScrollView>
+        <customUI:navbar row="3" />
+    </GridLayout>
+    <!-- <GridLayout>
+        <StackLayout class="gradientBg" height='100%'>
+            <SearchBar hint='Search communities...' />
+            <ListView height='100%' items="{{ communities }}">
+                <ListView.itemTemplate>
+                    <GridLayout
+                        height="280"
+                        borderRadius="10"
+                        columns="*"
+                        rows="auto"
+                    >
+                        <Image class="comm-image" row="0" margin="0" stretch="aspectFill" src="{{ image }}" param="{{ name }}" imageToPass="{{image}}" tap="selectCommunityOnTap" />
+                        <Label class="comm-name" row='1' margin="10 10 0 10" text="{{ name }}" />
+                    </GridLayout>
+
+                </ListView.itemTemplate>
+            </ListView>
+        </StackLayout>
+    </GridLayout> -->
+</Page> 

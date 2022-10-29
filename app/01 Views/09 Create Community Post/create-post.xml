@@ -1,0 +1,26 @@
+<Page id="create-post" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:customUI="~/04 Custom UI">
+    <GridLayout class="gradientBg" rows="auto,auto,auto,*,auto,auto,auto">
+        <!-- banner -->
+        <GridLayout class="topBar" row="0">
+            <Image class="banner-image" src="{{community_image}}" stretch="aspectFill" />
+            <Label class="banner-name" text="{{communityName}}" textWrap="true" textAlignment="center" />
+        </GridLayout>
+        <!-- back button -->
+        <GridLayout class="back-to-community" row="1" columns="30,*">
+            <Image class="back-icon" col="0" src="~/06 Assets/00 General/back_arrow.png" height="20" tap="goBack" />
+            <Label col="1" class="h2" text="Back" tap="goBack" />
+        </GridLayout>
+        <!-- featured text (Create New Post) -->
+        <Label class="h1 featured-text" row="2" text="Create New Post" textAlignment="center" />
+        <!-- text area to write post -->
+        <GridLayout row="3">
+            <TextView class="textbox" hint="Enter text here" id="post-body" />
+        </GridLayout>
+        <!-- text area to paste image url -->
+        <GridLayout row="4">
+            <TextView class="image-url" hint="Paste Image URL here" id="post-image" />
+        </GridLayout>
+        <Button class="post-btn" row="5" text="Post" tap="createPostOnTap" />
+        <customUI:navbar row="6" />
+    </GridLayout>
+</Page>
