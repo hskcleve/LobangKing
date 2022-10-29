@@ -1,4 +1,5 @@
 const ExplorePageViewModel = require("~/02 View Models/03 Explore/explore_page_vm");
+const frameModule = require("@nativescript/core/ui/frame");
 
 var page;
 var vm;
@@ -48,13 +49,31 @@ exports.goBack = function (args) {
 }
 
 exports.lobangOnTap = function (args) {
-  console.log(args.object.bindingContext);
-  alert("Will route to selected lobang page");
+  const lobangTapped = args.object.bindingContext;
+  const user = vm.user;
+  const frame = frameModule.Frame.topmost();
+  const navigationEntry = {
+    moduleName: "~/01 Views/04 Lobang/lobang_page",
+    context: {
+      user: user,
+      lobang: lobangTapped,
+    },
+  };
+  frame.navigate(navigationEntry);
 };
 
 exports.communityOnTap = function (args) {
-  console.log(args.object.bindingContext);
-  alert("Will route to selected community page");
+  const communityTapped = args.object.bindingContext;
+  const user = vm.user;
+  const frame = frameModule.Frame.topmost();
+  const navigationEntry = {
+    moduleName: "~/01 Views/08 Community/community-page",
+    context: {
+      user: user,
+      community: communityTapped,
+    }
+  };
+  frame.navigate(navigationEntry);
 };
 
 exports.searchTypesOnTap = function (args) {
