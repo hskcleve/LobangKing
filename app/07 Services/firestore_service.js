@@ -142,52 +142,23 @@ exports.getCommunities = function () {
   });
 };
 
-exports.getGroupbuysByLocation = function (locationFilter) {
+exports.getGroupbuysByCategory = function (categoryChosen) {
+  console.log("In firestore_service, category is " + categoryChosen);
   return new Promise((resolve, reject) => {
-    let getGroupbuysByLocationResponse = [];
+    let getGroupbuysByCategoryResponse = [];
     const lobangs = firestore.collection("lobangs");
-    const query =
-      locationFilter == null
-        ? lobangs
-        : lobangs.where("location", "==", locationFilter);
+    const query = lobangs.where("category", "==", categoryChosen);
 
     query
       .get()
       .then((querySnapshot) => {
-        console.log("getGroupbuysByLocation server response:");
+        console.log("getGroupbuysByCategory server response:");
         console.log(querySnapshot);
         querySnapshot.forEach((doc) => {
           const lobangData = doc.data();
-          getGroupbuysByLocationResponse.push(new Lobang(lobangData));
+          getGroupbuysByCategoryResponse.push(new Lobang(lobangData));
         });
-        resolve(getGroupbuysByLocationResponse);
-      })
-      .catch((firebaseError) => {
-        console.log(firebaseError);
-        reject(firebaseError);
-      });
-  });
-};
-
-exports.getFilteredGroupbuys = function (locationFilter, categoryFilter) {
-  console.log("In firestore_service");
-  return new Promise((resolve, reject) => {
-    let getFilteredGroupbuysResponse = [];
-    const lobangs = firestore.collection("lobangs");
-    const query = lobangs
-      .where("location", "==", locationFilter)
-      .where("category", "==", categoryFilter);
-
-    query
-      .get()
-      .then((querySnapshot) => {
-        console.log("getFilteredGroupbuys server response:");
-        console.log(querySnapshot);
-        querySnapshot.forEach((doc) => {
-          const lobangData = doc.data();
-          getFilteredGroupbuysResponse.push(new Lobang(lobangData));
-        });
-        resolve(getFilteredGroupbuysResponse);
+        resolve(getGroupbuysByCategoryResponse);
       })
       .catch((firebaseError) => {
         console.log(firebaseError);

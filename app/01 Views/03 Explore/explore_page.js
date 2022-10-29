@@ -9,12 +9,13 @@ exports.onLoaded = function (args) {
 
 exports.onNavigatedTo = function (args) {
   const nvc = page.navigationContext;
-  vm = vm ? vm : new ExplorePageViewModel();
+  vm = new ExplorePageViewModel();
   page.bindingContext = vm;
   vm.set("user", nvc.user);
   vm.set("temp_user", Object.assign({}, nvc.user));
   vm.getPopularGroupbuysList();
   vm.getTrendingCommunitiesList();
+  vm.getCategoriesList();
 };
 
 toggleRecentSearchLocal = function () {
@@ -27,6 +28,24 @@ toggleRecentSearchLocal = function () {
 };
 
 exports.toggleRecentSearch = toggleRecentSearchLocal;
+
+exports.lobangsInCategoryOnTap = function (args) {
+  console.log(args.object.bindingContext);
+  const category = args.object.bindingContext.category_name;
+  console.log("category name is " + category);
+  vm.getLobangsInCategory(category, () => {
+    page.bindingContext = null;
+    page.bindingContext = vm;
+  });
+}
+
+exports.goBack = function (args) {
+  vm.categoryToDisplay = null;
+  vm.lobangsInCategory = null;
+
+  page.bindingContext = undefined;
+  page.bindingContext = vm;
+}
 
 exports.lobangOnTap = function (args) {
   console.log(args.object.bindingContext);
@@ -78,7 +97,11 @@ exports.categoryListOnTap = function (args) {
 };
 
 exports.searchBySearchTerm = function (args) {
-  vm.doSearchBySearchTerm();
+  vm.doSearchBySearchTerm(() => {
+    console.log('done in js file too');
+    page.bindingContext = null;
+    page.bindingContext = vm;
+  });
 
   toggleRecentSearchLocal();
 };
