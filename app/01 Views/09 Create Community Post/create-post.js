@@ -1,4 +1,4 @@
-const CreatePostViewModel = require("~/01 Views/Create Community Post/create-post-vm");
+const CreatePostViewModel = require("~/02 View Models/09 Create Community Post/create-post-vm");
 const frameModule = require("@nativescript/core/ui/frame");
 
 var page;

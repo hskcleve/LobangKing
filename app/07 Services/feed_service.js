@@ -4,7 +4,7 @@ const { Firestore } = require("@nativescript/firebase-firestore");
 
 const firestore = new Firestore();
 const error_messages = require("~/00 Constants/error_messages.json");
-const MyCommsViewModel = require("~/01 Views/MyCommunities/my-comm-vm");
+const MyCommsViewModel = require("~/02 View Models/05 MyCommunities/my-comm-vm");
 const Post = require("~/03 Models/Post");
 
 // exports.getFeedPosts = function (userId) {

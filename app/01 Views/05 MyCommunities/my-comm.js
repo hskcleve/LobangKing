@@ -1,4 +1,4 @@
-var MyCommsViewModel = require("~/01 Views/MyCommunities/my-comm-vm");
+var MyCommsViewModel = require("~/02 View Models/05 MyCommunities/my-comm-vm");
 const frameModule = require("@nativescript/core/ui/frame");
 const { getCommunitiesByUserId } = require("~/07 Services/communities-service");
 

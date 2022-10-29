@@ -1,4 +1,4 @@
-const CommunityPageViewModel = require("./community-page-vm");
+const CommunityPageViewModel = require("../../02 View Models/08 Community/community-page-vm");
 const frameModule = require("@nativescript/core/ui/frame");
 
 var page;

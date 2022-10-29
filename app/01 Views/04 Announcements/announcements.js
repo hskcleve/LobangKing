@@ -1,4 +1,4 @@
-const AnnouncementsViewModel = require("~/01 Views/Announcements/announcements-vm");
+const AnnouncementsViewModel = require("~/02 View Models/04 Announcements/announcements-vm");
 const frameModule = require("@nativescript/core/ui/frame");
 
 var page;
