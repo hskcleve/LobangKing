@@ -7,23 +7,55 @@ const error_messages = require("~/00 Constants/error_messages.json");
 const MyCommsViewModel = require("~/01 Views/MyCommunities/my-comm-vm");
 const Post = require("~/03 Models/Post");
 
+// exports.getFeedPosts = function (userId) {
+//   return new Promise((resolve, reject) => {
+//     let feedPosts = [];
+//     firestore
+//       .collection("communities")
+//       .where("members", "array-contains", userId)
+//       .get()
+//       .then((querySnapshot) => {
+//         querySnapshot.forEach((doc) => {
+//           const communityPosts = doc.data().posts;
+//           feedPosts.push(...communityPosts);
+//         });
+//         console.log(feedPosts);
+//         resolve(feedPosts);
+//       })
+//       .catch((firebaseError) => {
+//         console.log(firebaseError);
+//         reject(firebaseError);
+//       });
+//   });
+// };
+
 exports.getFeedPosts = function (userId) {
   return new Promise((resolve, reject) => {
     let feedPosts = [];
+    let promises = [];
     firestore
       .collection("communities")
       .where("members", "array-contains", userId)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          const communityPosts = doc.data().posts;
-          feedPosts.push(...communityPosts);
+          const communityId = doc.data().community_id;
+          promises.push(
+            firestore
+              .collection("posts")
+              .where("community_id", "==", communityId)
+              .get()
+          );
         });
-        resolve(feedPosts);
-      })
-      .catch((firebaseError) => {
-        console.log(firebaseError);
-        reject(firebaseError);
+        Promise.all(promises).then((snapshots) => {
+          snapshots.forEach((snapshot) => {
+            snapshot.forEach((doc) => {
+              feedPosts.push(doc.data());
+            });
+          });
+          // console.log(feedPosts);
+          resolve(feedPosts);
+        });
       });
   });
 };

@@ -5,7 +5,7 @@
             <TextView class="searchbar" row="0" hint="Search my communities" textWrap="true" textChange="onTextChange" 
             text="{{sbText}}" />
         </GridLayout>
-        <Label class="h2" row="1" text="My Communities" textAlignment="center" />
+        <Label class="communities-title" row="1" text="My Communities" textAlignment="center" />
         <!-- my communities -->
         <ScrollView row="2" orientation="vertical" scrollBarIndicatorVisible="false">
             <StackLayout>

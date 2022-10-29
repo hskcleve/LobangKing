@@ -48,3 +48,7 @@ Label {
 .card-content {
   margin: 10px;
 }
+
+.post-img {
+  height: 650px;
+}

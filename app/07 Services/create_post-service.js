@@ -2,7 +2,6 @@
 
 const {
   Firestore,
-  QuerySnapshot,
   FieldValue,
 } = require("@nativescript/firebase-firestore");
 
@@ -26,19 +25,20 @@ exports.doCreatePost = function (postModel) {
       .get()
       .then((querySnapshot) => {
         const docId = querySnapshot.docs[0].id;
-        console.log(docId);
         firestore
           .collection("communities")
           .doc(docId)
           .update({
-            posts: FieldValue.arrayUnion([{
-              post_id: postModel.post_id,
-              user_id: postModel.user_id,
-              community_id: postModel.community_id,
-              body: postModel.body,
-              image: postModel.image,
-              time_posted: new Date().toJSON().substring(0, 19),
-            }]),
+            posts: FieldValue.arrayUnion([
+              {
+                post_id : postModel.post_id,
+                user_id: postModel.user_id,
+                community_id: postModel.community_id,
+                body: postModel.body,
+                image: postModel.image,
+                time_posted: new Date().toJSON().substring(0, 19),
+              },
+            ]),
           });
         resolve();
       })

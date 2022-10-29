@@ -49,6 +49,7 @@ exports.getPostsByCommunityId = function (communityId) {
   });
 };
 
+// check in communities whether members field has userId
 exports.checkUserInCommunity = function (communityId, userId) {
   return new Promise((resolve, reject) => {
     firestore
@@ -87,6 +88,7 @@ exports.getCommunityMembers = function (communityId) {
   });
 };
 
+// adds userId into members field of community and add communityId into communities_joined field of user.
 exports.joinCommunity = function (communityId, communityMembers, userId) {
   return new Promise((resolve, reject) => {
     firestore

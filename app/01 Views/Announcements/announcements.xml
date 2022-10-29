@@ -15,7 +15,7 @@
                             <StackLayout orientation="vertical" />
                         </Repeater.itemsLayout>
                         <Repeater.itemTemplate>
-                            <GridLayout class="announcement-card" rows="auto,*" columns="*,*">
+                            <GridLayout class="announcement-card" rows="auto,*" columns="*,auto">
                                 <Label class="card-content" textWrap="true" col="0" row="0" text="{{lobang_name}}" />
                                 <Label class="card-content description" row="1" colSpan="2" text="{{description}}" textWrap="true" />
                                 <Label class="date" row="0" col="1" text="{{datetime | displayDateTime}}" />

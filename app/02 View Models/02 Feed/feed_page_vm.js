@@ -17,12 +17,10 @@ function FeedPageViewModel() {
     } else {
       let announcements = [];
       getFeedPosts(feedPageViewModel.user.user_id).then((feedPostResult) => {
-        // console.log("Client side feed: ");
-        // console.log(feedPostResult);
+        console.log(feedPostResult.length);
         feedPageViewModel.set("posts", feedPostResult);
       });
       getAnnouncements(feedPageViewModel.user.user_id).then((res) => {
-        console.log(res);
         feedPageViewModel.set("featured_announcement", res[0]);
       });
     }
