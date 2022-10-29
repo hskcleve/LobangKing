@@ -80,11 +80,12 @@
                         </Repeater.itemsLayout>
                         <Repeater.itemTemplate>
                             <GridLayout class="announcementPanel">
-                                <GridLayout rows="50,auto,*" columns="40, auto, auto, *" style="padding:10%">
-                                    <Label class="fineprint" row="0" col="1" text="{{lobang_name}}" />
-                                    <Label class="fineprint" row="0" col="3" text="{{datetime}}" />
-                                    <Label class="fineprint" row="1" col="0" colSpan="4" text="{{description}}" />
-                                    <GridLayout class="announcementPicContainer" row="2" col="0" colSpan="4">
+                                <GridLayout rows="50,auto,*" columns="200, auto, auto, 60" style="padding:10%">
+                                    <Label class="fineprint" row="0" col="0" text="{{lobang_name}}" />
+                                    <Label class="fineprint" row="0" col="2" text="{{datetime}}" />
+                                    <Button row="0" col="3" text="Edit" class='-primary -rounded-sm' width="60dip" tap='editAnnouncementDialog' />
+                                    <Label class="fineprint" row="1" col="0" colSpan="4" text="{{description}}" textWrap="true" />
+                                    <GridLayout class="announcementPicContainer" row="2" col="0" colSpan="4" hidden="{{ picture === null }}">
                                         <Image class="announcementPic" src="{{picture}}" stretch="aspectFill" />
                                     </GridLayout>
                                 </GridLayout>
@@ -96,70 +97,98 @@
             </ScrollView>
 
             <ScrollView hidden="{{tab!='lobangOrders'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
-                <GridLayout visibility="{{ lobang_host.user_id === user.user_id ? 'collapsed' : 'visible' }}">
-                    <StackLayout visibility="{{ !lobang.hasOrder(user.user_id) ? 'visible' : 'collapsed' }}" style="padding:10%">
-                        <Label style="font-size: 17%; font-weight: bold" text="{{ 'Products (' + lobang.products.length + ')' }}" />
+                <StackLayout style="padding:10%">
+                    <GridLayout visibility="{{ lobang_host.user_id !== user.user_id ? 'visible' : 'collapsed' }}">
+                        <StackLayout visibility="{{ hasOrder ? 'collapsed' : 'visible' }}" style="padding:10%">
+                            <Label style="font-size: 17%; font-weight: bold" text="{{ 'Products (' + lobang.products.length + ')' }}" />
+                            <StackLayout style="padding:10%">
+                                <Repeater items="{{lobang.products}}">
+                                    <Repeater.itemsLayout>
+                                        <StackLayout orientation="vertical" />
+                                    </Repeater.itemsLayout>
+                                    <Repeater.itemTemplate>
+                                        <StackLayout>
+                                            <GridLayout class="productPanel">
+                                                <GridLayout rows="*,*" columns="3,auto,auto" style="padding:10%">
+                                                    <Label class="h2-large" row="0" colSpan="2" text="{{name}}" />
+                                                    <Label class="fineprint" row="0" col="2" text="{{ '$' + price}}" />
+                                                    <TextField class="fineprint" row="1" col="1" text="" hint="0"/>
+                                                </GridLayout>
+                                            </GridLayout>
+                                        </StackLayout>
+                                    </Repeater.itemTemplate>
+                                </Repeater>
+                                <Button text="Submit Order" class='-primary -rounded-sm' tap='submitOrderOnTap' />
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout visibility="{{ hasOrder ? 'visible' : 'collapsed' }}" style="padding:10%">
+                            <Label style="font-size: 17%; font-weight: bold" text="View Order Summary" />
+                            <StackLayout class="orderContainer">
+                                <Label style="font-size: 15%; font-weight: bold" text="{{user.user_id}}" />
+                                <GridLayout rows="*" columns="200,auto" style="padding:10%">
+                                    <Label style="font-size: 12%; font-weight: bold" row="0" col="0" text="Product Id" />
+                                    <Label style="font-size: 12%; font-weight: bold" row="0" col="1" text="Quantity ordered" />
+                                </GridLayout>
+                                <Repeater items="{{userOrder.line_items}}">
+                                    <Repeater.itemsLayout>
+                                        <StackLayout orientation="vertical" />
+                                    </Repeater.itemsLayout>
+                                    <Repeater.itemTemplate>
+                                        <StackLayout>
+                                            <GridLayout rows="*" columns="200,auto" style="padding:10%">
+                                                <Label class="fineprint" row="0" col="0" text="{{ product_name }}" />
+                                                <Label class="fineprint" row="0" col="1" text="{{ qty_ordered }}" />
+                                            </GridLayout>
+                                        </StackLayout>
+                                    </Repeater.itemTemplate>
+                                </Repeater>
+                                <GridLayout rows="*,*" columns="200,auto" style="padding:10%">
+                                    <Label style="font-size: 12%; font-weight: bold" row="0" col="0" text="Total Price" />
+                                    <Label style="font-size: 12%; font-weight: bold" row="0" col="1" text="{{total_price}}" />
+                                    <Label style="font-size: 12%; font-weight: bold" row="1" col="0" text="{{'Status: ' + status }}" />
+                                </GridLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </GridLayout>
+                    <GridLayout visibility="{{ lobang_host.user_id === user.user_id ? 'visible' : 'collapsed' }}">
                         <StackLayout style="padding:10%">
-                            <Repeater items="{{lobang.products}}">
+                            <Label style="font-size: 17%; font-weight: bold" text="{{ 'Orders (' + orders.length + ')' }}" />
+                            <Repeater items="{{orders}}">
                                 <Repeater.itemsLayout>
                                     <StackLayout orientation="vertical" />
                                 </Repeater.itemsLayout>
                                 <Repeater.itemTemplate>
-                                    <StackLayout>
-                                        <GridLayout class="productPanel">
-                                            <GridLayout rows="*,*" columns="3,auto" style="padding:10%">
-                                                <Label class="h2-large" row="0" colSpan="2" text="{{name}}" />
-                                                <Label class="fineprint" row="1" col="0" text="{{ '$' + price}}" />
-                                                <TextField class="fineprint" row="1" col="1" text="1" />
-                                            </GridLayout>
+                                    <StackLayout class="orderContainer">
+                                        <Label style="font-size: 15%; font-weight: bold" text="{{user_id}}" />
+                                        <GridLayout rows="*" columns="200,auto" style="padding:10%">
+                                            <Label style="font-size: 12%; font-weight: bold" row="0" col="0" text="Product Id" />
+                                            <Label style="font-size: 12%; font-weight: bold" row="0" col="1" text="Quantity ordered" />
+                                        </GridLayout>
+                                        <Repeater items="{{line_items}}">
+                                            <Repeater.itemsLayout>
+                                                <StackLayout orientation="vertical" />
+                                            </Repeater.itemsLayout>
+                                            <Repeater.itemTemplate>
+                                                <StackLayout>
+                                                    <GridLayout rows="*" columns="200,auto" style="padding:10%">
+                                                        <Label class="fineprint" row="0" col="0" text="{{ product_name }}" />
+                                                        <Label class="fineprint" row="0" col="1" text="{{ qty_ordered }}" />
+                                                    </GridLayout>
+                                                </StackLayout>
+                                            </Repeater.itemTemplate>
+                                        </Repeater>
+                                        <GridLayout rows="*,*" columns="200,auto" style="padding:10%">
+                                            <Label style="font-size: 12%; font-weight: bold" row="0" col="0" text="Total Price" />
+                                            <Label style="font-size: 12%; font-weight: bold" row="0" col="1" text="{{total_price}}" />
+                                            <Label style="font-size: 12%; font-weight: bold" row="1" col="0" text="{{'Status: ' + status }}" />
+                                            <Button row="1" col="1" text="Update Status" class='-primary -rounded-sm' tap='updateOrderStatusDialog' />
                                         </GridLayout>
                                     </StackLayout>
                                 </Repeater.itemTemplate>
                             </Repeater>
-                            <Button text="Submit Order" class='-primary -rounded-sm' tap='submitOrderOnTap' />
                         </StackLayout>
-                    </StackLayout>
-                    <StackLayout visibility="{{ lobang.hasOrder(user.user_id) ? 'collapsed' : 'visible' }}" style="padding:10%">
-                        <Label style="font-size: 17%; font-weight: bold" text="View Order Summary" />
-                    </StackLayout>
-                </GridLayout>
-                <GridLayout visibility="{{ lobang_host.user_id === user.user_id ? 'visible' : 'collapsed' }}">
-                    <StackLayout style="padding:10%">
-                        <Label style="font-size: 17%; font-weight: bold" text="{{ 'Orders (' + orders.length + ')' }}" />
-                        <Repeater items="{{orders}}">
-                            <Repeater.itemsLayout>
-                                <StackLayout orientation="vertical" />
-                            </Repeater.itemsLayout>
-                            <Repeater.itemTemplate>
-                                <StackLayout class="list-group-item">
-                                    <Label style="font-size: 12%; font-weight: bold" text="{{user_id}}" />
-                                    <GridLayout rows="*" columns="3,auto" style="padding:10%">
-                                        <Label class="fineprint" row="0" col="0" text="Product Id" />
-                                        <Label class="fineprint" row="0" col="1" text="Quantity ordered" />
-                                    </GridLayout>
-                                    <Repeater items="{{line_items}}">
-                                        <Repeater.itemsLayout>
-                                            <StackLayout orientation="vertical" />
-                                        </Repeater.itemsLayout>
-                                        <Repeater.itemTemplate>
-                                            <StackLayout>
-                                                <GridLayout rows="*" columns="3,auto" style="padding:10%">
-                                                    <Label class="fineprint" row="0" col="0" text="{{ product_id }}" />
-                                                    <Label class="fineprint" row="0" col="1" text="{{ qty }}" />
-                                                </GridLayout>
-                                            </StackLayout>
-                                        </Repeater.itemTemplate>
-                                    </Repeater>
-                                    <GridLayout rows="*,*" columns="3,auto" style="padding:10%">
-                                        <Label class="fineprint" row="0" col="0" text="Total Price" />
-                                        <Label class="fineprint" row="0" col="1" text="{{total_price}}" />
-                                        <Button row="1" colSpan="2" text="Update Status" class='-primary -rounded-sm' tap='updateOrderStatusDialog' />
-                                    </GridLayout>
-                                </StackLayout>
-                            </Repeater.itemTemplate>
-                        </Repeater>
-                    </StackLayout>
-                </GridLayout>
+                    </GridLayout>
+                </StackLayout>
             </ScrollView>
         </GridLayout>
         <customUI:navbar row="3" />

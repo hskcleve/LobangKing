@@ -17,12 +17,11 @@ const {
     getLobangOrdersByLobangId,
     getLobangRatingsByLobangId,
     createNewAnnouncement,
+    updateAnnouncement,
+    deleteAnnouncement,
+    updateOrderStatus,
+    checkUserOrderInLobang,
     submitOrder,
-    viewOrder,
-    viewOrderSummary,
-    messageHost,
-    leaveRating,
-    calculateRating,
 } = require("~/07 Services/lobang_page_service");
 const { FieldValue } = require("@nativescript/firebase-firestore");
 
@@ -55,9 +54,20 @@ function LobangPageViewModel() {
         products: undefined,
         orders: undefined,
         ratings: undefined,
+        hasOrder: undefined,
+        userOrder: undefined,
         displayDateJoined,
         getVerifiedIcon,
     });
+
+    lobangPageViewModel.isHost = function () {
+        if (!lobangPageViewModel.lobang_host.user_id === lobangPageViewModel.user.user_id) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
 
     lobangPageViewModel.getLobangHost = function (lobang) {
         if (!lobangPageViewModel.lobang) {
@@ -102,15 +112,33 @@ function LobangPageViewModel() {
     };
 
     lobangPageViewModel.doCreateAnnouncement = () => {
-        lobangPageViewModel.temp_announcement.lobang = lobangPageViewModel.lobang_host;
-        console.log(lobangPageViewModel.temp_announcement.lobang.lobang_name);
-        lobangPageViewModel.temp_announcement.datetime = FieldValue.serverTimestamp;
+        lobangPageViewModel.temp_announcement.lobang = lobangPageViewModel.lobang;
+        lobangPageViewModel.temp_announcement.user_id = lobangPageViewModel.user.user_id;
+        console.log(lobangPageViewModel.user);
+        //lobangPageViewModel.temp_announcement.datetime = FieldValue.serverTimestamp;
         return new Promise((resolve, reject) => {
             createNewAnnouncement(lobangPageViewModel.temp_announcement)
                 .then(() => resolve())
                 .catch((firebaseError) => reject(firebaseError));
         });
-    }
+    };
+
+    lobangPageViewModel.doUpdateAnnouncement = () => {
+        //lobangPageViewModel.temp_announcement.datetime = FieldValue.serverTimestamp;
+        return new Promise((resolve, reject) => {
+            updateAnnouncement(lobangPageViewModel.temp_announcement)
+                .then(() => resolve())
+                .catch((firebaseError) => reject(firebaseError));
+        });
+    };
+
+    lobangPageViewModel.doDeleteAnnouncement = () => {
+        return new Promise((resolve, reject) => {
+            deleteAnnouncement(lobangPageViewModel.temp_announcement)
+                .then(() => resolve())
+                .catch((firebaseError) => reject(firebaseError));
+        });
+    };
 
     lobangPageViewModel.getProducts = function () {
         if (!lobangPageViewModel.lobang) {
@@ -146,12 +174,33 @@ function LobangPageViewModel() {
             );
         }
         else {
-            getLobangOrdersByLobangId(lobangPageViewModel.lobang.lobang_id).then(
+            getLobangOrdersByLobangId(lobangPageViewModel.lobang.lobang_name).then(
                 (orders) => {
                     lobangPageViewModel.set("orders", orders);
                 }
             );
         }
+    };
+
+    lobangPageViewModel.doUpdateOrderStatus = function (orderModel) {
+        return new Promise((resolve, reject) => {
+            updateOrderStatus(orderModel)
+                .then(() => resolve())
+                .catch((firebaseError) => reject(firebaseError));
+        });
+    };
+
+    lobangPageViewModel.userHasOrderInLobang = function () {
+        console.log(lobangPageViewModel.user)
+        checkUserOrderInLobang(lobangPageViewModel.lobang.lobang_name)
+            .then((result) => {
+                lobangPageViewModel.set("hasOrder", true);
+                lobangPageViewModel.set("userOrder", result);
+            })
+            .catch((firebaseError) => {
+                lobangPageViewModel.set("hasOrder", false);
+                reject(firebaseError)
+            });
     };
 
     lobangPageViewModel.getRatings = function () {
@@ -175,30 +224,7 @@ function LobangPageViewModel() {
         }
     };
 
-    // lobangPageViewModel.createAnnouncement = function(announcement_description) {
-    //     if (!lobangPageViewModel.lobang) {
-    //         console.log("No lobang set yet!");
-    //         return;
-    //     }
-    //     else if (process.env.USE_MOCK == "true") {
-            
-    //     }
-    //     else {
-    //         var announcement = new Announcement();
-    //         announcement.set("user", lobang_host);
-    //         announcement.set("datetime", new Date());
-    //         announcement.set("description", announcement_description);
-    //         createAnnouncement(lobangPageViewModel.lobang.lobang_id, announcement).then(
-    //             (announcements) => {
-    //                 lobangPageViewModel.set("announcements", announcements);
-    //             }
-    //         );
-    //     }
-    // };
-
     return lobangPageViewModel;
 }
 
 module.exports = LobangPageViewModel;
-
-// incomplete, update with lobang_page_services fx

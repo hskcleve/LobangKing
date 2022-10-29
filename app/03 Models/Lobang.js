@@ -93,8 +93,12 @@ function Lobang(info) {
   };
 
   lobangModel.hasOrder = function (userId) {
+    console.log("right");
+    console.log(lobangModel.joined);
+    console.log(userId);
     for (order of lobangModel.joined) {
       if (userId === order) {
+        console.log("true");
         return true;
       }
     }

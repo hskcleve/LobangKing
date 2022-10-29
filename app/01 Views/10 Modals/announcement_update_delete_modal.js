@@ -8,24 +8,30 @@ exports.onShownModally = function (args) {
     page = args.object;
     page.actionBarHidden = true;
     pageData = observableModule.fromObject({
-        temp_announcement: {
+        temp_announcement: args.context.announcement || {
             description: undefined,
             picture: undefined,
         },
-        create_callback: args.context.create_callback,
+        update_callback: args.context.update_callback,
+        delete_callback: args.context.delete_callback,
     });
     page.bindingContext = pageData;
 };
 
-exports.confirmCreateAnnouncementOnTap = function () {
+exports.confirmEditAnnouncementOnTap = function () {
     if ( !pageData.temp_announcement.description ) {
         alert("Write something...");
         return;
     }
-    pageData.create_callback(pageData.temp_announcement);
+    pageData.update_callback(pageData.temp_announcement);
     page.closeModal();
 };
 
-exports.closeCreateAnnouncementModalOnTap = function () {
+exports.confirmDeleteAnnouncementOnTap = function () {
+    pageData.delete_callback(pageData.temp_announcement);
+    page.closeModal();
+};
+
+exports.closeUpdateAnnouncementModalOnTap = function () {
     page.closeModal();
 };

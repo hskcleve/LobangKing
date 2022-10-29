@@ -33,7 +33,6 @@ exports.toggleLobangsTab = function () {
 exports.hostedLobangOnTap = function (args) {
   const lobangTapped = args.object.bindingContext;
   const user = vm.user;
-  console.log(lobangTapped.lobang_name)
   const frame = frameModule.Frame.topmost();
   const navigationEntry = {
     moduleName: "~/01 Views/04 Lobang/lobang_page",

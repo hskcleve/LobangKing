@@ -16,7 +16,6 @@ exports.getLobangAnnouncementsByLobangId = function (lobang_name) {
             .get()
             .then((querySnapshot) => {
                 const lobang = querySnapshot.docs[0];
-                console.log(lobang);
                 firestore
                     .collection("announcements")
                     .where("lobang", "==", lobang.ref)
@@ -81,22 +80,62 @@ exports.getLobangHostByUserId = function (lobangModel) {
     });
 };
 
-exports.getLobangOrdersByLobangId = function (lobangId) {
+exports.getLobangOrdersByLobangId = function (lobang_name) {
     return new Promise((resolve, reject) => {
-        let orders = [];
+        let getOrdersResponse = [];
         const query = firestore
-            .collection("lobangs")
-            .where("lobang_id", "==", lobangId);
+            .collection("orders")
+            .where("lobang_name", "==", lobang_name);
         query
             .get()
+            .then((orders) => {
+                orders.forEach((order) => {
+                    getOrdersResponse.push(order.data());
+                })
+                resolve(getOrdersResponse);
+            })
+            .catch((firebaseError) => {
+                console.log(firebaseError);
+                reject(firebaseError);
+            });
+    });
+};
+
+exports.updateOrderStatus = function (orderModel) {
+    return new Promise((resolve, reject) => {
+        firestore
+            .collection("orders")
+            .where("order_id", "==", orderModel.order_id)
+            .get()
             .then((querySnapshot) => {
-                const docId = querySnapshot.docs[0].id;
-                orders = firestore
-                    .collection("lobangs")
-                    .doc(docId)
-                    .data()
-                    .orders;
-                resolve(orders);
+                const orderRef = querySnapshot.docs[0].ref;
+                orderRef
+                    .update({
+                        status: orderModel.status,
+                    })
+                    .then(() => resolve())
+                    .catch((firebaseError) => {
+                        console.log(firebaseError);
+                        reject(firebaseError);
+                    });
+            })
+            .catch((firebaseError) => {
+                console.log(firebaseError);
+                reject(firebaseError);
+            });
+    });
+};
+
+exports.checkUserOrderInLobang = function (lobang_name, user_id) {
+    return new Promise((resolve, reject) => {
+        const query = firestore
+            .collection("orders")
+            .where("lobang_name", "==", lobang_name)
+            .where("user_id", "==", user_id)
+            .get()
+            .then((querySnapshot) => {
+                const orderData = querySnapshot.docs[0].data();
+                resolve(orderData);
             })
             .catch((firebaseError) => {
                 console.log(firebaseError);
@@ -246,39 +285,6 @@ exports.calculateRating = function (lobangId) {
     });
 };
 
-// exports.editAnnouncement = function(lobangModel, announcementModel) { // incomplete
-//     return new Promise((resolve, reject) => {
-//         firestore
-//           .collection("lobangs")
-//           .where("lobang_id", "==", lobangModel.lobang_id)
-//           .get()
-//           .then((querySnapshot) => {
-//             const docId = querySnapshot.docs[0].id;
-//             firestore
-//               .collection("lobangs")
-//               .doc(docId)
-//               .announcements
-//               .update({
-//                 user_id: userModel.user_id,
-//                 password: userModel.password,
-//                 first_name: userModel.first_name,
-//                 last_name: userModel.last_name,
-//                 location: userModel.location,
-//                 profile_pic_uri: userModel.profile_pic_uri,
-//                 email: userModel.email,
-//                 mobile: userModel.mobile,
-//               })
-//               .then(() => {
-//                 resolve();
-//               })
-//               .catch((firebaseError) => {
-//                 console.log(firebaseError);
-//                 reject(firebaseError);
-//               });
-//           });
-//       });
-// };
-
 exports.createNewAnnouncement = function (announcementModel) {
     return new Promise((resolve, reject) => {
         firestore
@@ -288,11 +294,13 @@ exports.createNewAnnouncement = function (announcementModel) {
             .then((querySnapshot) => {
                 const lobangRef = querySnapshot.docs[0].id;
                 const lobangData = querySnapshot.docs[0].data();
-                console.log(lobangRef);
-                console.log(lobangData.lobang_name);
-                firestore
+                var newAnnouncementRef = firestore
                     .collection("announcements")
-                    .add({
+                    .doc();
+                newAnnouncementRef
+                    .set({
+                        announcement_id: newAnnouncementRef.id,
+                        user_id: announcementModel.user_id,
                         description: announcementModel.description,
                         picture: announcementModel.picture,
                         lobang: firestore.doc('/lobangs/' + lobangRef),
@@ -305,7 +313,62 @@ exports.createNewAnnouncement = function (announcementModel) {
                     });
             });
     });
-}
+};
+
+exports.updateAnnouncement = function (announcementModel) {
+    console.log(announcementModel);
+    return new Promise((resolve, reject) => {
+        firestore
+            .collection("announcements")
+            .where("announcement_id", "==", announcementModel.announcement_id)
+            .get()
+            .then((querySnapshot) => {
+                const announcementRef = querySnapshot.docs[0].ref;
+                announcementRef
+                    .update({
+                        description: announcementModel.description,
+                        picture: announcementModel.picture,
+                    })
+                    .then(() => resolve())
+                    .catch((firebaseError) => {
+                        console.log(firebaseError);
+                        reject(firebaseError);
+                    });
+            })
+            .catch((firebaseError) => {
+                console.log(firebaseError);
+                reject(firebaseError);
+            });
+    });
+};
+
+exports.deleteAnnouncement = function (announcementModel) {
+    console.log(announcementModel);
+    return new Promise((resolve, reject) => {
+        firestore
+            .collection("announcements")
+            .where("announcement_id", "==", announcementModel.announcement_id)
+            .get()
+            .then((querySnapshot) => {
+                const announcementRef = querySnapshot.docs[0].ref;
+                announcementRef
+                    .delete()
+                    .then(() => resolve())
+                    .catch((firebaseError) => {
+                        console.log(firebaseError);
+                        reject(firebaseError);
+                    });
+            })
+            .catch((firebaseError) => {
+                console.log(firebaseError);
+                reject(firebaseError);
+            });
+    });
+};
+
+
+
+
 
 // //deleteAnnouncement // incomplete
 

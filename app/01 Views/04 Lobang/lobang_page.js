@@ -1,5 +1,6 @@
 const LobangPageViewModel = require("~/02 View Models/04 Lobang/lobang_page_vm");
 const frameModule = require("@nativescript/core/ui/frame");
+const Announcement = require("~/03 Models/Announcement");
 
 var page;
 var vm;
@@ -22,6 +23,7 @@ exports.onNavigatedTo = function (args) {
   vm.getProducts();
   vm.getOrders();
   vm.getRatings();
+  vm.userHasOrderInLobang();
   page.bindingContext = vm;
 };
 
@@ -65,7 +67,6 @@ exports.createAnnouncementDialog = function (args) {
   const options = {
     context: {
       title: "Create Announcement",
-      lobang: vm.temp_lobang,
       create_callback: (announcement) => {
         vm.set("temp_announcement", announcement);
         vm.doCreateAnnouncement();
@@ -78,22 +79,62 @@ exports.createAnnouncementDialog = function (args) {
   page.showModal("~/01 Views/10 Modals/announcement_create_modal", options);
 };
 
+exports.editAnnouncementDialog = function (args) {
+  const announcement = args.object.bindingContext;
+  const temp_index = vm.announcements.indexOf(announcement);
+  const actual_index = vm.temp_lobang.announcements.indexOf(announcement);
+  const option = {
+    context: {
+      announcement: announcement,
+      update_callback: (announcement) => {
+        vm.set("temp_announcement", announcement);
+        vm.doUpdateAnnouncement();
+        vm.announcements.splice(temp_index, 1, announcement);
+        vm.temp_lobang.announcements.splice(actual_index, 1, announcement);
+        page.bindingContext = undefined;
+        page.bindingContext = vm;
+      },
+      delete_callback: () => {
+        vm.set("temp_announcement", announcement);
+        vm.doDeleteAnnouncement();
+        vm.announcements.splice(temp_index, 1);
+        vm.temp_lobang.announcements.splice(actual_index, 1);
+        page.bindingContext = undefined;
+        page.bindingContext = vm;
+      },
+    },
+  };
+  page.showModal("~/01 Views/10 Modals/announcement_update_delete_modal", option);
+};
+
 exports.updateOrderStatusDialog = function (args) {
   const order = args.object.bindingContext;
   const temp_index = vm.orders.indexOf(order);
-  const actual_index = vm.temp_lobang.orders.indexOf(order);
+  // const actual_index = vm.temp_lobang.orders.indexOf(order);
   const option = {
     context: {
       order: order,
-      update_callback: (order) => {
+      callback: (updatedOrderStatus) => {
+        order.status = updatedOrderStatus;
+        vm.doUpdateOrderStatus(order);
         vm.orders.splice(temp_index, 1, order);
-        vm.temp_lobang.orders.splice(actual_index, 1, order);
+        // vm.temp_lobang.orders.splice(actual_index, 1, order);
         page.bindingContext = undefined;
         page.bindingContext = vm;
       },
     },
   };
   page.showModal("~/01 Views/10 Modals/order_status_update_modal", option); //order_status_update modal
+};
+
+exports.hasOrder = function (args) {
+  console.log("here");
+  vm.userHasOrderInLobang()
+    .then((result) => {
+      return result
+    });
+  console.log(result);
+  return result;
 };
 
 exports.messageHostOnTap = function (args) {
@@ -105,10 +146,6 @@ exports.leaveRatingOnTap = function (args) {
 }
 
 exports.viewOrderOnTap = function (args) {
-
-}
-
-exports.viewOrderSummaryOnTap = function (args) {
 
 }
 

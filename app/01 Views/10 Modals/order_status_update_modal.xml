@@ -1,0 +1,11 @@
+<Page id="orderStatusUpdateModal" shownModally="onShownModally">
+    <GridLayout rows="auto,*" height="40%">
+        <FlexboxLayout class="modalHeader">
+            <Label row="0" text="Update Order Status" />
+        </FlexboxLayout>
+        <StackLayout row="1" style="padding:10%">
+            <ListPicker id="statusPicker" items="{{status}}" />
+            <Button class="-primary" text="Confirm" tap="confirmOnTap" />
+        </StackLayout>
+    </GridLayout>
+</Page>

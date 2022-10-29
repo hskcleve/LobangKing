@@ -1,0 +1,17 @@
+<Page id="announcementUpdateDeleteModal" shownModally="onShownModally">
+    <GridLayout rows="auto,*,auto,auto,auto" height="50%">
+        <FlexboxLayout class="modalHeader">
+            <Label row="0" text="Edit or Delete Announcement"/>
+        </FlexboxLayout>
+        <ScrollView row="1">
+            <StackLayout style="padding:10%">
+                <Label text="Announcement Description"/>
+                <TextField style="font-size: 12" text="{{temp_announcement.description}}" autocorrect="false" maxLength="60" textWrap="true" ></TextField>
+                <Label text="Announcement Picture"/>
+            </StackLayout>
+        </ScrollView>
+        <Button row="2" class="-primary" text="Confirm Edits" tap="confirmEditAnnouncementOnTap" />
+        <Button row="3" class="-outline -rounded-sm" text="Confirm Delete" tap="confirmDeleteAnnouncementOnTap" />
+        <Button row="4" class="-secondary" text="Close" tap="closeUpdateAnnouncementModalOnTap" />
+    </GridLayout>
+</Page>
