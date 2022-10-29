@@ -94,11 +94,11 @@ exports.boostLobang = function (lobang_name, curr_coins, user_id, user_coins) {
   });
 };
 
-exports.getGroupbuys = function () {
+exports.getActiveGroupbuys = function () {
   return new Promise((resolve, reject) => {
     let getGroupbuysResponse = [];
     const lobangs = firestore.collection("lobangs");
-    const query = lobangs;
+    const query = lobangs.where("lobang_status", "==", "ACTIVE")
 
     query
       .get()
