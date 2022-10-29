@@ -1,6 +1,7 @@
 const observableModule = require("@nativescript/core/data/observable");
 const Post = require("~/03 Models/Post");
 const { doCreatePost } = require("~/07 Services/create_post-service");
+const frameModule = require("@nativescript/core/ui/frame");
 
 function CreatePostViewModel() {
   var createPostViewModel = observableModule.fromObject({
@@ -23,6 +24,7 @@ function CreatePostViewModel() {
     doCreatePost(createPostViewModel.post)
       .then(() => {
         alert("Post created successfully");
+        frameModule.Frame.topmost().goBack();
       })
       .catch((error) => {
         alert(error);
