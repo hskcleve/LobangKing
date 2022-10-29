@@ -46,10 +46,12 @@ exports.hostedLobangOnTap = function (args) {
 
 exports.joinedLobangOnTap = function (args) {
   const lobangTapped = args.object.bindingContext;
+  const user = vm.user;
   const frame = frameModule.Frame.topmost();
   const navigationEntry = {
     moduleName: "~/01 Views/04 Lobang/lobang_page",
     context: {
+      user: user,
       lobang: lobangTapped,
     },
   };

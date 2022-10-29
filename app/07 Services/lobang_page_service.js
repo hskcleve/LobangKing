@@ -24,6 +24,7 @@ exports.getLobangAnnouncementsByLobangId = function (lobang_name) {
                         announcements.forEach((doc) => {
                             getAnnouncementsResponse.push(doc.data());
                         })
+                        getAnnouncementsResponse.sort((x, y) => new Date(y.datetime).getTime() - new Date(x.datetime).getTime());
                         resolve(getAnnouncementsResponse);
                     })
                     .catch((firebaseError) => {
@@ -303,6 +304,7 @@ exports.createNewAnnouncement = function (announcementModel) {
                         user_id: announcementModel.user_id,
                         description: announcementModel.description,
                         picture: announcementModel.picture,
+                        datetime: new Date().toJSON().substring(0, 19),
                         lobang: firestore.doc('/lobangs/' + lobangRef),
                         lobang_name: lobangData.lobang_name,
                     })

@@ -115,7 +115,7 @@ function LobangPageViewModel() {
         lobangPageViewModel.temp_announcement.lobang = lobangPageViewModel.lobang;
         lobangPageViewModel.temp_announcement.user_id = lobangPageViewModel.user.user_id;
         console.log(lobangPageViewModel.user);
-        //lobangPageViewModel.temp_announcement.datetime = FieldValue.serverTimestamp;
+        lobangPageViewModel.temp_announcement.datetime = FieldValue.serverTimestamp;
         return new Promise((resolve, reject) => {
             createNewAnnouncement(lobangPageViewModel.temp_announcement)
                 .then(() => resolve())
@@ -192,7 +192,7 @@ function LobangPageViewModel() {
 
     lobangPageViewModel.userHasOrderInLobang = function () {
         console.log(lobangPageViewModel.user)
-        checkUserOrderInLobang(lobangPageViewModel.lobang.lobang_name)
+        checkUserOrderInLobang(lobangPageViewModel.lobang.lobang_name, lobangPageViewModel.user.user_id)
             .then((result) => {
                 lobangPageViewModel.set("hasOrder", true);
                 lobangPageViewModel.set("userOrder", result);
