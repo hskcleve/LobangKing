@@ -16,7 +16,6 @@ exports.onNavigatedTo = function (args) {
   vm.set("user", nvc.user);
   vm.set("communityName", nvc.commName);
   vm.set("image", nvc.community_image);
-  console.log(nvc.community_image);
   vm.empty();
   vm.load(vm.communityName);
   console.log("At Community Page: " + vm.user.user_id);

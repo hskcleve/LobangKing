@@ -38,7 +38,7 @@ exports.lobangsInCategoryOnTap = function (args) {
     page.bindingContext = null;
     page.bindingContext = vm;
   });
-}
+};
 
 exports.goBack = function (args) {
   vm.categoryToDisplay = null;
@@ -46,7 +46,7 @@ exports.goBack = function (args) {
 
   page.bindingContext = undefined;
   page.bindingContext = vm;
-}
+};
 
 exports.lobangOnTap = function (args) {
   const lobangTapped = args.object.bindingContext;
@@ -70,8 +70,9 @@ exports.communityOnTap = function (args) {
     moduleName: "~/01 Views/08 Community/community-page",
     context: {
       user: user,
-      community: communityTapped,
-    }
+      commName: communityTapped.name,
+      community_image: communityTapped.image,
+    },
   };
   frame.navigate(navigationEntry);
 };
@@ -117,7 +118,7 @@ exports.categoryListOnTap = function (args) {
 
 exports.searchBySearchTerm = function (args) {
   vm.doSearchBySearchTerm(() => {
-    console.log('done in js file too');
+    console.log("done in js file too");
     page.bindingContext = null;
     page.bindingContext = vm;
   });
