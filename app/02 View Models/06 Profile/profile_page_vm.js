@@ -10,8 +10,10 @@ const {
   boostLobang,
 } = require("~/07 Services/firestore_service");
 const { doUserUpdate } = require("~/07 Services/auth_service");
+const { doLobangUpdate } = require("~/07 Services/host_lobang_service");
 const possible_locations = require("~/00 Constants/towns_constants").town_names;
 const errorMsgs = require("~/00 Constants/error_messages");
+
 
 const displayDateJoined = function (dateJoined) {
   dateJoined = new Date(dateJoined);
@@ -35,6 +37,8 @@ function ProfilePageViewModel() {
     temp_user: undefined,
     hostedLobangs: undefined,
     joinedLobangs: undefined,
+    lobang: undefined,
+    temp_lobang: undefined,
     tab: "lobangs",
     displayDateJoined,
     getVerifiedIcon,
@@ -112,6 +116,22 @@ function ProfilePageViewModel() {
     a.email = String(b.email);
     a.mobile = String(b.mobile);
     doUserUpdate(profilePageViewModel.user)
+      .then((resolved) => {
+        alert("Successful Update");
+        _callback();
+      })
+      .catch((firebaseError) => alert(firebaseError));
+  };
+
+  profilePageViewModel.doLobangUpdate = function (_callback) {
+    stringLobang = JSON.stringify(profilePageViewModel.temp_lobang);
+    profilePageViewModel.lobang = JSON.parse(stringLobang);
+    profilePageViewModel.description = String(profilePageViewModel.temp_lobang.description);
+    profilePageViewModel.collection_date = String(profilePageViewModel.temp_lobang.collection_date);
+    profilePageViewModel.last_order_date = String(profilePageViewModel.temp_lobang.last_order_date);
+    profilePageViewModel.townLocated = String(profilePageViewModel.temp_lobang.townLocated);
+    profilePageViewModel.coverPicture = String(profilePageViewModel.temp_lobang.coverPicture);
+    doLobangUpdate(profilePageViewModel.lobang)
       .then((resolved) => {
         alert("Successful Update");
         _callback();
