@@ -15,6 +15,9 @@ exports.onLoaded = function (args) {
 
 exports.homeOnTap = function () {
   const frame = frameModule.Frame.topmost();
+  if (frame.currentPage.id == "feed_page") {
+    return;
+  }
   const navigationEntry = {
     moduleName: "~/01 Views/02 Feed/feed_page",
     context: {
@@ -26,6 +29,9 @@ exports.homeOnTap = function () {
 
 exports.groupsOnTap = function () {
   const frame = frameModule.Frame.topmost();
+  if (frame.currentPage.id == "my_communities") {
+    return;
+  }
   const navigationEntry = {
     moduleName: "~/01 Views/05 MyCommunities/my-comm",
     context: {
@@ -51,6 +57,9 @@ exports.groupbuyOnTap = function () {
 
 exports.exploreOnTap = function () {
   const frame = frameModule.Frame.topmost();
+  if (frame.currentPage.id == "explore_page") {
+    return;
+  }
   const navigationEntry = {
     moduleName: "~/01 Views/03 Explore/explore_page",
     context: {

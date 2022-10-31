@@ -50,10 +50,15 @@ exports.getFeedPosts = function (userId) {
         Promise.all(promises).then((snapshots) => {
           snapshots.forEach((snapshot) => {
             snapshot.forEach((doc) => {
-              feedPosts.push(doc.data());
+              feedPosts.push(new Post(doc.data()));
             });
           });
           // console.log(feedPosts);
+          feedPosts.sort(
+            (x, y) =>
+              new Date(y.time_posted).getTime() -
+              new Date(x.time_posted).getTime()
+          );
           resolve(feedPosts);
         });
       });

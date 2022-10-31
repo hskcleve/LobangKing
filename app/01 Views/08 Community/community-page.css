@@ -3,13 +3,6 @@
   opacity: 0.5;
 }
 
-.topBar {
-  margin: 0;
-  padding: 0;
-  color: white;
-  background-color: rgb(52, 52, 52);
-}
-
 .community-banner-name {
   font-size: 32px;
   font-weight: bold;
@@ -18,10 +11,15 @@
 }
 
 .joinButton {
-  width: 20%;
-  height: 100px;
-  margin-top: 300px;
-  color: black;
+  margin: 5;
+  outline-width: 0.5;
+  border-color: white;
+  border-radius: 10%;
+  border-width: 1;
+  height: 30;
+  width: 100;
+  background-color: transparent;
+  color: white;
 }
 
 .createPostButton {
@@ -33,17 +31,28 @@
 }
 
 .card {
-  border-color: black;
-  border-width: 2px;
-  background-color: white;
-  margin: 5;
-  padding: 5;
-}
-
-Label {
-    margin-bottom: 10;
+  border-color: rgba(191, 191, 191, 0.758);
+  border-width: 0, 0.7, 1, 0;
+  background-color: #f0f0f0;
+  padding: 10;
+  border-radius: 5%;
+  margin-bottom: 10;
 }
 
 .post-img {
   height: 650px;
+}
+
+.postHeader {
+  font-size: 15;
+  font-weight: bold;
+}
+
+.postMiniHeader {
+  font-size: 10;
+  color: grey;
+}
+
+.postBody {
+  margin: 10, 0, 10, 0;
 }

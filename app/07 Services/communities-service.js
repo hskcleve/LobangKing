@@ -38,8 +38,13 @@ exports.getPostsByCommunityId = function (communityId) {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          communityPostsResponse.push(doc.data());
+          communityPostsResponse.push(new Post(doc.data()));
         });
+        communityPostsResponse.sort(
+          (x, y) =>
+            new Date(y.time_posted).getTime() -
+            new Date(x.time_posted).getTime()
+        );
         resolve(communityPostsResponse);
       })
       .catch((firebaseError) => {

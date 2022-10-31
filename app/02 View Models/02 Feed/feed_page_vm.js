@@ -4,11 +4,20 @@ const {
   getAnnouncements,
 } = require("~/07 Services/feed_service");
 
+const displayDate = function (dt) {
+  if (!dt) return "";
+  dt = new Date(dt);
+  return `${dt.getDate()} ${dt
+    .toLocaleString("default", { month: "long" })
+    .substring(4, 7)} ${dt.getYear() + 1900}`;
+};
+
 function FeedPageViewModel() {
   var feedPageViewModel = observableModule.fromObject({
     user: undefined,
     posts: undefined,
     featured_announcement: undefined,
+    displayDate,
   });
 
   feedPageViewModel.load = function () {

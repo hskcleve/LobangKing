@@ -10,6 +10,10 @@ exports.onLoaded = function (args) {
   page.actionBarHidden = true;
 };
 
+exports.goBack = function () {
+  frameModule.Frame.topmost().goBack();
+};
+
 exports.onNavigatedTo = function (args) {
   vm = new MyCommsViewModel();
   const nvc = page.navigationContext;
@@ -27,16 +31,14 @@ exports.onTextChange = function (args) {
 };
 
 exports.selectCommunityOnTap = function (args) {
-  const param = args.object.param;
-  const imageToPass = args.object.imageToPass;
-
+  const ctx = args.object.bindingContext;
   const frame = frameModule.Frame.topmost();
   const navigationEntry = {
     moduleName: "~/01 Views/08 Community/community-page",
     context: {
-      commName: param,
+      commName: ctx.community_id,
       user: vm.user,
-      community_image: imageToPass,
+      community_image: ctx.image,
     },
   };
   frame.navigate(navigationEntry);

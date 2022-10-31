@@ -1,18 +1,26 @@
-.announcement-card {
-  background-color: #d9d9d9;
-  margin: 30 20 0 20;
-  border-radius: 10%;
-  height: 350px;
-  border-color: black;
-  border-width: 2px;
+.card {
+  border-color: rgba(191, 191, 191, 0.758);
+  border-width: 0, 0.7, 1, 0;
+  background-color: #f0f0f0;
+  padding: 10;
+  border-radius: 5%;
+  margin-bottom: 10;
 }
 
-.card-content {
-    margin: 10px;
+.postHeader {
+  font-size: 15;
+  font-weight: bold;
 }
 
-.description {
-    font-size: 18px;
-    font-weight: bold;
+.postMiniHeader {
+  font-size: 10;
+  color: grey;
 }
 
+.postBody {
+  margin: 10, 0, 10, 0;
+}
+
+.announcements-container {
+  padding: 10;
+}

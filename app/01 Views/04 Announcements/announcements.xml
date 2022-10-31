@@ -1,24 +1,23 @@
 <Page id="announcements" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:customUI="~/04 Custom UI">
     <GridLayout class="gradientBg" rows="auto,*,auto">
         <!-- title + back button -->
-        <GridLayout class="topBar" row="0" columns="30,*">
-            <Image row="0" col="0" src="~/06 Assets/00 General/back_arrow.png" height="10" tap="goBack" />
-            <Label row="0" col="1" class="h2" text="Back" tap="goBack" />
+        <GridLayout class="topBar" row="0" columns="40,*">
+            <Image col="0" src="~/06 Assets/00 General/back_arrow.png" height="20" tap="goBack"/>
+            <Label col="1" class="h1" text="Announcements" tap="goBack"/>
         </GridLayout>
         <!-- announcements -->
         <GridLayout row="1" class="announcements-container">
             <ScrollView orientation="vertical" scrollBarIndicatorVisible="false">
-                <StackLayout rows="auto,*">
-                    <Label row="0" text="Announcements" class="h1" textAlignment="center" />
-                    <Repeater items="{{announcements}}" row="1">
+                <StackLayout>
+                    <Repeater items="{{announcements}}">
                         <Repeater.itemsLayout>
                             <StackLayout orientation="vertical" />
                         </Repeater.itemsLayout>
                         <Repeater.itemTemplate>
-                            <GridLayout class="announcement-card" rows="auto,*" columns="*,auto">
-                                <Label class="card-content" textWrap="true" col="0" row="0" text="{{lobang_name}}" />
-                                <Label class="card-content description" row="1" colSpan="2" text="{{description}}" textWrap="true" />
-                                <Label class="date" row="0" col="1" text="{{datetime | displayDateTime}}" />
+                            <GridLayout class="card" row="1" colSpan="2" rows="auto,auto" columns="*,auto" tap="communitiesOnTap">
+                                <Label class="postMiniHeader" row="0" col="1" text="{{datetime}}" />
+                                <Label class="postHeader" row="0" text="{{lobang_name}}" textWrap="true" />
+                                <Label row="1" class="postBody" style="margin-bottom:0" text="{{description}}" textWrap="true" colSpan="2" />
                             </GridLayout>
                         </Repeater.itemTemplate>
                     </Repeater>

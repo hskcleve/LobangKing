@@ -1,26 +1,27 @@
 <Page id="create-post" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:customUI="~/04 Custom UI">
-    <GridLayout class="gradientBg" rows="auto,auto,auto,*,auto,auto,auto">
+    <GridLayout class="gradientBg" rows="130,*,auto">
         <!-- banner -->
-        <GridLayout class="topBar" row="0">
-            <Image class="banner-image" src="{{community_image}}" stretch="aspectFill" />
-            <Label class="banner-name" text="{{communityName}}" textWrap="true" textAlignment="center" />
+        <GridLayout row="0">
+            <GridLayout>
+                <Image src="{{community_image}}" stretch="aspectFill"/>
+            </GridLayout>
+            <GridLayout style="background-color:rgba(256,256,256,0.3)"></GridLayout>
+            <GridLayout class="topBar" style="color:white;padding-bottom:0" columns="40,*,auto" rows="auto,*,50">
+                <Image class="back-icon" col="0" src="~/06 Assets/00 General/back_arrow_white.png" height="20" tap="goBack" />
+                <Label class="h1" text="Create Post" textWrap="true" col="1"/>
+            </GridLayout>
         </GridLayout>
-        <!-- back button -->
-        <GridLayout class="back-to-community" row="1" columns="30,*">
-            <Image class="back-icon" col="0" src="~/06 Assets/00 General/back_arrow.png" height="20" tap="goBack" />
-            <Label col="1" class="h2" text="Back" tap="goBack" />
+        <GridLayout row="1" style="padding:10" rows="300,auto,*,auto">
+            <!-- text area to write post -->
+            <GridLayout row="0">
+                <TextView class="textbox" hint="Write something..." id="post-body" />
+            </GridLayout>
+            <!-- text area to paste image url -->
+            <GridLayout row="1">
+                <TextView class="textbox" hint="Paste Image URL here" id="post-image" />
+            </GridLayout>
+            <Button class="-primary" row="3" text="Post" tap="createPostOnTap" />
         </GridLayout>
-        <!-- featured text (Create New Post) -->
-        <Label class="h1 featured-text" row="2" text="Create New Post" textAlignment="center" />
-        <!-- text area to write post -->
-        <GridLayout row="3">
-            <TextView class="textbox" hint="Enter text here" id="post-body" />
-        </GridLayout>
-        <!-- text area to paste image url -->
-        <GridLayout row="4">
-            <TextView class="image-url" hint="Paste Image URL here" id="post-image" />
-        </GridLayout>
-        <Button class="post-btn" row="5" text="Post" tap="createPostOnTap" />
-        <customUI:navbar row="6" />
+        <customUI:navbar row="4" />
     </GridLayout>
 </Page>
