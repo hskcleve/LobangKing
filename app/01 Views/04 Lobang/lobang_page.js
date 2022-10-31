@@ -56,7 +56,6 @@ exports.hostOnTap = function (args) {
 };
 
 exports.submitOrderOnTap = function (args) {
-  const dataform = page.getViewById("myInfoDataForm");
   vm.submitOrder(() => {
     page.bindingContext = null;
     page.bindingContext = vm;
@@ -69,8 +68,11 @@ exports.createAnnouncementDialog = function (args) {
       title: "Create Announcement",
       create_callback: (announcement) => {
         vm.set("temp_announcement", announcement);
-        vm.doCreateAnnouncement();
-        vm.announcements.push(announcement);
+        vm.doCreateAnnouncement().then((result) => {
+          vm.announcements.push(result);
+          console.log(result);
+          vm.announcements.sort((x, y) => new Date(y.datetime).getTime() - new Date(x.datetime).getTime());
+        });
         page.bindingContext = undefined;
         page.bindingContext = vm;
       },

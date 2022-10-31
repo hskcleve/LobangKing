@@ -5,8 +5,8 @@ function Order(info) {
     order_id: undefined,
     lobang_name: undefined,
     user_id: undefined,
-    line_items: undefined,
-    order_status: undefined,
+    line_items: [],
+    status: undefined,
   };
 
   var orderModel = observableModule.fromObject({

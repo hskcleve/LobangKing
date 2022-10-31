@@ -2,7 +2,7 @@
 
 const { Firestore } = require("@nativescript/firebase-firestore");
 
-const Announcement = require("~/03 Models/Announcement");
+const Product = require("~/03 Models/Product");
 
 const firestore = new Firestore();
 
@@ -39,22 +39,25 @@ exports.getLobangAnnouncementsByLobangId = function (lobang_name) {
     });
 };
 
-exports.getLobangProductsByLobangId = function (lobangId) {
+exports.getLobangProductsByLobangId = function (lobang_name) {
     return new Promise((resolve, reject) => {
-        let products = [];
+        let getProductsResponse = new Map();
         const query = firestore
             .collection("lobangs")
-            .where("lobang_id", "==", lobangId);
+            .where("lobang_name", "==", lobang_name);
         query
             .get()
             .then((querySnapshot) => {
-                const docId = querySnapshot.docs[0].id;
-                products = firestore
-                    .collection("lobangs")
-                    .doc(docId)
-                    .data()
-                    .products;
-                resolve(products);
+                const lobangProducts = querySnapshot.docs[0].data().products;
+                lobangProducts.forEach((product) => {
+                    prod_name = product.name;
+                    prod_price = product.price;
+                    new_product = new Product({ product_name: prod_name, price: prod_price, qty_ordered: 0 });
+                    console.log(new_product);
+                    getProductsResponse.set(new_product, 0);
+                    console.log(getProductsResponse.get(new_product));
+                })
+                resolve(getProductsResponse);
             })
             .catch((firebaseError) => {
                 console.log(firebaseError);
@@ -169,58 +172,58 @@ exports.getLobangRatingsByLobangId = function (lobangId) {
     });
 };
 
-exports.submitOrder = function (lobangId, orderModel) {
+exports.doSubmitOrder = function (orderModel, order_line_items) {
     return new Promise((resolve, reject) => {
-        firestore
-            .collection("lobangs")
-            .where("lobang_id", "==", lobangId)
-            .get()
-            .then((querySnapshot) => {
-                const docId = querySnapshot.docs[0].id;
+        // line_item_arr = [];
+        // order_line_items.forEach((item) => {
+        //     console.log(item.get('product_name'));
+        //     console.log(item.get('qty_ordered'));
+        // });
+
+        var newOrderRef = firestore
+            .collection("orders")
+            .doc();
+        newOrderRef
+            .set({
+                order_id: newOrderRef.id,
+                lobang_name: orderModel.lobang_name,
+                user_id: orderModel.user_id,
+                line_items: [],
+                status: orderModel.status,
+            })
+            .then(() => {
                 firestore
                     .collection("lobangs")
-                    .doc(docId)
-                    .data()
-                    .orders
-                    .add({
-                        order_id: orderModel.order_id,
-                        user_id: orderModel.user_id,
-                        line_items_qty: orderModel.line_items_qty,
-                    })
-                    .then((documentRef) => {
-                        resolve();
+                    .where("lobang_name", "==", orderModel.lobang_name,)
+                    .get()
+                    .then((querySnapshot) => {
+                        const lobangData = querySnapshot.docs[0].data();
+                        lobangData.joined.push(orderModel.user_id);
                     })
                     .catch((firebaseError) => {
                         console.log(firebaseError);
                         reject(firebaseError);
                     });
             });
-    });
-};
-
-exports.viewOrder = function (lobangId, userId) { // incomplete
-    return new Promise((resolve, reject) => {
-        let orders = [];
-        const query = firestore
-            .collection("lobangs")
-            .where("lobang_id", "==", lobangId);
-        query
-            .get()
-            .then((querySnapshot) => {
-                const docId = querySnapshot.docs[0].id;
-                firestore
-                    .collection("lobangs")
-                    .doc(docId)
-                    .data()
-                    .orders
-
-
+        order_line_items.forEach((line) => {
+            console.log(line.get('product_name'));
+            console.log(line.get('qty_ordered'));
+            console.log(firestore.FieldValue);
+            newOrderRef.update({
+                line_items: firestore.FieldValue.arrayUnion([{ 'product_name': line.get('product_name'), 'qty_ordered': line.get('qty_ordered') }])
             });
+        });
+        newOrderRef.get()
+            .then((doc) => {
+                console.log("wow");
+                resolve(doc.data());
+            })
+            .catch((firebaseError) => {
+                console.log(firebaseError);
+                reject(firebaseError);
+            });
+
     });
-};
-
-exports.viewOrderSummary = function () { // incomplete
-
 };
 
 exports.leaveRating = function (ratingModel) {
@@ -308,11 +311,20 @@ exports.createNewAnnouncement = function (announcementModel) {
                         lobang: firestore.doc('/lobangs/' + lobangRef),
                         lobang_name: lobangData.lobang_name,
                     })
-                    .then(() => resolve())
+                    .then(() => {
+                        newAnnouncementRef.get().then((doc) => {
+                            console.log(doc.data());
+                            resolve(doc.data());
+                        });
+                    })
                     .catch((firebaseError) => {
                         console.log(firebaseError);
                         reject(firebaseError);
                     });
+            })
+            .catch((firebaseError) => {
+                console.log(firebaseError);
+                reject(firebaseError);
             });
     });
 };
@@ -367,12 +379,6 @@ exports.deleteAnnouncement = function (announcementModel) {
             });
     });
 };
-
-
-
-
-
-// //deleteAnnouncement // incomplete
 
 // editOrder // incomplete
 // deleteOrder // incomplete

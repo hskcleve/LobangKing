@@ -80,11 +80,11 @@
                         </Repeater.itemsLayout>
                         <Repeater.itemTemplate>
                             <GridLayout class="announcementPanel">
-                                <GridLayout rows="50,auto,*" columns="200, auto, auto, 60" style="padding:10%">
+                                <GridLayout rows="50,auto,*" columns="200, auto, auto, auto" style="padding:10%">
                                     <Label class="fineprint" row="0" col="0" text="{{lobang_name}}" />
                                     <Label class="fineprint" row="0" col="2" text="{{datetime}}" />
-                                    <Button row="0" col="3" text="Edit" class='-primary -rounded-sm' width="60dip" tap='editAnnouncementDialog' />
-                                    <Label class="fineprint" row="1" col="0" colSpan="4" text="{{description}}" textWrap="true" />
+                                    <Button row="1" col="2" text="Edit" class='-primary -rounded-sm' width="60dip" tap='editAnnouncementDialog' />
+                                    <Label class="fineprint" row="1" col="0" colSpan="3" text="{{description}}" textWrap="true" />
                                     <GridLayout class="announcementPicContainer" row="2" col="0" colSpan="4" hidden="{{ picture === null }}">
                                         <Image class="announcementPic" src="{{picture}}" stretch="aspectFill" />
                                     </GridLayout>
@@ -100,9 +100,9 @@
                 <StackLayout style="padding:10%">
                     <GridLayout visibility="{{ lobang_host.user_id !== user.user_id ? 'visible' : 'collapsed' }}">
                         <StackLayout visibility="{{ hasOrder ? 'collapsed' : 'visible' }}" style="padding:10%">
-                            <Label style="font-size: 17%; font-weight: bold" text="{{ 'Products (' + lobang.products.length + ')' }}" />
+                            <Label style="font-size: 17%; font-weight: bold" text="{{ 'Products (' + temp_prodArr.length + ')' }}" />
                             <StackLayout style="padding:10%">
-                                <Repeater items="{{lobang.products}}">
+                                <Repeater items="{{temp_prodArr}}">
                                     <Repeater.itemsLayout>
                                         <StackLayout orientation="vertical" />
                                     </Repeater.itemsLayout>
@@ -110,9 +110,9 @@
                                         <StackLayout>
                                             <GridLayout class="productPanel">
                                                 <GridLayout rows="*,*" columns="3,auto,auto" style="padding:10%">
-                                                    <Label class="h2-large" row="0" colSpan="2" text="{{name}}" />
+                                                    <Label class="h2-large" row="0" colSpan="2" text="{{product_name}}" />
                                                     <Label class="fineprint" row="0" col="2" text="{{ '$' + price}}" />
-                                                    <TextField class="fineprint" row="1" col="1" text="" hint="0"/>
+                                                    <TextField class="fineprint" row="1" col="1" text="{{qty_ordered}}"/>
                                                 </GridLayout>
                                             </GridLayout>
                                         </StackLayout>
@@ -126,7 +126,7 @@
                             <StackLayout class="orderContainer">
                                 <Label style="font-size: 15%; font-weight: bold" text="{{user.user_id}}" />
                                 <GridLayout rows="*" columns="200,auto" style="padding:10%">
-                                    <Label style="font-size: 12%; font-weight: bold" row="0" col="0" text="Product Id" />
+                                    <Label style="font-size: 12%; font-weight: bold" row="0" col="0" text="Product Name" />
                                     <Label style="font-size: 12%; font-weight: bold" row="0" col="1" text="Quantity ordered" />
                                 </GridLayout>
                                 <Repeater items="{{userOrder.line_items}}">
@@ -145,7 +145,7 @@
                                 <GridLayout rows="*,*" columns="200,auto" style="padding:10%">
                                     <Label style="font-size: 12%; font-weight: bold" row="0" col="0" text="Total Price" />
                                     <Label style="font-size: 12%; font-weight: bold" row="0" col="1" text="{{total_price}}" />
-                                    <Label style="font-size: 12%; font-weight: bold" row="1" col="0" text="{{'Status: ' + status }}" />
+                                    <Label style="font-size: 12%; font-weight: bold" row="1" col="0" text="{{'Status: ' + status}}" />
                                 </GridLayout>
                             </StackLayout>
                         </StackLayout>
@@ -161,7 +161,7 @@
                                     <StackLayout class="orderContainer">
                                         <Label style="font-size: 15%; font-weight: bold" text="{{user_id}}" />
                                         <GridLayout rows="*" columns="200,auto" style="padding:10%">
-                                            <Label style="font-size: 12%; font-weight: bold" row="0" col="0" text="Product Id" />
+                                            <Label style="font-size: 12%; font-weight: bold" row="0" col="0" text="Product Name" />
                                             <Label style="font-size: 12%; font-weight: bold" row="0" col="1" text="Quantity ordered" />
                                         </GridLayout>
                                         <Repeater items="{{line_items}}">

@@ -21,7 +21,7 @@ const {
     deleteAnnouncement,
     updateOrderStatus,
     checkUserOrderInLobang,
-    submitOrder,
+    doSubmitOrder,
 } = require("~/07 Services/lobang_page_service");
 const { FieldValue } = require("@nativescript/firebase-firestore");
 
@@ -52,6 +52,8 @@ function LobangPageViewModel() {
         temp_announcement: new Announcement(),
         tab: "lobangDetails",
         products: undefined,
+        temp_prodArr: [],
+        prodArr: [],
         orders: undefined,
         ratings: undefined,
         hasOrder: undefined,
@@ -115,10 +117,9 @@ function LobangPageViewModel() {
         lobangPageViewModel.temp_announcement.lobang = lobangPageViewModel.lobang;
         lobangPageViewModel.temp_announcement.user_id = lobangPageViewModel.user.user_id;
         console.log(lobangPageViewModel.user);
-        lobangPageViewModel.temp_announcement.datetime = FieldValue.serverTimestamp;
         return new Promise((resolve, reject) => {
             createNewAnnouncement(lobangPageViewModel.temp_announcement)
-                .then(() => resolve())
+                .then((newAnnouncement) => resolve(newAnnouncement))
                 .catch((firebaseError) => reject(firebaseError));
         });
     };
@@ -153,12 +154,45 @@ function LobangPageViewModel() {
             );
         }
         else {
-            getLobangProductsByLobangId(lobangPageViewModel.lobang.lobang_id).then(
+            getLobangProductsByLobangId(lobangPageViewModel.lobang.lobang_name).then(
                 (products) => {
+                    let productsResponse = [];
+                    products.forEach((value, key) => {
+                        //lobangPageViewModel.prodArr.push(key);
+                        productsResponse.push(key);
+                        console.log(`${key} = ${value}`);
+                    });
+                    lobangPageViewModel.set("temp_prodArr", productsResponse);
                     lobangPageViewModel.set("products", products);
                 }
             );
         }
+    };
+
+    lobangPageViewModel.submitOrder = function () {
+        let order = new Order({
+            lobang_name: lobangPageViewModel.lobang.lobang_name,
+            user_id: lobangPageViewModel.user.user_id,
+            line_items: [],
+            status: "Ordered",
+        });
+        let temp_line_items = [];
+        lobangPageViewModel.temp_prodArr.forEach((prod) => {
+            if (prod.qty_ordered !== 0) {
+                temp_line_items.push(new Map([ ['product_name', prod.product_name], ['qty_ordered', prod.qty_ordered]]));
+            }
+        });
+        temp_line_items.forEach((item) => {
+            console.log(item.get('product_name'));
+            console.log(item.get('qty_ordered'));
+        });
+        doSubmitOrder(order, temp_line_items)
+            .then((result) => {
+                lobangPageViewModel.set("hasOrder", true);
+                lobangPageViewModel.set("userOrder", result);
+
+            });
+
     };
 
     lobangPageViewModel.getOrders = function () {
@@ -194,7 +228,9 @@ function LobangPageViewModel() {
         console.log(lobangPageViewModel.user)
         checkUserOrderInLobang(lobangPageViewModel.lobang.lobang_name, lobangPageViewModel.user.user_id)
             .then((result) => {
+                console.log(result.status);
                 lobangPageViewModel.set("hasOrder", true);
+                console.log(lobangPageViewModel.get("hasOrder"));
                 lobangPageViewModel.set("userOrder", result);
             })
             .catch((firebaseError) => {
