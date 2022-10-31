@@ -32,3 +32,33 @@ exports.createNewLobang = function (lobang) {
             });
     });
 };
+
+exports.doLobangUpdate = function (lobang) {
+    return new Promise((resolve, reject) => {
+      firestore
+        .collection("lobangs")
+        .where("lobang_name", "==", lobang.lobang_name)
+        .where("createdBy", "==", lobang.createdBy)
+        .get()
+        .then((querySnapshot) => {
+          const docId = querySnapshot.docs[0].id;
+          firestore
+            .collection("users")
+            .doc(docId)
+            .update({
+              description : lobang.description,
+              collection_date : lobang.collection_date,
+              last_order_date : lobang.last_order_date,
+              townLocated : lobang.townLocated,
+              coverPicture : lobang.coverPicture
+            })
+            .then(() => {
+              resolve();
+            })
+            .catch((firebaseError) => {
+              console.log(firebaseError);
+              reject(firebaseError);
+            });
+        });
+    });
+  };
