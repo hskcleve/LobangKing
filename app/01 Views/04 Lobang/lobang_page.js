@@ -1,6 +1,7 @@
 const LobangPageViewModel = require("~/02 View Models/04 Lobang/lobang_page_vm");
 const frameModule = require("@nativescript/core/ui/frame");
 const Announcement = require("~/03 Models/Announcement");
+const Lobang = require("~/03 Models/Lobang");
 
 var page;
 var vm;
@@ -14,8 +15,8 @@ exports.onNavigatedTo = function (args) {
   const nvc = page.navigationContext;
   vm = new LobangPageViewModel();
 
-  vm.set("lobang", nvc.lobang);
-  vm.set("temp_lobang", Object.assign({}, nvc.lobang));
+  vm.set("lobang", new Lobang(nvc.lobang));
+  vm.set("temp_lobang", new Lobang(Object.assign({}, nvc.lobang)));
   vm.set("user", nvc.user);
   vm.set("temp_user", Object.assign({}, nvc.user));
   vm.getLobangHost();
@@ -25,6 +26,7 @@ exports.onNavigatedTo = function (args) {
   vm.getRatings();
   vm.userHasOrderInLobang();
   page.bindingContext = vm;
+  console.log(vm.lobang instanceof Lobang);
 };
 
 exports.goBack = function () {
@@ -71,10 +73,13 @@ exports.createAnnouncementDialog = function (args) {
         vm.doCreateAnnouncement().then((result) => {
           vm.announcements.push(result);
           console.log(result);
-          vm.announcements.sort((x, y) => new Date(y.datetime).getTime() - new Date(x.datetime).getTime());
+          vm.announcements.sort(
+            (x, y) =>
+              new Date(y.datetime).getTime() - new Date(x.datetime).getTime()
+          );
+          page.bindingContext = undefined;
+          page.bindingContext = vm;
         });
-        page.bindingContext = undefined;
-        page.bindingContext = vm;
       },
     },
   };
@@ -106,7 +111,10 @@ exports.editAnnouncementDialog = function (args) {
       },
     },
   };
-  page.showModal("~/01 Views/10 Modals/announcement_update_delete_modal", option);
+  page.showModal(
+    "~/01 Views/10 Modals/announcement_update_delete_modal",
+    option
+  );
 };
 
 exports.updateOrderStatusDialog = function (args) {
@@ -130,25 +138,15 @@ exports.updateOrderStatusDialog = function (args) {
 };
 
 exports.hasOrder = function (args) {
-  console.log("here");
-  vm.userHasOrderInLobang()
-    .then((result) => {
-      return result
-    });
+  vm.userHasOrderInLobang().then((result) => {
+    return result;
+  });
   console.log(result);
   return result;
 };
 
-exports.messageHostOnTap = function (args) {
+exports.messageHostOnTap = function (args) {};
 
-}
+exports.leaveRatingOnTap = function (args) {};
 
-exports.leaveRatingOnTap = function (args) {
-
-}
-
-exports.viewOrderOnTap = function (args) {
-
-}
-
-
+exports.viewOrderOnTap = function (args) {};

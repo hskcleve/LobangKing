@@ -46,23 +46,23 @@
                             <Label style="font-size: 15%" text="{{lobang_host.first_name + ' ' + lobang_host.last_name}}" />
                             <Label style="font-size: 15%" text="{{'@' + lobang_host.user_id}}" />
                             <Label style="font-size: 15%" text="{{lobang_host.date_joined | displayDateJoined }}" />
-                            <Label style="font-size: 15%" text="{{lobang_host.getRating()}}" />
+                            <Label style="font-size: 15%" text="{{lobang_host.getRating() + '/5 Rating'}}" />
 
                             <GridLayout columns="auto, auto" height="15%">
-                                <Image col="0" height="12" src="{{lobang_host.verified | getVerifiedIcon}}" style="margin-bottom:3" />
-                                <Label class="fineprint" col="1" text="{{lobang_host.getVerifiedStatusString()}}" style="margin-left:2" />
+                                <Image col="0" height="12" src="{{lobang_host.verified | getVerifiedIcon}}"/>
+                                <Label  col="1" text="{{' ' + lobang_host.getVerifiedStatusString().split(' ')[0]}}" />
                             </GridLayout>
                         </StackLayout>
                     </GridLayout>
 
                     <GridLayout class="collectionPointContainer" columns="*,*,*,*,*" height="22%">
                         <Label style="font-size: 17%; font-weight: bold" col="0" colSpan="3" text="Collection Point" />
-                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{lobang.location}}" />
+                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{lobang.location[0] + lobang.location.toLowerCase().substring(1)}}" />
                     </GridLayout>
 
                     <GridLayout class="collectionDatetimeContainer" columns="*,*,*,*,*" height="22%">
                         <Label style="font-size: 17%; font-weight: bold" col="0" colSpan="3" text="Collection Date, Time" />
-                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{lobang.collection_date}}" />
+                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{lobang.getCollectionDatetime()}}" />
                     </GridLayout>
 
                     <GridLayout class="descriptionContainer" columns="*,*,*,*,*" height="22%">
@@ -108,12 +108,12 @@
                                     </Repeater.itemsLayout>
                                     <Repeater.itemTemplate>
                                         <StackLayout>
-                                            <GridLayout class="productPanel">
-                                                <GridLayout rows="*,*" columns="3,auto,auto" style="padding:10%">
+                                            <GridLayout rows="auto,auto"  style="padding:10%" class="productPanel">
+                                                <GridLayout row="0" rows="*,*" columns="3,auto,auto">
                                                     <Label class="h2-large" row="0" colSpan="2" text="{{product_name}}" />
                                                     <Label class="fineprint" row="0" col="2" text="{{ '$' + price}}" />
-                                                    <TextField class="fineprint" row="1" col="1" text="{{qty_ordered}}"/>
                                                 </GridLayout>
+                                                <TextField row="1" col="1" text="{{qty_ordered}}"/>
                                             </GridLayout>
                                         </StackLayout>
                                     </Repeater.itemTemplate>

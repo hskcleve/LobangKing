@@ -61,7 +61,7 @@ function Lobang(info) {
     return displayString.substring(0, displayString.length - 2);
   };
 
-  lobangModel.getNumProducts = function() {
+  lobangModel.getNumProducts = function () {
     var num = lobangModel.products.length;
     return num;
   };
@@ -83,7 +83,7 @@ function Lobang(info) {
     return daysLeft + " days left";
   };
 
-  lobangModel.getNumUsersJoined = function() {
+  lobangModel.getNumUsersJoined = function () {
     var num = lobangModel.joined.length;
     return num;
   };
@@ -103,6 +103,13 @@ function Lobang(info) {
       }
     }
     return false;
+  };
+
+  lobangModel.getCollectionDatetime = function () {
+    const dt = new Date(lobangModel.collection_date);
+    return `${dt.getDate()} ${dt
+      .toLocaleString("default", { month: "long" })
+      .substring(4, 8)} ${dt.getFullYear()}`;
   };
 
   return lobangModel;

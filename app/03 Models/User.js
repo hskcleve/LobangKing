@@ -46,11 +46,8 @@ function User(info) {
   };
 
   userModel.getRating = function () {
-    console.log("wassup");
     return String(userModel.rating).substring(0, 3);
   };
-
-  
 
   return userModel;
 }
