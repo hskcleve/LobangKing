@@ -197,6 +197,50 @@
                     <Button class="-primary" text="Logout" tap="logoutOnTap"/>
                 </StackLayout>
             </ScrollView>
+            
+            <ScrollView hidden="{{tab!='editLobang'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
+                <StackLayout style="padding:10%">
+                    <Label class="h1" text="Edit Lobang"/>
+                    <StackLayout>
+
+                        <Label row="0" col="0" style="font-size:20%; margin-left:5" text="{{temp_lobang.lobang_name}}" textWrap="true"/>
+                        <df:RadDataForm row="1" id="tempLobangDataForm" source="{{temp_lobang}}">
+                        <df:RadDataForm.properties>
+                            <df:EntityProperty name="location" displayName="Town Located" valuesProvider="1,2,3,4">
+                                <df:EntityProperty.editor>
+                                            <df:PropertyEditor type="Picker"/>
+                                </df:EntityProperty.editor>
+                            </df:EntityProperty>    
+                            <df:EntityProperty name="collection_date" displayName="Collection date">
+                                <df:EntityProperty.editor>
+                                    <df:PropertyEditor type="DatePicker"/>
+                                </df:EntityProperty.editor>
+                            </df:EntityProperty>
+                            <df:EntityProperty name="last_order_date" displayName="Last order date">
+                            <df:EntityProperty.editor>
+                                    <df:PropertyEditor type="DatePicker"/>
+                                </df:EntityProperty.editor>
+                            </df:EntityProperty>
+                            <df:EntityProperty name="_observers" hidden="true"/>
+                            <df:EntityProperty name="_map" hidden="true"/>
+                            <df:EntityProperty name="lobang_id" hidden="true"/>
+                            <df:EntityProperty name="lobang_name" hidden="true"/>
+                            <df:EntityProperty name="createdBy" hidden="true"/>
+                            <df:EntityProperty name="categories" hidden="true"/>
+                            <df:EntityProperty name="tags" hidden="true"/>
+                            <df:EntityProperty name="products" hidden="true"/>
+                            <df:EntityProperty name="coins" hidden="true"/>
+                            <df:EntityProperty name="joined" hidden="true"/>
+                            <df:EntityProperty name="lobang_status" hidden="true"/>
+                            <df:EntityProperty name="announcements" hidden="true"/>
+                        </df:RadDataForm.properties>
+                    </df:RadDataForm>
+                    <Button class="-primary" text="Submit" tap="updateLobangOnTap" style="margin-top:40"/>
+                    <Button class="-primary" text="Cancel" tap="toggleLobangsTab" style="margin-top:40"/>
+                    </StackLayout>
+                    
+                </StackLayout>
+            </ScrollView>
         </GridLayout>
         
         <customUI:navbar row="3"/>
