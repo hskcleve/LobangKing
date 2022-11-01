@@ -14,7 +14,7 @@
 
             <GridLayout visibility="{{(onResultsPage || lobangsInCategory != null) ? 'hidden' : 'visible'}}" row="2" rows="auto,10,*,10,*">
                 <GridLayout class="categoriesContainer" row="0" rows="auto,*">
-                    <Label class="h1" text="Categories" />
+                    <Label class="h1" text="Categories" style="margin-bottom:8"/>
                     <ScrollView row="1" orientation="horizontal" scrollBarIndicatorVisible="false">
                         <Repeater items="{{categories}}">
                             <Repeater.itemsLayout>

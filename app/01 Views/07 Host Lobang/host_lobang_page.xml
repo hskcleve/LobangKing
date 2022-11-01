@@ -77,7 +77,7 @@
                                 </Repeater.itemsLayout>
                                 <Repeater.itemTemplate>
                                     <StackLayout class="{{isAddButton ? 'largeAddButton' : 'productContainer'}}" height="150" width="150">
-                                        <GridLayout tap="productEditOnTap" style="padding:3" rows="auto,*,auto,auto" columns="20,10,*" visibility="{{isAddButton ? 'hidden' : 'visible'}}">
+                                        <GridLayout tap="productEditOnTap" style="padding:3" rows="auto,*,auto,auto" columns="20,10,*" hidden="{{isAddButton ? 'true' : 'false'}}">
                                             <Label style="font-size:12;font-weight:bold" row="0" colSpan="3" text="{{name != undefined ? name : ''}}" textWrap="true"/>
                                             <Label row="1" colSpan="3" text="{{description != undefined ? description : ''}}" textWrap="true"/>
                                             <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products_black.png" height="17"/>
@@ -85,8 +85,8 @@
                                             <Label style="font-size:12;font-weight:bold" row="2" col="2" text="{{max_quantity != undefined ? max_quantity + ' in stock' : ''}}"/>
                                             <Label style="font-size:12;font-weight:bold" row="3" col="2" text="{{price != undefined ? '$' + price : ''}}"/>
                                         </GridLayout>
-                                        <FlexboxLayout style="justify-content:center;align-items:center" visibility="{{isAddButton ? 'visible' : 'hidden'}}" height="150" width="150" tap="addProductOnTap">
-                                            <Image src="~/06 Assets/00 General/add.png" height="50"/>
+                                        <FlexboxLayout style="justify-content:center;align-items:center" hidden="{{isAddButton ? 'false' : 'true'}}" height="150" width="150" tap="addProductOnTap">
+                                            <Image style="opacity:0.4" src="~/06 Assets/00 General/add.png" height="50"/>
                                         </FlexboxLayout>
                                     </StackLayout>
                                 </Repeater.itemTemplate>
@@ -97,7 +97,7 @@
             </StackLayout>
 
             <GridLayout row="2" columns="auto,*,auto">
-                <Button col="0" class="-secondary" text="Back" tap="backOnTap" visibility="{{status != 'detailsInput' ? 'hidden' : 'visible'}}"/>
+                <Button col="0" class="-secondary" text="Back" tap="backOnTap" hidden="{{status != 'detailsInput'}}"/>
                 <Button col="2" class="-primary" text="Next" tap="nextOnTap"/>
             </GridLayout>
         </GridLayout>

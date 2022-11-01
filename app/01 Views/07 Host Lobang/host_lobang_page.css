@@ -1,11 +1,19 @@
 .hostLobangForm {
   background-color: white;
   width: 95%;
-  border-radius: 25%, 25%, 25%, 25%;
-  border-width: 0.75, 1.5, 2, 1;
-  border-color: rgb(163, 162, 162);
+  border-radius: 10%;
   color: black;
   padding: 20%;
+}
+
+.card {
+  margin-left: 3;
+  margin-right: 3;
+  background-color: #f0f0f0;
+  padding: 10;
+  border-radius: 5%;
+  margin-bottom: 10;
+  box-shadow: 3px 3px 4px grey;
 }
 
 .categoryChipDefault {
@@ -16,6 +24,7 @@
   border-color: grey;
   border-width: 1;
   font-size: 12;
+  box-shadow: 3px 3px 4px grey;
 }
 
 .categoryChipSelected {
@@ -24,6 +33,7 @@
   margin: 5;
   border-radius: 25%;
   border-color: rgb(72, 91, 140);
+  box-shadow: 3px 3px 4px rgb(89, 107, 153);
   border-width: 1;
   font-size: 12;
 }
@@ -45,19 +55,16 @@ ListPicker {
   background-color: rgba(199, 199, 199, 0.304);
   padding: 7%;
   margin: 5;
-  border-radius: 25%;
-  border-color: grey;
-  border-width: 0.75, 1.5, 2, 1;
+  border-radius: 10%;
   font-size: 12;
-  opacity: 0.3;
+  box-shadow: 4px 4px 6px grey;
 }
 
 .productContainer {
   background-color: rgba(199, 199, 199, 0.304);
   padding: 7%;
   margin: 5;
-  border-radius: 25%;
-  border-color: rgba(128, 128, 128, 0.231);
-  border-width: 0.75, 1.5, 2, 1;
+  border-radius: 10%;
   font-size: 12;
+  box-shadow: 4px 4px 6px grey;
 }
