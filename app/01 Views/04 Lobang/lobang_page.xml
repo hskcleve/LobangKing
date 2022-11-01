@@ -61,7 +61,7 @@
 
                     <GridLayout class="collectionPointContainer" columns="*,*,*,*,*" height="22%">
                         <Label style="font-size: 17%; font-weight: bold" col="0" colSpan="3" text="Collection Point" />
-                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{lobang.location[0] + lobang.location.toLowerCase().substring(1)}}" />
+                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{lobang.location}}" />
                     </GridLayout>
 
                     <GridLayout class="collectionDatetimeContainer" columns="*,*,*,*,*" height="22%">
@@ -191,7 +191,7 @@
                                 </Repeater>
                                 <GridLayout rows="*,*" columns="200,auto" style="padding:10%">
                                     <Label style="font-size: 12%; font-weight: bold" row="0" col="0" text="Total Price" />
-                                    <Label style="font-size: 12%; font-weight: bold" row="0" col="1" text="{{userOrder.total_price}}" />
+                                    <Label style="font-size: 12%; font-weight: bold" row="0" col="1" text="{{'$' + userOrder.total_price}}" />
                                     <Label style="font-size: 12%; font-weight: bold" row="1" col="0" text="{{'Status: ' + userOrder.status}}" />
                                 </GridLayout>
                             </StackLayout>

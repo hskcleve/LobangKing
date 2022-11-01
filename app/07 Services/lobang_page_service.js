@@ -244,6 +244,7 @@ exports.doSubmitOrder = function (orderModel, order_line_items) {
         lobang_name: orderModel.lobang_name,
         user_id: orderModel.user_id,
         line_items: [],
+        total_price: 0,
         status: orderModel.status,
       })
       .then(() => {
@@ -261,14 +262,18 @@ exports.doSubmitOrder = function (orderModel, order_line_items) {
           });
       });
     const temp = [];
+    let sum = 0;
     order_line_items.forEach((line) => {
+      console.log(line.get("qty_ordered") * line.get("price"));
       temp.push({
         product_name: line.get("product_name"),
         qty_ordered: line.get("qty_ordered"),
       });
+      sum += line.get("qty_ordered") * line.get("price");
     });
     newOrderRef.update({
       line_items: temp,
+      total_price: sum.toFixed(2),
     });
     newOrderRef
       .get()

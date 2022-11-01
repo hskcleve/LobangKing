@@ -214,6 +214,7 @@ function LobangPageViewModel() {
         temp_line_items.push(
           new Map([
             ["product_name", prod.product_name],
+            ["price", prod.price],
             ["qty_ordered", prod.qty_ordered],
           ])
         );
