@@ -119,12 +119,12 @@
 
                 <GridLayout visibility="{{searchTypePicked == 'GroupBuy' ? 'hidden' : 'visible'}}" class="searchResultsContainer" rows="auto,*" columns="*">
                     <GridLayout row="0" columns="*,auto" style="margin-bottom:10">
-                        <Label class="h1" col="0" text="{{displayResults.length + ' Result(s) Matching Your Search:'}}" />
+                        <Label class="h1" col="0" text="{{displayResults.length == undefined ? '0 Search Result(s)' : displayResults.length + ' Search Result(s)'}}" />
                         <Image class="closeIcon" col="1" src="~/06 Assets/03 Explore Page Icons/close.png" tap="handleCloseResults"/>
                     </GridLayout>
                     <ScrollView row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
-                        <StackLayout style="padding:10%">
-                            <Label text="There were no communities matching your search..." hidden="{{displayResults[0] != null}}" />
+                        <StackLayout>
+                            <Label text="There are no communities matching your search..." hidden="{{displayResults[0] != null}}" />
                             <Repeater items="{{displayResults}}">
                                 <Repeater.itemsLayout>
                                     <StackLayout orientation="vertical" />
@@ -180,15 +180,23 @@
 
 
             <GridLayout id="recentSearchBox" row="1" height="0" class="filterContainer">
-                <GridLayout rows="auto,20,auto" style="padding: 20%">
-                    <GridLayout rows="auto, 50" row="0">
-                        <Label row="0" text="Searching for:" />
-                        <Button row="1" text="{{!searchTypePicked ? 'Search Type' : 'Search Type Picked: ' + searchTypePicked}}" tap="searchTypesOnTap" />
+                <GridLayout rows="auto,0,auto" style="padding: 20%">
+                    <GridLayout rows="auto, 50" columns="*,auto,10,auto,*" row="0">
+                        <Label row="0" colSpan="5" text="Searching:" />
+                        <FlexboxLayout id="filter1" class="{{searchTypePicked == 'GroupBuy' ? 'filterChipPicked' : 'filterChipUnpicked'}}" row="1" col="1" tap="groupbuyFilterOnTap">
+                            <Image src="~/06 Assets/11 Navbar Icons/shop_bag.png" height="15" style="margin-right:5"/>
+                            <Label text="Groupbuys"/>
+                        </FlexboxLayout>
+                        <FlexboxLayout if="filter2" class="{{searchTypePicked != 'GroupBuy' ? 'filterChipPicked' : 'filterChipUnpicked'}}" row="1" col="3" tap="communityFilterOnTap">
+                            <Image src="~/06 Assets/11 Navbar Icons/group.png" height="15" style="margin-right:5"/>
+                            <Label text="Communities"/>
+                        </FlexboxLayout>
+                        <!--Button class="-primary" row="1" text="{{!searchTypePicked ? 'Search Type' : 'Search Type Picked: ' + searchTypePicked}}" tap="searchTypesOnTap" -->
                     </GridLayout>
-                    <GridLayout hidden="{{searchTypePicked != 'GroupBuy'}}" rows="auto,auto,auto" row="2">
+                    <GridLayout rows="auto,auto,auto" row="2">
                         <Label row="0" text="Filter by:" />
-                        <Button row="1" text="{{!categoryFilter ? 'Category' : 'Category Picked: ' + categoryFilter}}" tap="categoryListOnTap" />
-                        <Button row="2" text="{{!locationFilter ? 'Location' : 'Location Picked: ' + locationFilter}}" tap="locationListOnTap" />
+                        <Button class="{{searchTypePicked == 'GroupBuy' ? '-primary' : '-secondary'}}" isEnabled="{{searchTypePicked == 'GroupBuy'}}" row="1" text="{{!categoryFilter ? 'Category' : 'Category Picked: ' + categoryFilter}}" tap="categoryListOnTap" />
+                        <Button class="{{searchTypePicked == 'GroupBuy' ? '-primary' : '-secondary'}}" isEnabled="{{searchTypePicked == 'GroupBuy'}}" row="2" text="{{!locationFilter ? 'Location' : 'Location Picked: ' + locationFilter}}" tap="locationListOnTap" />
                     </GridLayout>
                 </GridLayout>
             </GridLayout>

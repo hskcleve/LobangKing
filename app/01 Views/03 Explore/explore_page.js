@@ -26,21 +26,30 @@ toggleRecentSearchLocal = function () {
   //assuming var 'page' had been set alr
   const recentSearchBox = page.getViewById("recentSearchBox");
   //obtains reference to the stacklayout
-  if (recentSearchBox.height == 250) {
+  if (recentSearchBox.height == 0 && vm.searchTypePicked != "GroupBuy") {
+    sbBox.class = "searchbarOpen";
+    recentSearchBox.animate({
+      height: 100,
+      duration: 200,
+      curve: Enums.AnimationCurve.linear,
+    });
+    return;
+  }
+  if (recentSearchBox.height > 0) {
     setTimeout(() => {
       sbBox.class = "searchbar";
-    }, 300);
+    }, 220);
     recentSearchBox.animate({
       height: 0,
-      duration: 300,
+      duration: 200,
       curve: Enums.AnimationCurve.linear,
     });
     recentSearchBox.height = 0;
   } else {
     sbBox.class = "searchbarOpen";
     recentSearchBox.animate({
-      height: 250,
-      duration: 300,
+      height: 220,
+      duration: 200,
       curve: Enums.AnimationCurve.linear,
     });
   }
@@ -150,4 +159,32 @@ exports.searchBySearchTerm = function (args) {
   });
 
   //toggleRecentSearchLocal();
+};
+
+exports.groupbuyFilterOnTap = () => {
+  vm.searchTypePicked = "GroupBuy";
+  const recentSearchBox = page.getViewById("recentSearchBox");
+  if (recentSearchBox.height == 220) {
+    return;
+  } else {
+    recentSearchBox.animate({
+      height: 220,
+      duration: 200,
+      curve: Enums.AnimationCurve.linear,
+    });
+  }
+};
+
+exports.communityFilterOnTap = () => {
+  vm.searchTypePicked = "Community";
+  const recentSearchBox = page.getViewById("recentSearchBox");
+  if (recentSearchBox.height == 220) {
+    recentSearchBox.animate({
+      height: 100,
+      duration: 200,
+      curve: Enums.AnimationCurve.linear,
+    });
+  } else {
+    return;
+  }
 };
