@@ -101,7 +101,7 @@
                 <Button col="2" class="-primary" text="Next" tap="nextOnTap"/>
             </GridLayout>
         </GridLayout>
-
+    
         <customUI:navbar row="3"/>
     </GridLayout>
 </Page>

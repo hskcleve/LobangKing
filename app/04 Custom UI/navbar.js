@@ -15,6 +15,9 @@ exports.onLoaded = function (args) {
 
 exports.homeOnTap = function () {
   const frame = frameModule.Frame.topmost();
+  if (frame.currentPage.id == "feed_page") {
+    return;
+  }
   const navigationEntry = {
     moduleName: "~/01 Views/02 Feed/feed_page",
     context: {
@@ -25,7 +28,17 @@ exports.homeOnTap = function () {
 };
 
 exports.groupsOnTap = function () {
-  alert("Todo: wiring to group page (WG)");
+  const frame = frameModule.Frame.topmost();
+  if (frame.currentPage.id == "my_communities") {
+    return;
+  }
+  const navigationEntry = {
+    moduleName: "~/01 Views/05 MyCommunities/my-comm",
+    context: {
+      user: frame.currentPage.bindingContext.user,
+    },
+  };
+  frame.navigate(navigationEntry);
 };
 
 exports.groupbuyOnTap = function () {
@@ -43,7 +56,17 @@ exports.groupbuyOnTap = function () {
 };
 
 exports.exploreOnTap = function () {
-  alert("Todo: wiring to explore page (HY)");
+  const frame = frameModule.Frame.topmost();
+  if (frame.currentPage.id == "explore_page") {
+    return;
+  }
+  const navigationEntry = {
+    moduleName: "~/01 Views/03 Explore/explore_page",
+    context: {
+      user: frame.currentPage.bindingContext.user,
+    },
+  };
+  frame.navigate(navigationEntry);
 };
 
 exports.profileOnTap = function () {

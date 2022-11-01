@@ -90,7 +90,7 @@ function ProfilePageViewModel() {
       return;
     }
     boostLobang(
-      lobang.lobang_id,
+      lobang.lobang_name,
       lobang.coins,
       profilePageViewModel.user.user_id,
       profilePageViewModel.user.coins

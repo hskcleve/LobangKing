@@ -1,0 +1,55 @@
+.card {
+  border-color: rgba(191, 191, 191, 0.758);
+  border-width: 0, 0.7, 1, 0;
+  background-color: #f0f0f0;
+  padding: 10;
+  border-radius: 5%;
+  margin-bottom: 10;
+}
+
+.posts-container {
+  background-color: white;
+  height: 100%;
+  border-width: 0, 0, 0, 0;
+  border-color: rgb(184, 184, 184);
+  color: black;
+}
+
+.featured-announcement {
+  border-color: rgba(191, 191, 191, 0.758);
+  border-width: 0, 0.7, 1, 0;
+  background-color: #f0f0f0;
+  padding: 10;
+  border-radius: 5%;
+}
+
+.contentContainer {
+  background-color: white;
+  padding: 10, 15, 15, 15;
+  border-radius: 25%;
+  border-width: 0, 1.2, 1.5, 0;
+  border-color: rgb(184, 184, 184);
+}
+
+.contentContainerNoBottom {
+  margin-top: 10;
+  background-color: white;
+  padding: 10, 15, 0, 15;
+  border-radius: 25%, 25%, 0, 0;
+  border-width: 0, 1.2, 0, 0;
+  border-color: rgb(184, 184, 184);
+}
+
+.postHeader {
+  font-size: 15;
+  font-weight: bold;
+}
+
+.postMiniHeader {
+  font-size: 10;
+  color: grey;
+}
+
+.postBody {
+  margin: 10, 0, 10, 0;
+}

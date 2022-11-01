@@ -1,0 +1,8 @@
+.textbox {
+  border-color: rgba(191, 191, 191, 0.758);
+  border-width: 0, 1, 1.5, 0;
+  background-color: white;
+  padding: 20;
+  border-radius: 5%;
+  margin-bottom: 10;
+}

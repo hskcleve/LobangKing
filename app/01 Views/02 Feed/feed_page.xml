@@ -1,15 +1,44 @@
 <Page id="feed_page" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:customUI="~/04 Custom UI">
-    <GridLayout class="gradientBg" rows="auto,auto,auto,auto,*,auto">
+    <GridLayout class="gradientBg" rows="auto,*,auto">
 
-        <GridLayout height="10%" class="topBar" row="0" columns="20,*">
+        <GridLayout class="topBar" row="0" columns="10,*">
             <Label col="1" class="h1" text="{{'Welcome, ' + user.first_name + ' ' + user.last_name}}"/>
         </GridLayout>
 
-        <StackLayout row="1">
-            <Button class="-primary" text="Back to Login" tap="logoutOnTap"/>
-        </StackLayout>
+        <GridLayout row="1" rows="auto,*" style="padding:10,10,0,10">
         
-        <customUI:navbar row="5"/>
-        
+            <GridLayout row="0" class="contentContainer" rows="auto,auto" columns="*,auto">
+                <Label row="0" col="0" class="h1" text="Announcements" tap="announcementsOnTap" style="margin-bottom:10"/>
+                <Image row="0" col="1" src="~/06 Assets/00 General/more.png" height="20" style="margin:2" tap="announcementsOnTap"/>
+                <GridLayout class="card" row="1" colSpan="2" rows="auto,auto" columns="*,auto" tap="communitiesOnTap">
+                    <Label class="postMiniHeader" row="0" col="1" text="{{featured_announcement.datetime | displayDate}}" />
+                    <Label class="postHeader" row="0" text="{{featured_announcement.lobang_name}}" textWrap="true" />
+                    <Label row="1" class="postBody" style="margin-bottom:0" text="{{featured_announcement.description}}" textWrap="true" colSpan="2" />
+                </GridLayout>
+            </GridLayout>
+
+            <GridLayout row="1" rows="auto,*" class="contentContainerNoBottom">
+                <Label row="0" class="h1" text="Featured Posts" style="margin-bottom:10"/>
+                <ScrollView row="1" orientation="vertical" scrollBarIndicatorVisible="false">
+                    <Repeater items="{{posts}}" >
+                        <Repeater.itemsLayout>
+                            <StackLayout orientation="vertical" />
+                        </Repeater.itemsLayout>
+                        <Repeater.itemTemplate>
+                            <GridLayout class="card" rows="auto,auto,auto,auto" columns="*,auto">
+                                <Label class="postHeader" row="1" colSpan="2" text="{{user_id}}" />
+                                <Label class="postMiniHeader" row="0" col="0" text="{{'Posted in ' + community_id}}"/>
+                                <Label class="postMiniHeader" row="0" col="1" text="{{displayDate()}}"/>
+                                <Label class="postBody" row="2" text="{{body}}" textWrap="true" colSpan="2" />
+                                <Image hidden="{{image.length == 0}}" row="3" stretch="aspect-fill" colSpan="2" src="{{image}}" height="200" width="300"/>
+                            </GridLayout>
+                        </Repeater.itemTemplate>
+                    </Repeater>
+                </ScrollView>
+            </GridLayout>
+            
+        </GridLayout>
+       
+        <customUI:navbar row="2" />
     </GridLayout>
 </Page>

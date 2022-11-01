@@ -9,8 +9,6 @@
                 <TextField hint="Enter Product Name" text="{{temp_product.name}}" autocorrect="false" maxLength="30"></TextField>
                 <Label text="Max Quantity"/>
                 <TextField hint="Enter Max Quantity" text="{{temp_product.max_quantity}}" keyboardType="integer" maxLength="3"></TextField>
-                <Label text="Unit Quantity"/>
-                <TextField hint="Enter Unit Quantity" text="{{temp_product.unit_quantity}}" keyboardType="integer" maxLength="3"></TextField>
                 <Label text="Product Description"/>
                 <TextView hint="Short Description" text="{{temp_product.description}}" autocorrect="false" maxLength="80"></TextView>
                 <Label text="Price"/>

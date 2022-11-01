@@ -7,6 +7,6 @@
             <ListPicker id="listPicker" items="{{locations}}"/>
              <Button class="-primary" text="Confirm" tap="confirmOnTap"/>
         </StackLayout>
-
+       
     </GridLayout>
 </Page>

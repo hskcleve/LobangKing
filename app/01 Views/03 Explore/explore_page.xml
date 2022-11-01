@@ -1,0 +1,189 @@
+<Page id="explore_page" loaded="onLoaded" navigatedTo="onNavigatedTo" actionBarHidden="true" xmlns:customUI="~/04 Custom UI">
+    <GridLayout class="gradientBg" rows="auto,10,*,auto">
+
+        <GridLayout class="topRowContainer" row="0" rows="auto" columns="auto,5,2*,*" style="padding-top:20%; padding-right:20%; padding-left:20%">
+            <Image src="~/06 Assets/03 Explore Page Icons/filter.png" height="30" tap="toggleRecentSearch" row="0" col="0" />
+            <TextField id="searchBar" hint="Enter search term " text="{{sbText}}" row="0" col="2" />
+            <Button text="Submit" tap="searchBySearchTerm" row="0" col="3" />
+            
+        </GridLayout>
+
+        <GridLayout hidden="{{sbText.length != 0 &amp;&amp; lobangsInCategory == null}}" row="2" rows="*,10,2*,10,2*,10">
+            <GridLayout class="categoriesContainer" row="0" rows="auto,*">
+                <Label class="containerHeaders" text="Categories" />
+                <ScrollView row="1" orientation="horizontal" scrollBarIndicatorVisible="false">
+                    <StackLayout style="padding:10%">
+                        <Repeater items="{{categories}}">
+                            <Repeater.itemsLayout>
+                                <StackLayout orientation="horizontal" />
+                            </Repeater.itemsLayout>
+                            <Repeater.itemTemplate>
+                                <GridLayout style="margin-right:5; padding:2" tap="lobangsInCategoryOnTap">
+                                    <StackLayout>
+                                        <Image row="0" class="categoryImage" height="30" src="{{picture_url}}" />
+                                        <Label row="1" col="0" style="font-size: 15%; text-align:center" text="{{category_name}}" />
+                                    </StackLayout>
+                                </GridLayout>
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>
+                </ScrollView>
+            </GridLayout>
+
+            <GridLayout class="popularGroupbuysContainer" row="2" rows="auto,*" columns="*">
+                <Label class="containerHeaders" text="Popular Groupbuys" />
+                <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false" row="1">
+                    <StackLayout style="padding:10%">
+                        <Repeater items="{{popularGroupbuys}}">
+                            <Repeater.itemsLayout>
+                                <StackLayout orientation="horizontal" />
+                            </Repeater.itemsLayout>
+                            <Repeater.itemTemplate>
+                                <GridLayout class="lobangPanel" tap="lobangOnTap">
+                                    <GridLayout style="{{getBackgroundImageCss()}}"></GridLayout>
+                                    <GridLayout rows="*,*,*,*,*" columns="15,5,*" style="padding:10%">
+                                        <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold; position: relative; left: 100px" textWrap="true" text="{{lobang_name}}" />
+                                        <Label row="1" col="0" colSpan="3" text="{{joined.length + ' people joined'}}" />
+                                        <Label row="2" col="2" style="font-weight: bold" text="{{products.length + ' products'}}" />
+                                        <Label row="3" col="2" style="font-weight: bold" text="{{getTimeLeft()}}" />
+                                        <Label row="4" col="2" style="font-weight: bold" text="{{getTags()}}" />
+                                        <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products.png" height="15" />
+                                        <Image row="3" col="0" src="~/06 Assets/10 Lobang Icons/time-left.png" height="15" />
+                                        <Image row="4" col="0" src="~/06 Assets/10 Lobang Icons/tag.png" height="15" />
+                                    </GridLayout>
+                                </GridLayout>
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>
+                </ScrollView>
+            </GridLayout>
+
+            <GridLayout class="trendingCommunitiesContainer" row="4" rows="auto,*" columns="*">
+                <Label class="containerHeaders" text="Trending Communities" />
+                <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false" row="1">
+                    <StackLayout style="padding:10%">
+                        <Repeater items="{{trendingCommunities}}">
+                            <Repeater.itemsLayout>
+                                <StackLayout orientation="horizontal" />
+                            </Repeater.itemsLayout>
+                            <Repeater.itemTemplate>
+                                <GridLayout class="communityPanel" tap="communityOnTap">
+                                    <GridLayout style="{{getBackgroundImageCss()}}"></GridLayout>
+                                    <GridLayout rows="*,auto,auto,*" columns="auto,5,*" style="padding:10%">
+                                        <Label row="1" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" textWrap="true" text="{{name}}" />
+                                        <Label row="2" col="0" colSpan="3" text="{{members.length + ' members'}}" />
+                                    </GridLayout>
+                                </GridLayout>
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>
+                </ScrollView>
+            </GridLayout>
+        </GridLayout>
+
+        <GridLayout hidden="{{sbText.length == 0 &amp;&amp; lobangsInCategory == null}}" id="searchResultsContainer" row="2">
+            <GridLayout hidden="{{searchTypePicked != 'GroupBuy'}}" class="popularGroupbuysContainer" rows="auto,*" columns="*">
+                <Label class="containerHeaders" text="{{displayResults.length + ' Result(s) Matching Your Search:'}}" />
+                <ScrollView row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
+                    <StackLayout style="padding:10%">
+                        <Label text="There are no lobangs matching your search..." hidden="{{displayResults[0] != null}}" />
+                        <Repeater items="{{displayResults}}">
+                            <Repeater.itemsLayout>
+                                <StackLayout orientation="vertical" />
+                            </Repeater.itemsLayout>
+                            <Repeater.itemTemplate>
+                                <GridLayout class="searchLobangPanel" tap="lobangOnTap">
+                                    <GridLayout style="{{getBackgroundImageCss()}}"></GridLayout>
+                                    <GridLayout rows="*,*,*,*,*" columns="15,5,*" style="padding:10%">
+                                        <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" text="{{lobang_name}}" />
+                                        <Label row="1" col="0" colSpan="3" text="{{joined.length + ' people joined'}}" />
+                                        <Label row="2" col="2" style="font-weight: bold" text="{{products.length + ' products'}}" />
+                                        <Label row="3" col="2" style="font-weight: bold" text="{{getTimeLeft()}}" />
+                                        <Label row="4" col="2" style="font-weight: bold" text="{{getTags()}}" />
+                                        <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products.png" height="15" />
+                                        <Image row="3" col="0" src="~/06 Assets/10 Lobang Icons/time-left.png" height="15" />
+                                        <Image row="4" col="0" src="~/06 Assets/10 Lobang Icons/tag.png" height="15" />
+                                    </GridLayout>
+                                </GridLayout>
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>
+                </ScrollView>
+            </GridLayout>
+
+            <GridLayout hidden="{{searchTypePicked == 'GroupBuy'}}" class="trendingCommunitiesContainer" rows="auto,*" columns="*">
+                <Label class="containerHeaders" text="{{displayResults.length + ' Result(s) Matching Your Search:'}}" />
+                <ScrollView row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
+                    <StackLayout style="padding:10%">
+                        <Label text="There were no communities matching your search..." hidden="{{displayResults[0] != null}}" />
+                        <Repeater items="{{displayResults}}">
+                            <Repeater.itemsLayout>
+                                <StackLayout orientation="vertical" />
+                            </Repeater.itemsLayout>
+                            <Repeater.itemTemplate>
+                                <GridLayout class="searchCommunityPanel" tap="communityOnTap">
+                                    <GridLayout style="{{getBackgroundImageCss()}}"></GridLayout>
+                                    <GridLayout rows="*,auto,auto,*" columns="auto,5,*" style="padding:10%">
+                                        <Label row="1" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" textWrap="true" text="{{name}}" />
+                                        <Label row="2" col="0" colSpan="3" text="{{members.length + ' members'}}" />
+                                    </GridLayout>
+                                </GridLayout>
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>
+                </ScrollView>
+            </GridLayout>
+        </GridLayout>
+
+        <GridLayout hidden="{{lobangsInCategory == null}}" row="2">
+            <GridLayout class="popularGroupbuysContainer" rows="auto,*" columns="*">
+                <GridLayout columns="5,auto,10,*" row="0">
+                    <Image col="1" src="~/06 Assets/00 General/back_arrow.png" height="20" tap="goBack" />
+                    <Label col="3" text="{{categoryToDisplay + ' Lobangs:'}}" textWrap="true" class="headers" />
+                </GridLayout>
+                <ScrollView row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
+                    <StackLayout style="padding:10%">
+                        <Label text="There are currently no lobangs in this category." hidden="{{lobangsInCategory[0] != null}}" />
+                        <Repeater items="{{lobangsInCategory}}">
+                            <Repeater.itemsLayout>
+                                <StackLayout orientation="vertical" />
+                            </Repeater.itemsLayout>
+                            <Repeater.itemTemplate>
+                                <GridLayout class="searchLobangPanel" tap="lobangOnTap">
+                                    <GridLayout style="{{getBackgroundImageCss()}}"></GridLayout>
+                                    <GridLayout rows="*,*,*,*,*" columns="15,5,*" style="padding:10%">
+                                        <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" text="{{lobang_name}}" />
+                                        <Label row="1" col="0" colSpan="3" text="{{joined.length + ' people joined'}}" />
+                                        <Label row="2" col="2" style="font-weight: bold" text="{{products.length + ' products'}}" />
+                                        <Label row="3" col="2" style="font-weight: bold" text="{{getTimeLeft()}}" />
+                                        <Label row="4" col="2" style="font-weight: bold" text="{{getTags()}}" />
+                                        <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products.png" height="15" />
+                                        <Image row="3" col="0" src="~/06 Assets/10 Lobang Icons/time-left.png" height="15" />
+                                        <Image row="4" col="0" src="~/06 Assets/10 Lobang Icons/tag.png" height="15" />
+                                    </GridLayout>
+                                </GridLayout>
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>
+                </ScrollView>
+            </GridLayout>
+        </GridLayout>
+
+
+        <GridLayout id="recentSearchBox" row="2" height="0" class="categoriesContainer">
+            <GridLayout rows="auto,20,auto" style="padding: 20%">
+                <GridLayout rows="auto, 50" row="0">
+                    <Label row="0" text="Searching for" />
+                    <Button row="1" text="{{!searchTypePicked ? 'Search Type' : 'Search Type Picked: ' + searchTypePicked}}" tap="searchTypesOnTap" />
+                </GridLayout>
+                <GridLayout hidden="{{searchTypePicked != 'GroupBuy'}}" rows="auto,auto,auto" row="2">
+                    <Label row="0" text="Filter By" />
+                    <Button row="1" text="{{!categoryFilter ? 'Category' : 'Category Picked: ' + categoryFilter}}" tap="categoryListOnTap" />
+                    <Button row="2" text="{{!locationFilter ? 'Location' : 'Location Picked: ' + locationFilter}}" tap="locationListOnTap" />
+                </GridLayout>
+            </GridLayout>
+        </GridLayout>
+
+        <customUI:navbar row="3" />
+    </GridLayout>
+</Page>

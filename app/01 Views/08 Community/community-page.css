@@ -1,0 +1,58 @@
+.banner-image {
+  height: 160;
+  opacity: 0.5;
+}
+
+.community-banner-name {
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+  margin: 120px 140px 100px 60px;
+}
+
+.joinButton {
+  margin: 5;
+  outline-width: 0.5;
+  border-color: white;
+  border-radius: 10%;
+  border-width: 1;
+  height: 30;
+  width: 100;
+  background-color: transparent;
+  color: white;
+}
+
+.createPostButton {
+  background-color: white;
+  border-radius: 20%;
+  margin: 30px;
+  text-align: left;
+  padding-left: 100px;
+}
+
+.card {
+  border-color: rgba(191, 191, 191, 0.758);
+  border-width: 0, 0.7, 1, 0;
+  background-color: #f0f0f0;
+  padding: 10;
+  border-radius: 5%;
+  margin-bottom: 10;
+}
+
+.post-img {
+  height: 650px;
+}
+
+.postHeader {
+  font-size: 15;
+  font-weight: bold;
+}
+
+.postMiniHeader {
+  font-size: 10;
+  color: grey;
+}
+
+.postBody {
+  margin: 10, 0, 10, 0;
+}

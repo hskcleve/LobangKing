@@ -1,0 +1,31 @@
+.searchbar {
+  background-color: white;
+  margin: 10;
+  border-radius: 10%;
+}
+
+.community {
+  height: 250px;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 10;
+  padding: 0;
+  color: white;
+  background-color: rgb(0, 0, 0);
+  border-radius: 10%;
+}
+
+.community-img {
+  height: 120;
+  opacity: 0.5;
+}
+
+.community-name {
+  font-size: 30px;
+}
+
+.searchIcon {
+  height: 20;
+  opacity: 0.6;
+  margin: 0, 5, 0, 10;
+}
