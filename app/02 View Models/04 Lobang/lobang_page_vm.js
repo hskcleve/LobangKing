@@ -26,7 +26,7 @@ const {
   removeJoinedToLobang,
   doSubmitOrder,
 } = require("~/07 Services/lobang_page_service");
-const { doLobangUpdate } = require("~/07 Services/host_lobang_service");
+const { doUpdateLobang } = require("~/07 Services/host_lobang_service");
 const { FieldValue } = require("@nativescript/firebase-firestore");
 const { ObservableArray } = require("@nativescript/core");
 
@@ -304,7 +304,7 @@ function LobangPageViewModel() {
     lobangPageViewModel.lobang.coverPicture = String(
       lobangPageViewModel.temp_lobang.coverPicture
     );
-    doLobangUpdate(lobangPageViewModel.lobang)
+    doUpdateLobang(lobangPageViewModel.lobang)
       .then((newLobang) => {
         var lobangModel = new Lobang(newLobang);
         console.log(lobangPageViewModel.lobang);

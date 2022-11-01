@@ -33,7 +33,7 @@ exports.createNewLobang = function (lobang) {
   });
 };
 
-exports.doLobangUpdate = function (lobang) {
+exports.doUpdateLobang = function (lobang) {
   return new Promise((resolve, reject) => {
     firestore
       .collection("lobangs")
