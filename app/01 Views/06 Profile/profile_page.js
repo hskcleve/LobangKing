@@ -99,25 +99,3 @@ exports.logoutOnTap = function (args) {
   frame.navigate(navigationEntry);
 };
 
-exports.editLobangOnTap = function (args) {
-  const lobang = args.object.bindingContext;
-  var temp = JSON.stringify(lobang);
-  vm.temp_lobang = JSON.parse(temp);
-  console.log(vm.temp_lobang);
-  vm.set("tab", "editLobang");
-  
-};
-
-exports.updateLobangOnTap = function () {
-  const dataform = page.getViewById("tempLobangDataForm");
-  if (dataform.hasValidationErrors()) {
-    alert(errorMsgs.INVALID_FIELDS_ERROR);
-    return;
-  }
-  vm.doLobangUpdate(() => {
-    page.bindingContext = null;
-    page.bindingContext = vm;
-  });
-  alert("Update successful");
-  vm.set("tab", "lobangs");
-};

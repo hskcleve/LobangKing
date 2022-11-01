@@ -11,7 +11,11 @@
         <GridLayout class="lobangInfoContainer" row="1" height="30%">
             <GridLayout style="{{lobang.getBackgroundImageCss()}}"></GridLayout>
             <GridLayout rows="*,*,*,*,*,*" columns="auto,5,*" style="padding:10%">
-                <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" text="{{lobang.lobang_name}}" />
+                <Label row="0" col="0" colSpan="2" style="font-size: 17%; font-weight: bold" text="{{lobang.lobang_name}}" textWrap="true" />
+                <StackLayout row="0" col="3" visibility="{{ lobang_host.user_id === user.user_id ? 'collapsed' : 'visible' }}">
+                    <Button visibility="{{ hasJoined === 'false' ? 'visible' : 'collapsed'}}" class="-primary" text="Join" tap="joinLobangOnTap" />
+                    <Button visibility="{{ hasJoined === 'true' ? 'visible' : 'collapsed'}}" class="-primary" text="Leave" tap="unjoinLobangOnTap" />
+                </StackLayout>
                 <Label row="1" col="0" colSpan="3" text="{{lobang.joined.length + ' people joined'}}" />
                 <Label row="2" col="2" style="font-weight: bold" text="{{lobang.products.length + ' products'}}" />
                 <Label row="3" col="2" style="font-weight: bold" text="{{lobang.getTimeLeft()}}" />
@@ -49,8 +53,8 @@
                             <Label style="font-size: 15%" text="{{lobang_host.getRating() + '/5 Rating'}}" />
 
                             <GridLayout columns="auto, auto" height="15%">
-                                <Image col="0" height="12" src="{{lobang_host.verified | getVerifiedIcon}}"/>
-                                <Label  col="1" text="{{' ' + lobang_host.getVerifiedStatusString().split(' ')[0]}}" />
+                                <Image col="0" height="12" src="{{lobang_host.verified | getVerifiedIcon}}" />
+                                <Label col="1" text="{{' ' + lobang_host.getVerifiedStatusString().split(' ')[0]}}" />
                             </GridLayout>
                         </StackLayout>
                     </GridLayout>
@@ -62,13 +66,56 @@
 
                     <GridLayout class="collectionDatetimeContainer" columns="*,*,*,*,*" height="22%">
                         <Label style="font-size: 17%; font-weight: bold" col="0" colSpan="3" text="Collection Date, Time" />
-                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{lobang.getCollectionDatetime()}}" />
+                        <Label style="font-size: 15%" col="3" colSpan="2" text="{{lobang.collection_date}}" textWrap="true" />
                     </GridLayout>
 
                     <GridLayout class="descriptionContainer" columns="*,*,*,*,*" height="22%">
                         <Label style="font-size: 17%; font-weight: bold" col="0" colSpan="3" text="Description" />
                         <Label style="font-size: 15%" col="3" colSpan="2" text="{{lobang.description}}" textWrap="true" />
                     </GridLayout>
+                    <Button visibility="{{ lobang_host.user_id === user.user_id ? 'visible' : 'collapsed' }}" class="-primary" text="Edit Lobang" tap="editLobangOnTap" />
+                </StackLayout>
+            </ScrollView>
+
+            <ScrollView hidden="{{tab!='editLobang'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
+                <StackLayout style="padding:10%">
+                    <Label class="h1" text="Edit Lobang" />
+                    <StackLayout>
+                        <Label row="0" col="0" style="font-size:20%; margin-left:5" text="{{temp_lobang.lobang_name}}" textWrap="true" />
+                        <df:RadDataForm row="1" id="tempLobangDataForm" source="{{temp_lobang}}">
+                            <df:RadDataForm.properties>
+                                <df:EntityProperty name="location" displayName="Collection point" valuesProvider="Ang Mo Kio, Bedok, Bishan, Bukit Batok, Bukit Merah, Bukit Panjang, Bukit Timah, Central Area, Choa Chu Kang, Clementi, Geylang, Hougang, Jurong East, Jurong West, Kallang/Whampoa, Marine Parade, Pasir Ris, Punggol, Queenstown, Sembawang, Sengkang, Serangoon, Tampines, Tengah, Toa Payoh, Woodlands, Yishun">
+                                    <df:EntityProperty.editor>
+                                        <df:PropertyEditor type="Picker" />
+                                    </df:EntityProperty.editor>
+                                </df:EntityProperty>
+                                <df:EntityProperty name="collection_date" displayName="Collection date">
+                                    <df:EntityProperty.editor>
+                                        <df:PropertyEditor type="DatePicker" />
+                                    </df:EntityProperty.editor>
+                                </df:EntityProperty>
+                                <df:EntityProperty name="last_order_date" displayName="Last order date">
+                                    <df:EntityProperty.editor>
+                                        <df:PropertyEditor type="DatePicker" />
+                                    </df:EntityProperty.editor>
+                                </df:EntityProperty>
+                                <df:EntityProperty name="_observers" hidden="true" />
+                                <df:EntityProperty name="_map" hidden="true" />
+                                <df:EntityProperty name="lobang_id" hidden="true" />
+                                <df:EntityProperty name="lobang_name" hidden="true" />
+                                <df:EntityProperty name="createdBy" hidden="true" />
+                                <df:EntityProperty name="categories" hidden="true" />
+                                <df:EntityProperty name="tags" hidden="true" />
+                                <df:EntityProperty name="products" hidden="true" />
+                                <df:EntityProperty name="coins" hidden="true" />
+                                <df:EntityProperty name="joined" hidden="true" />
+                                <df:EntityProperty name="lobang_status" hidden="true" />
+                                <df:EntityProperty name="announcements" hidden="true" />
+                            </df:RadDataForm.properties>
+                        </df:RadDataForm>
+                        <Button class="-primary" text="Submit" tap="updateLobangOnTap" />
+                        <Button class="-primary" text="Cancel" tap="toggleDetailsTab" />
+                    </StackLayout>
                 </StackLayout>
             </ScrollView>
 
@@ -108,12 +155,12 @@
                                     </Repeater.itemsLayout>
                                     <Repeater.itemTemplate>
                                         <StackLayout>
-                                            <GridLayout rows="auto,auto"  style="padding:10%" class="productPanel">
+                                            <GridLayout rows="auto,auto" style="padding:10%" class="productPanel">
                                                 <GridLayout row="0" rows="*,*" columns="3,auto,auto">
                                                     <Label class="h2-large" row="0" colSpan="2" text="{{product_name}}" />
                                                     <Label class="fineprint" row="0" col="2" text="{{ '$' + price}}" />
                                                 </GridLayout>
-                                                <TextField row="1" col="1" text="{{qty_ordered}}"/>
+                                                <TextField row="1" col="1" text="{{qty_ordered}}" />
                                             </GridLayout>
                                         </StackLayout>
                                     </Repeater.itemTemplate>
@@ -144,8 +191,8 @@
                                 </Repeater>
                                 <GridLayout rows="*,*" columns="200,auto" style="padding:10%">
                                     <Label style="font-size: 12%; font-weight: bold" row="0" col="0" text="Total Price" />
-                                    <Label style="font-size: 12%; font-weight: bold" row="0" col="1" text="{{total_price}}" />
-                                    <Label style="font-size: 12%; font-weight: bold" row="1" col="0" text="{{'Status: ' + status}}" />
+                                    <Label style="font-size: 12%; font-weight: bold" row="0" col="1" text="{{userOrder.total_price}}" />
+                                    <Label style="font-size: 12%; font-weight: bold" row="1" col="0" text="{{'Status: ' + userOrder.status}}" />
                                 </GridLayout>
                             </StackLayout>
                         </StackLayout>

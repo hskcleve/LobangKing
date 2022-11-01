@@ -1,13 +1,14 @@
 <Page id="announcementUpdateDeleteModal" shownModally="onShownModally">
     <GridLayout rows="auto,*,auto,auto,auto" height="50%">
         <FlexboxLayout class="modalHeader">
-            <Label row="0" text="Edit or Delete Announcement"/>
+            <Label row="0" text="Edit or Delete Announcement" />
         </FlexboxLayout>
         <ScrollView row="1">
             <StackLayout style="padding:10%">
-                <Label text="Announcement Description"/>
-                <TextField style="font-size: 12" text="{{temp_announcement.description}}" autocorrect="false" maxLength="60" textWrap="true" ></TextField>
-                <Label text="Announcement Picture"/>
+                <Label text="Announcement Description" />
+                <TextField style="font-size: 12" text="{{temp_announcement.description}}" autocorrect="false" maxLength="60" textWrap="true"></TextField>
+                <Label text="Announcement Picture" />
+                <TextField style="font-size: 12" text="{{temp_announcement.picture}}" autocorrect="false" maxLength="100" textWrap="true"></TextField>
             </StackLayout>
         </ScrollView>
         <Button row="2" class="-primary" text="Confirm Edits" tap="confirmEditAnnouncementOnTap" />

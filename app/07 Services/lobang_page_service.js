@@ -1,6 +1,6 @@
 // for regular DB collections
 
-const { Firestore } = require("@nativescript/firebase-firestore");
+const { Firestore, FieldValue } = require("@nativescript/firebase-firestore");
 
 const Product = require("~/03 Models/Product");
 const User = require("~/03 Models/User");
@@ -61,9 +61,7 @@ exports.getLobangProductsByLobangId = function (lobang_name) {
             price: prod_price,
             qty_ordered: 0,
           });
-          console.log(new_product);
           getProductsResponse.set(new_product, 0);
-          console.log(getProductsResponse.get(new_product));
         });
         resolve(getProductsResponse);
       })
@@ -156,6 +154,67 @@ exports.checkUserOrderInLobang = function (lobang_name, user_id) {
   });
 };
 
+exports.checkUserJoinedLobang = function (lobang_name, user_id) {
+  return new Promise((resolve, reject) => {
+    const query = firestore
+      .collection("lobangs")
+      .where("lobang_name", "==", lobang_name)
+      .get()
+      .then((querySnapshot) => {
+        const lobangData = querySnapshot.docs[0].data();
+        if (lobangData.joined.includes(user_id)) {
+          resolve("true");
+        } else {
+          resolve("false");
+        }
+      })
+      .catch((firebaseError) => {
+        console.log(firebaseError);
+        reject(firebaseError);
+      });
+  });
+};
+
+exports.addJoinedToLobang = function (lobang_name, user_id) {
+  return new Promise((resolve, reject) => {
+    const query = firestore
+      .collection("lobangs")
+      .where("lobang_name", "==", lobang_name)
+      .get()
+      .then((querySnapshot) => {
+        const lobangRef = querySnapshot.docs[0].ref;
+        lobangRef.update({
+          joined: FieldValue.arrayUnion([user_id]),
+        });
+        resolve();
+      })
+      .catch((firebaseError) => {
+        console.log(firebaseError);
+        reject(firebaseError);
+      });
+  });
+};
+
+exports.removeJoinedToLobang = function (lobang_name, user_id) {
+  return new Promise((resolve, reject) => {
+    const query = firestore
+      .collection("lobangs")
+      .where("lobang_name", "==", lobang_name)
+      .get()
+      .then((querySnapshot) => {
+        const lobangRef = querySnapshot.docs[0].ref;
+        lobangRef.update({
+          joined: FieldValue.arrayRemove([user_id]),
+        });
+        resolve();
+      })
+      .catch((firebaseError) => {
+        console.log(firebaseError);
+        reject(firebaseError);
+      });
+  });
+};
+
 exports.getLobangRatingsByLobangId = function (lobangId) {
   return new Promise((resolve, reject) => {
     let ratings = [];
@@ -178,12 +237,6 @@ exports.getLobangRatingsByLobangId = function (lobangId) {
 
 exports.doSubmitOrder = function (orderModel, order_line_items) {
   return new Promise((resolve, reject) => {
-    // line_item_arr = [];
-    // order_line_items.forEach((item) => {
-    //     console.log(item.get('product_name'));
-    //     console.log(item.get('qty_ordered'));
-    // });
-
     var newOrderRef = firestore.collection("orders").doc();
     newOrderRef
       .set({
@@ -198,9 +251,9 @@ exports.doSubmitOrder = function (orderModel, order_line_items) {
           .collection("lobangs")
           .where("lobang_name", "==", orderModel.lobang_name)
           .get()
-          .then((querySnapshot) => {
-            const lobangData = querySnapshot.docs[0].data();
-            lobangData.joined.push(orderModel.user_id);
+          .then(() => {
+            // const lobangData = querySnapshot.docs[0].data();
+            // lobangData.joined.push(orderModel.user_id);
           })
           .catch((firebaseError) => {
             console.log(firebaseError);
@@ -209,9 +262,6 @@ exports.doSubmitOrder = function (orderModel, order_line_items) {
       });
     const temp = [];
     order_line_items.forEach((line) => {
-      console.log(line.get("product_name"));
-      console.log(line.get("qty_ordered"));
-      console.log(firestore.FieldValue);
       temp.push({
         product_name: line.get("product_name"),
         qty_ordered: line.get("qty_ordered"),
@@ -223,7 +273,6 @@ exports.doSubmitOrder = function (orderModel, order_line_items) {
     newOrderRef
       .get()
       .then((doc) => {
-        console.log("wow");
         resolve(doc.data());
       })
       .catch((firebaseError) => {
@@ -315,7 +364,6 @@ exports.createNewAnnouncement = function (announcementModel) {
           })
           .then(() => {
             newAnnouncementRef.get().then((doc) => {
-              console.log(doc.data());
               resolve(doc.data());
             });
           })
@@ -332,7 +380,6 @@ exports.createNewAnnouncement = function (announcementModel) {
 };
 
 exports.updateAnnouncement = function (announcementModel) {
-  console.log(announcementModel);
   return new Promise((resolve, reject) => {
     firestore
       .collection("announcements")
@@ -359,7 +406,6 @@ exports.updateAnnouncement = function (announcementModel) {
 };
 
 exports.deleteAnnouncement = function (announcementModel) {
-  console.log(announcementModel);
   return new Promise((resolve, reject) => {
     firestore
       .collection("announcements")
