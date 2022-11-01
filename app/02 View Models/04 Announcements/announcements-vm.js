@@ -1,5 +1,10 @@
+const { resolveFileNameFromUrl } = require("@nativescript/core");
 const observableModule = require("@nativescript/core/data/observable");
-const { getAnnouncements } = require("~/07 Services/feed_service");
+const Lobang = require("~/03 Models/Lobang");
+const {
+  getAnnouncements,
+  getLobangByLobangName,
+} = require("~/07 Services/feed_service");
 
 const displayDate = function (dt) {
   if (!dt) return "";
@@ -22,8 +27,6 @@ function AnnouncementsViewModel() {
     } else {
       getAnnouncements(announcementsViewModel.user.user_id).then(
         (announcementsResponse) => {
-          // console.log("client side");
-          // console.log(announcementsResponse);
           if (announcementsResponse.length > 0) {
             announcementsResponse.map((x) => {
               x.datetime = displayDate(x.datetime);
@@ -33,6 +36,11 @@ function AnnouncementsViewModel() {
         }
       );
     }
+  };
+
+  announcementsViewModel.getLobangToPass = async function (lobangName) {
+    const val = await getLobangByLobangName(lobangName);
+    return val;
   };
 
   return announcementsViewModel;

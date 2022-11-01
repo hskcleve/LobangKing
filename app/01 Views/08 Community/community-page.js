@@ -1,5 +1,6 @@
 const CommunityPageViewModel = require("../../02 View Models/08 Community/community-page-vm");
 const frameModule = require("@nativescript/core/ui/frame");
+// const { getCommunitiesByUserId } = require("~/07 Services/communities-service");
 
 var page;
 var vm;
@@ -15,7 +16,11 @@ exports.onNavigatedTo = function (args) {
   page.bindingContext = vm;
   vm.set("user", nvc.user);
   vm.set("communityName", nvc.commName);
-  vm.set("image", nvc.community_image);
+  if (!nvc.community_image) {
+    vm.setImageFromPost();
+  } else {
+    vm.set("image", nvc.community_image);
+  }
   vm.empty();
   vm.load(vm.communityName);
   console.log("At Community Page: " + vm.user.user_id);
