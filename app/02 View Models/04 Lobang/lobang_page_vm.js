@@ -308,11 +308,12 @@ function LobangPageViewModel() {
     doUpdateLobang(lobangPageViewModel.lobang)
       .then((newLobang) => {
         var lobangModel = new Lobang(newLobang);
-        console.log(lobangPageViewModel.lobang);
         lobangPageViewModel.set("lobang", lobangModel);
         _callback();
       })
-      .catch((firebaseError) => alert(firebaseError));
+      .catch((firebaseError) => {
+        //alert(firebaseError);
+      });
   };
 
   return lobangPageViewModel;
