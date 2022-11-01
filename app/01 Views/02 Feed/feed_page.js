@@ -38,3 +38,17 @@ exports.announcementsOnTap = function (args) {
   };
   frame.navigate(navigationEntry);
 };
+
+exports.postCommunityOnTap = function (args) {
+  // navigate to community page that the post belongs to
+  const ctx = args.object.bindingContext;
+  const frame = frameModule.Frame.topmost();
+  const navigationEntry = {
+    moduleName: "~/01 Views/08 Community/community-page",
+    context: {
+      user: vm.user,
+      commName: ctx.community_id,
+    },
+  };
+  frame.navigate(navigationEntry);
+};

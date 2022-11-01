@@ -6,10 +6,11 @@ const {
   checkUserInCommunity,
   joinCommunity,
   getCommunityMembers,
+  getCommunitiesByUserId,
 } = require("~/07 Services/communities-service");
 
 const displayPostedTime = function (datetimePosted) {
- return datetimePosted.toDate();
+  return datetimePosted.toDate();
 };
 
 function CommunityPageViewModel() {
@@ -69,6 +70,17 @@ function CommunityPageViewModel() {
       .catch((firebaseError) => {
         alert(firebaseError);
       });
+  };
+
+  communityPageViewModel.setImageFromPost = function () {
+    getCommunitiesByUserId(communityPageViewModel.user.user_id).then(
+      (communities) => {
+        const currentCommunity = communities.filter(
+          (comm) => comm.community_id == communityPageViewModel.communityName
+        );
+        communityPageViewModel.set("image", currentCommunity[0].image);
+      }
+    );
   };
 
   return communityPageViewModel;

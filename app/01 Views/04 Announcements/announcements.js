@@ -20,3 +20,17 @@ exports.onNavigatedTo = function (args) {
   vm.set("user", nvc.user);
   vm.load();
 };
+
+exports.lobangOnTap = async function (args) {
+  const ctx = args.object.bindingContext;
+  const lobangToPass = await vm.getLobangToPass(ctx.lobang_name);
+  const frame = frameModule.Frame.topmost();
+  const navigationEntry = {
+    moduleName: "~/01 Views/04 Lobang/lobang_page",
+    context: {
+      lobang: lobangToPass[0],
+      user: vm.user,
+    },
+  };
+  frame.navigate(navigationEntry);
+};
