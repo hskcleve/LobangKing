@@ -1,5 +1,6 @@
 const ExplorePageViewModel = require("~/02 View Models/03 Explore/explore_page_vm");
 const frameModule = require("@nativescript/core/ui/frame");
+const { Enums } = require("@nativescript/core");
 
 var page;
 var vm;
@@ -20,12 +21,29 @@ exports.onNavigatedTo = function (args) {
 };
 
 toggleRecentSearchLocal = function () {
+  const sbBox = page.getViewById("sbBox");
+  vm.set("filterShowing", !vm.get("filterShowing"));
   //assuming var 'page' had been set alr
   const recentSearchBox = page.getViewById("recentSearchBox");
   //obtains reference to the stacklayout
-  if (recentSearchBox.height == 700) {
+  if (recentSearchBox.height == 250) {
+    setTimeout(() => {
+      sbBox.class = "searchbar";
+    }, 300);
+    recentSearchBox.animate({
+      height: 0,
+      duration: 300,
+      curve: Enums.AnimationCurve.linear,
+    });
     recentSearchBox.height = 0;
-  } else recentSearchBox.height = 700;
+  } else {
+    sbBox.class = "searchbarOpen";
+    recentSearchBox.animate({
+      height: 250,
+      duration: 300,
+      curve: Enums.AnimationCurve.linear,
+    });
+  }
 };
 
 exports.toggleRecentSearch = toggleRecentSearchLocal;
@@ -35,8 +53,8 @@ exports.lobangsInCategoryOnTap = function (args) {
   const category = args.object.bindingContext.category_name;
   console.log("category name is " + category);
   vm.getLobangsInCategory(category, () => {
-    page.bindingContext = null;
-    page.bindingContext = vm;
+    //page.bindingContext = null;
+    //page.bindingContext = vm;
   });
 };
 
@@ -44,8 +62,8 @@ exports.goBack = function (args) {
   vm.categoryToDisplay = null;
   vm.lobangsInCategory = null;
 
-  page.bindingContext = undefined;
-  page.bindingContext = vm;
+  //page.bindingContext = undefined;
+  //page.bindingContext = vm;
 };
 
 exports.lobangOnTap = function (args) {
@@ -82,8 +100,8 @@ exports.searchTypesOnTap = function (args) {
     context: {
       callback: (searchTypePicked) => {
         vm.searchTypePicked = searchTypePicked;
-        page.bindingContext = undefined;
-        page.bindingContext = vm;
+        //page.bindingContext = undefined;
+        //page.bindingContext = vm;
       },
     },
   };
@@ -95,8 +113,8 @@ exports.locationListOnTap = function (args) {
     context: {
       callback: (locationPicked) => {
         vm.locationFilter = locationPicked;
-        page.bindingContext = undefined;
-        page.bindingContext = vm;
+        //page.bindingContext = undefined;
+        //page.bindingContext = vm;
       },
     },
   };
@@ -108,20 +126,28 @@ exports.categoryListOnTap = function (args) {
     context: {
       callback: (categoryPicked) => {
         vm.categoryFilter = categoryPicked;
-        page.bindingContext = undefined;
-        page.bindingContext = vm;
+        //page.bindingContext = undefined;
+        //page.bindingContext = vm;
       },
     },
   };
   page.showModal("~/01 Views/10 Modals/category_filter_modal", option);
 };
 
+exports.handleCloseResults = function () {
+  vm.set("onResultsPage", false);
+};
+
 exports.searchBySearchTerm = function (args) {
+  if (vm.get("filterShowing")) {
+    toggleRecentSearchLocal();
+  }
   vm.doSearchBySearchTerm(() => {
     console.log("done in js file too");
-    page.bindingContext = null;
-    page.bindingContext = vm;
+    vm.set("sbText", "");
+    //page.bindingContext = null;
+    //page.bindingContext = vm;
   });
 
-  toggleRecentSearchLocal();
+  //toggleRecentSearchLocal();
 };

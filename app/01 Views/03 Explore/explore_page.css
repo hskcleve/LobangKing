@@ -1,29 +1,34 @@
 .categoriesContainer {
   background-color: white;
-  width: 90%;
-  border-radius: 10%, 10%, 10%, 10%;
-  border-width: 0, 0, 3, 0;
+  border-radius: 25%;
+  border-width: 0, 1.2, 1.5, 0;
   border-color: rgb(184, 184, 184);
-  color: black;
+  margin-top: 10;
+  padding: 10, 15, 5, 15;
 }
 
 .popularGroupbuysContainer {
   background-color: white;
-  width: 90%;
-  border-radius: 10%, 10%, 10%, 10%;
-  border-width: 0, 0, 3, 0;
+  border-radius: 25%;
+  border-width: 0, 1.2, 1.5, 0;
   border-color: rgb(184, 184, 184);
-  color: black;
-  padding: 10px;
+  padding: 10, 15, 5, 15;
 }
 
 .trendingCommunitiesContainer {
   background-color: white;
-  width: 90%;
-  border-radius: 10%, 10%, 10%, 10%;
-  border-width: 0, 0, 3, 0;
+  border-radius: 25%, 25%, 0, 0;
+  border-width: 0, 1.2, 0, 0;
   border-color: rgb(184, 184, 184);
-  color: black;
+  padding: 10, 15, 0, 15;
+}
+
+.searchResultsContainer {
+  background-color: white;
+  border-radius: 25%;
+  border-width: 0, 1.2, 1.5, 0;
+  border-color: rgb(184, 184, 184);
+  padding: 10, 15, 10, 15;
 }
 
 .containerHeaders {
@@ -39,9 +44,13 @@
 }
 
 .categoryImage {
-  height: 200px;
-  width: 200px;
-  object-fit: contain;
+  background-color: rgb(58, 58, 58);
+  border-radius: 50%;
+  background-size: 150px 150px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-width: 1;
+  border-color: black;
 }
 
 .topRowContainer {
@@ -51,10 +60,11 @@
 .lobangPanel {
   color: white;
   border-width: 0, 0.5, 0.5, 0;
-  margin: 5;
+  margin-right: 5;
   background-color: rgb(52, 52, 52);
   border-radius: 10%;
-  width: 230;
+  width: 250;
+  height: 145;
 }
 
 .searchLobangPanel {
@@ -68,10 +78,11 @@
 .communityPanel {
   color: white;
   border-width: 0, 0.5, 0.5, 0;
-  margin: 5;
+  margin-right: 5;
   background-color: rgb(52, 52, 52);
   border-radius: 10%;
   width: 150;
+  height: 200;
 }
 
 .searchCommunityPanel {
@@ -81,4 +92,37 @@
   background-color: rgb(52, 52, 52);
   border-radius: 10%;
   height: 100;
+}
+
+.searchbar {
+  background-color: white;
+  border-radius: 10%;
+}
+
+.searchbarOpen {
+  background-color: white;
+  border-radius: 10%, 10%, 0, 0;
+}
+
+.searchIcon {
+  height: 20;
+  opacity: 0.6;
+  margin: 0, 5, 0, 10;
+}
+
+.filterIcon {
+  height: 22;
+  opacity: 1;
+  margin: 0, 10, 0, 0;
+}
+
+.closeIcon {
+  height: 17;
+  opacity: 1;
+  margin: 0, 10, 0, 0;
+}
+
+.filterContainer {
+  background-color: white;
+  border-radius: 0, 0, 10%, 10%;
 }

@@ -9,7 +9,7 @@ const {
 const {
   getActiveGroupbuys,
   getCommunities,
-  getGroupbuysByCategory
+  getGroupbuysByCategory,
 } = require("~/07 Services/firestore_service");
 const possible_locations = require("~/00 Constants/towns_constants").town_names;
 const possible_categories =
@@ -34,13 +34,15 @@ function ExplorePageViewModel() {
     //locations: Object.assign([], possible_locations.unshift("None")),
     locationFilter: undefined,
     displayResults: undefined,
+    onResultsPage: false,
+    filterShowing: false,
   });
 
   explorePageViewModel.getCategoriesList = function () {
     const options = possible_categories.map((item) => item);
     options.shift();
     explorePageViewModel.set("categories", options);
-  }
+  };
 
   explorePageViewModel.getPopularGroupbuysList = function () {
     getActiveGroupbuys().then((lobangs) => {
@@ -61,10 +63,12 @@ function ExplorePageViewModel() {
 
   explorePageViewModel.getLobangsInCategory = function (category) {
     explorePageViewModel.set("categoryToDisplay", category);
-    console.log("set categoryToDisplay var as: " + explorePageViewModel.categoryToDisplay);
+    console.log(
+      "set categoryToDisplay var as: " + explorePageViewModel.categoryToDisplay
+    );
     getActiveGroupbuys().then((lobangs) => {
       console.log("back in vm!");
-      const inCat = lobangs.filter((item) => 
+      const inCat = lobangs.filter((item) =>
         item.categories.includes(category)
       );
       console.log("after filter by cat:");
@@ -75,11 +79,11 @@ function ExplorePageViewModel() {
       console.log("after sort by coins:");
       console.log(inCat);
       explorePageViewModel.set("lobangsInCategory", inCat);
-    })
-  }
+    });
+  };
 
-
-  explorePageViewModel.doSearchBySearchTerm = function () {
+  explorePageViewModel.doSearchBySearchTerm = function (callback) {
+    explorePageViewModel.set("onResultsPage", true);
     //search by lobangs
     if (
       explorePageViewModel.searchTypePicked ==
@@ -88,26 +92,29 @@ function ExplorePageViewModel() {
       getActiveGroupbuys().then((lobangs) => {
         const filteredLocation =
           explorePageViewModel.locationFilter != null &&
-            explorePageViewModel.locationFilter != "None"
+          explorePageViewModel.locationFilter != "None"
             ? lobangs.filter(
-              (item) => item.location == explorePageViewModel.locationFilter
-            )
+                (item) => item.location == explorePageViewModel.locationFilter
+              )
             : lobangs.map((item) => item);
 
         const filteredCategory =
           explorePageViewModel.categoryFilter != null &&
-            explorePageViewModel.categoryFilter != "None"
+          explorePageViewModel.categoryFilter != "None"
             ? filteredLocation.filter((item) =>
-              item.categories.includes(explorePageViewModel.categoryFilter)
-            )
+                item.categories.includes(explorePageViewModel.categoryFilter)
+              )
             : filteredLocation.map((item) => item);
 
-        const groupbuyResults = filteredCategory.filter((item) =>
-          item.lobang_name
-            .toLowerCase()
-            .includes(explorePageViewModel.sbText.toLowerCase())
-        ).sort((a, b) => b.coins - a.coins);
+        const groupbuyResults = filteredCategory
+          .filter((item) =>
+            item.lobang_name
+              .toLowerCase()
+              .includes(explorePageViewModel.sbText.toLowerCase())
+          )
+          .sort((a, b) => b.coins - a.coins);
         explorePageViewModel.set("displayResults", groupbuyResults);
+        callback();
       });
     }
     //search by communities
@@ -120,6 +127,7 @@ function ExplorePageViewModel() {
         );
         explorePageViewModel.set("displayResults", communitiesResult);
         console.log("Done setting display results");
+        callback();
       });
     }
   };
