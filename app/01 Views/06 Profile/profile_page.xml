@@ -54,7 +54,7 @@
                             <GridLayout class="lobangPanel" tap="hostedLobangOnTap">
                                 <GridLayout style="{{getBackgroundImageCss()}}">
                                 </GridLayout>
-                                <GridLayout rows="*,*,*,*,*" columns="auto,5,*" style="padding:10%">
+                                <GridLayout rows="*,*,*,*,*,*" columns="auto,5,*" style="padding:10%">
                                     <Label row="0" col="0" colSpan="3" style="font-size: 17%; font-weight: bold" text="{{lobang_name}}"/>
                                     <Label row="1" col="0" colSpan="3" text="{{joined.length + ' people joined'}}"/>
                                     <Label row="2" col="2" style="font-weight: bold" text="{{products.length + ' products'}}"/>
@@ -63,7 +63,9 @@
                                     <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products.png" height="15"/>
                                     <Image row="3" col="0" src="~/06 Assets/10 Lobang Icons/time-left.png" height="15"/>
                                     <Image row="4" col="0" src="~/06 Assets/10 Lobang Icons/tag.png" height="15"/>
+                                    <Button row="5" class="-primary" text="Edit Lobang" tap="editLobangOnTap"/>
                                 </GridLayout>
+                            </GridLayout>
                             </GridLayout>
                         </Repeater.itemTemplate>
                     </Repeater>
