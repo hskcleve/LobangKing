@@ -33,7 +33,7 @@ exports.createNewLobang = function (lobang) {
   });
 };
 
-exports.doLobangUpdate = function (lobang) {
+exports.doUpdateLobang = function (lobang) {
   return new Promise((resolve, reject) => {
     firestore
       .collection("lobangs")
@@ -42,18 +42,20 @@ exports.doLobangUpdate = function (lobang) {
       .get()
       .then((querySnapshot) => {
         const docId = querySnapshot.docs[0].id;
-        firestore
-          .collection("users")
-          .doc(docId)
+        var docRef = firestore.collection("lobangs").doc(docId);
+        docRef
           .update({
             description: lobang.description,
             collection_date: lobang.collection_date,
             last_order_date: lobang.last_order_date,
-            townLocated: lobang.townLocated,
+            location: lobang.location,
             coverPicture: lobang.coverPicture,
           })
           .then(() => {
-            resolve();
+            docRef.get().then((doc) => {
+              console.log(doc.data());
+              resolve(doc.data());
+            });
           })
           .catch((firebaseError) => {
             console.log(firebaseError);

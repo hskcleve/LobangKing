@@ -21,8 +21,12 @@ const {
   deleteAnnouncement,
   updateOrderStatus,
   checkUserOrderInLobang,
+  checkUserJoinedLobang,
+  addJoinedToLobang,
+  removeJoinedToLobang,
   doSubmitOrder,
 } = require("~/07 Services/lobang_page_service");
+const { doUpdateLobang } = require("~/07 Services/host_lobang_service");
 const { FieldValue } = require("@nativescript/firebase-firestore");
 const { ObservableArray } = require("@nativescript/core");
 
@@ -59,19 +63,48 @@ function LobangPageViewModel() {
     ratings: undefined,
     hasOrder: undefined,
     userOrder: undefined,
+    hasJoined: undefined,
     displayDateJoined,
     getVerifiedIcon,
   });
 
-  lobangPageViewModel.isHost = function () {
-    if (
-      !lobangPageViewModel.lobang_host.user_id ===
+  lobangPageViewModel.hasJoinedLobang = function () {
+    checkUserJoinedLobang(
+      lobangPageViewModel.lobang.lobang_name,
       lobangPageViewModel.user.user_id
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    )
+      .then((result) => {
+        lobangPageViewModel.set("hasJoined", result);
+      })
+      .catch((firebaseError) => {
+        reject(firebaseError);
+      });
+  };
+
+  lobangPageViewModel.doJoinLobang = function () {
+    addJoinedToLobang(
+      lobangPageViewModel.lobang.lobang_name,
+      lobangPageViewModel.user.user_id
+    )
+      .then(() => {
+        lobangPageViewModel.set("hasJoined", true);
+      })
+      .catch((firebaseError) => {
+        reject(firebaseError);
+      });
+  };
+
+  lobangPageViewModel.doUnjoinLobang = function () {
+    removeJoinedToLobang(
+      lobangPageViewModel.lobang.lobang_name,
+      lobangPageViewModel.user.user_id
+    )
+      .then(() => {
+        lobangPageViewModel.set("hasJoined", false);
+      })
+      .catch((firebaseError) => {
+        reject(firebaseError);
+      });
   };
 
   lobangPageViewModel.getLobangHost = function (lobang) {
@@ -112,7 +145,6 @@ function LobangPageViewModel() {
     lobangPageViewModel.temp_announcement.lobang = lobangPageViewModel.lobang;
     lobangPageViewModel.temp_announcement.user_id =
       lobangPageViewModel.user.user_id;
-    console.log(lobangPageViewModel.user);
     return new Promise((resolve, reject) => {
       createNewAnnouncement(lobangPageViewModel.temp_announcement)
         .then((newAnnouncement) => resolve(newAnnouncement))
@@ -182,16 +214,12 @@ function LobangPageViewModel() {
         temp_line_items.push(
           new Map([
             ["product_name", prod.product_name],
+            ["price", prod.price],
             ["qty_ordered", prod.qty_ordered],
           ])
         );
       }
     });
-    temp_line_items.forEach((item) => {
-      console.log(item.get("product_name"));
-      console.log(item.get("qty_ordered"));
-    });
-    console.log(temp_line_items);
     doSubmitOrder(order, temp_line_items).then((result) => {
       lobangPageViewModel.set("hasOrder", true);
       lobangPageViewModel.set("userOrder", result);
@@ -226,15 +254,12 @@ function LobangPageViewModel() {
   };
 
   lobangPageViewModel.userHasOrderInLobang = function () {
-    console.log(lobangPageViewModel.user);
     checkUserOrderInLobang(
       lobangPageViewModel.lobang.lobang_name,
       lobangPageViewModel.user.user_id
     )
       .then((result) => {
-        console.log(result.status);
         lobangPageViewModel.set("hasOrder", true);
-        console.log(lobangPageViewModel.get("hasOrder"));
         lobangPageViewModel.set("userOrder", result);
       })
       .catch((firebaseError) => {
@@ -260,6 +285,35 @@ function LobangPageViewModel() {
         }
       );
     }
+  };
+
+  lobangPageViewModel.doLobangUpdate = function (_callback) {
+    stringLobang = JSON.stringify(lobangPageViewModel.temp_lobang);
+    lobangPageViewModel.lobang = JSON.parse(stringLobang);
+    lobangPageViewModel.lobang.description = String(
+      lobangPageViewModel.temp_lobang.description
+    );
+    lobangPageViewModel.lobang.collection_date = String(
+      lobangPageViewModel.temp_lobang.collection_date
+    );
+    lobangPageViewModel.lobang.last_order_date = String(
+      lobangPageViewModel.temp_lobang.last_order_date
+    );
+    lobangPageViewModel.lobang.location = String(
+      lobangPageViewModel.temp_lobang.location
+    );
+    lobangPageViewModel.lobang.coverPicture = String(
+      lobangPageViewModel.temp_lobang.coverPicture
+    );
+    doUpdateLobang(lobangPageViewModel.lobang)
+      .then((newLobang) => {
+        var lobangModel = new Lobang(newLobang);
+        lobangPageViewModel.set("lobang", lobangModel);
+        _callback();
+      })
+      .catch((firebaseError) => {
+        //alert(firebaseError);
+      });
   };
 
   return lobangPageViewModel;

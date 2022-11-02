@@ -11,6 +11,7 @@ exports.onShownModally = function (args) {
         temp_order: args.context.order,
         callback: args.context.callback,
     });
+    pageData.status = pageData.status.filter((item) => item !== pageData.temp_order.status);
     page.bindingContext = pageData;
 };
 
