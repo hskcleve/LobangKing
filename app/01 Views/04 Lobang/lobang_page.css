@@ -2,11 +2,14 @@
   background-color: rgb(52, 52, 52);
   height: 100%;
   width: 95%;
-  border-radius: 25%, 25%, 25%, 25%;
-  border-width: 0, 0.5, 0.5, 0;
-  border-color: rgb(184, 184, 184);
+  border-radius: 10%;
   color: white;
-  margin: 5;
+  margin: 10;
+  box-shadow: 3px 3px 6px rgb(82, 82, 82);
+}
+
+.small {
+  width: 70;
 }
 
 .lobangPic {
@@ -32,15 +35,15 @@
 .profilePicContainer {
   background-color: rgb(52, 52, 52);
   border-radius: 50%;
-  height: 85;
-  width: 85;
+  height: 50;
+  width: 50;
   border-color: rgb(26, 26, 26);
 }
 
 .profilePic {
   border-radius: 50%;
-  height: 85;
-  width: 85;
+  height: 50;
+  width: 50;
 }
 
 .iconPic {
@@ -51,11 +54,6 @@
 .h2-large {
   font-size: 17%;
   font-weight: bold;
-  margin: 2%;
-}
-
-.fineprint {
-  font-size: 12%;
   margin: 2%;
 }
 
@@ -71,8 +69,8 @@
   opacity: 0.2;
 }
 
-.hostInfoContainer {
-  padding: 20%;
+.infoContainer {
+  margin: 10, 20, 0, 20;
 }
 
 .collectionPointContainer {
@@ -81,13 +79,6 @@
 
 .collectionDatetimeContainer {
   padding: 20%;
-}
-
-.announcementPanel {
-  color: white;
-  margin: 5;
-  background-color: rgb(217, 212, 212);
-  border-radius: 10%;
 }
 
 .announcementProfilePicContainer {
@@ -105,7 +96,7 @@
 }
 
 .announcementPicContainer {
-  border-width: 0, 0.5, 0.5, 0;
+  margin: 20, 0, 10, 0;
 }
 
 .announcementPic {
@@ -135,4 +126,51 @@
   background-color: rgb(217, 212, 212);
   border-radius: 10%;
   padding: 10%;
+}
+
+.joinButton {
+  margin: 5;
+  font-weight: bold;
+  border-radius: 10%;
+  height: 30;
+  width: 100;
+  background: rgb(165, 196, 242);
+  color: black;
+  box-shadow: 3px 3px 6px;
+}
+
+.leaveButton {
+  margin: 5;
+  font-weight: bold;
+  outline-width: 0.5;
+  border-color: white;
+  border-radius: 10%;
+  border-width: 1;
+  height: 30;
+  width: 100;
+  background-color: transparent;
+  color: white;
+}
+
+.editButton {
+  opacity: 0.5;
+  font-weight: bold;
+  height: 30;
+  width: 100;
+  background-color: transparent;
+  color: rgb(0, 0, 0);
+}
+
+.postHeader {
+  font-size: 15;
+  font-weight: bold;
+}
+
+.postMiniHeader {
+  font-size: 10;
+  color: grey;
+}
+
+.postBody {
+  margin: 10, 0, 10, 0;
 }

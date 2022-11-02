@@ -163,9 +163,11 @@ exports.checkUserJoinedLobang = function (lobang_name, user_id) {
       .then((querySnapshot) => {
         const lobangData = querySnapshot.docs[0].data();
         if (lobangData.joined.includes(user_id)) {
-          resolve("true");
+          console.log("user has joined already");
+          resolve(true);
         } else {
-          resolve("false");
+          console.log("user has not joined");
+          resolve(false);
         }
       })
       .catch((firebaseError) => {

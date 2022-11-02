@@ -39,6 +39,27 @@ const displayDateJoined = function (dateJoined) {
   );
 };
 
+const displayFullDate = function (date) {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  date = new Date(date);
+  return `${date.getDate()} ${months[date.getMonth()]} ${
+    date.getYear() + 1900
+  }`;
+};
+
 const getVerifiedIcon = function (verifiedStatus) {
   const src = verifiedStatus
     ? "~/06 Assets/06 Profile Page Icons/verified-tick.png"
@@ -66,6 +87,7 @@ function LobangPageViewModel() {
     hasJoined: undefined,
     displayDateJoined,
     getVerifiedIcon,
+    displayFullDate,
   });
 
   lobangPageViewModel.hasJoinedLobang = function () {
@@ -81,26 +103,28 @@ function LobangPageViewModel() {
       });
   };
 
-  lobangPageViewModel.doJoinLobang = function () {
+  lobangPageViewModel.doJoinLobang = function (refresh_callback) {
     addJoinedToLobang(
       lobangPageViewModel.lobang.lobang_name,
       lobangPageViewModel.user.user_id
     )
       .then(() => {
         lobangPageViewModel.set("hasJoined", true);
+        refresh_callback();
       })
       .catch((firebaseError) => {
         reject(firebaseError);
       });
   };
 
-  lobangPageViewModel.doUnjoinLobang = function () {
+  lobangPageViewModel.doUnjoinLobang = function (refresh_callback) {
     removeJoinedToLobang(
       lobangPageViewModel.lobang.lobang_name,
       lobangPageViewModel.user.user_id
     )
       .then(() => {
         lobangPageViewModel.set("hasJoined", false);
+        refresh_callback();
       })
       .catch((firebaseError) => {
         reject(firebaseError);

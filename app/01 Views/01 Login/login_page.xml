@@ -1,8 +1,9 @@
 <Page id="login_page" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:df="nativescript-ui-dataform">
-    <GridLayout class="gradientBg" rows="*,auto" columns="*,auto,*">
-        <!--Image row="1" col="1" src="~/06 Assets/00 General/placeholder_icon.png"/-->
+    <GridLayout class="gradientBg" rows="auto,*,auto" columns="*,auto,*">
+        
+        <Image style="margin-top:20" row="0" col="1" src="~/06 Assets/00 General/lobangking2.png"/>
     
-        <StackLayout id="formContainer" class="form" height="55%" row="1" col="1" >
+        <StackLayout id="formContainer" class="form" height="55%" row="2" col="1" >
             <StackLayout hidden="{{!on_login_page}}">
                 <Label class="h1 centered" text="Sign In" style="margin-bottom:10%"/>
                 <Label class="h2" text="Username"/>

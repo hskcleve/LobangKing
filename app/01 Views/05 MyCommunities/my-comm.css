@@ -10,9 +10,22 @@
   background-position: center;
   margin-bottom: 10;
   padding: 0;
-  color: white;
-  background-color: rgb(0, 0, 0);
   border-radius: 10%;
+  margin: 6;
+}
+
+.blocking {
+  height: 250px;
+  margin-bottom: 10;
+  padding: 0;
+  border-radius: 10%;
+  margin: 6;
+  background-color: black;
+  opacity: 0.4;
+}
+
+.blockTopText {
+  height: 250px;
 }
 
 .community-img {

@@ -10,7 +10,7 @@
             <TextView col="1" hint="Search my communities" textWrap="true" textChange="onTextChange" 
             text="{{sbText}}" style="border-width:0"/>
         </GridLayout>
-        <GridLayout row="2" rows="auto,*" style="padding:10">
+        <GridLayout row="2" rows="auto,*" style="padding:0,10,0,10">
             <ScrollView row="1" orientation="vertical" scrollBarIndicatorVisible="false">
                 <StackLayout>
                     <Repeater items="{{communities}}">
@@ -18,9 +18,16 @@
                             <StackLayout orientation="vertical" />
                         </Repeater.itemsLayout>
                         <Repeater.itemTemplate>
-                            <FlexboxLayout justifyContent="center" alignItems="center" class="community" style="{{'background-image:' + image}}" tap="selectCommunityOnTap">
-                                <Label class="community-name" text="{{name}}" textWrap="true"/>
-                            </FlexboxLayout>
+                            <GridLayout tap="selectCommunityOnTap">
+                                <FlexboxLayout justifyContent="center" alignItems="center" class="community" style="{{'background-image:' + image}}">
+                                </FlexboxLayout>
+                                <FlexboxLayout class="blocking">
+                                </FlexboxLayout>
+                                <FlexboxLayout class="blockTopText" justifyContent="center" alignItems="center">
+                                    <Label class="h1" style="color:white" text="{{name}}" textWrap="true"/>
+                                </FlexboxLayout>
+                            </GridLayout>
+                           
                         </Repeater.itemTemplate>
                     </Repeater>
                 </StackLayout>

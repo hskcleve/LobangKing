@@ -51,7 +51,7 @@
                         <Label text="Cover Picture URL"/>
                         <TextField hint="URL" text="{{temp_lobang.coverPicture}}" autocorrect="false"></TextField>
                         <Label text="Tags (Optional)"/>
-                        <GridLayout columns="*,50">
+                        <GridLayout columns="*,auto">
                             <TextField id="addTagBox" col="0" maxLength="10" hint="Enter Tag"/>
                             <Button col="1" class="-primary" text="Add" tap="addTagOnTap" height="35"/>
                         </GridLayout>

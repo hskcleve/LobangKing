@@ -4,15 +4,15 @@
             <Label row="0" text="Edit or Delete Announcement" />
         </FlexboxLayout>
         <ScrollView row="1">
-            <StackLayout style="padding:10%">
-                <Label text="Announcement Description" />
-                <TextField style="font-size: 12" text="{{temp_announcement.description}}" autocorrect="false" maxLength="60" textWrap="true"></TextField>
-                <Label text="Announcement Picture" />
-                <TextField style="font-size: 12" text="{{temp_announcement.picture}}" autocorrect="false" maxLength="100" textWrap="true"></TextField>
+            <StackLayout style="padding:10%" verticalAlignment="center">
+                <Label class="h2" text="Announcement Description" />
+                <TextView style="font-size: 12" text="{{temp_announcement.description}}" autocorrect="false" textWrap="true"></TextView>
+                <Label class="h2" text="Announcement Picture" />
+                <TextField style="font-size: 12" text="{{temp_announcement.picture}}" autocorrect="false" textWrap="true"></TextField>
             </StackLayout>
         </ScrollView>
-        <Button row="2" class="-primary" text="Confirm Edits" tap="confirmEditAnnouncementOnTap" />
-        <Button row="3" class="-outline -rounded-sm" text="Confirm Delete" tap="confirmDeleteAnnouncementOnTap" />
-        <Button row="4" class="-secondary" text="Close" tap="closeUpdateAnnouncementModalOnTap" />
+        <Button row="2" class="-primary" style="margin:5,10,5,10" text="Confirm Edits" tap="confirmEditAnnouncementOnTap" />
+        <Button row="3" class="-secondary" style="margin:5,10,5,10" text="Delete" tap="confirmDeleteAnnouncementOnTap" />
+        <Button row="4" class="-secondary" style="margin:5,10,10,10" text="Close" tap="closeUpdateAnnouncementModalOnTap" />
     </GridLayout>
 </Page>

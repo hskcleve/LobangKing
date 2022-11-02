@@ -2,6 +2,7 @@ const LobangPageViewModel = require("~/02 View Models/04 Lobang/lobang_page_vm")
 const frameModule = require("@nativescript/core/ui/frame");
 const Announcement = require("~/03 Models/Announcement");
 const Lobang = require("~/03 Models/Lobang");
+const observableModule = require("@nativescript/core/data/observable");
 
 var page;
 var vm;
@@ -27,7 +28,25 @@ exports.onNavigatedTo = function (args) {
   vm.userHasOrderInLobang();
   vm.hasJoinedLobang();
   page.bindingContext = vm;
-  console.log(vm.lobang instanceof Lobang);
+
+  const displayDate = function (dt) {
+    if (!dt) return "";
+    dt = new Date(dt);
+    return `${dt.getDate()} ${dt
+      .toLocaleString("default", { month: "long" })
+      .substring(4, 7)} ${dt.getYear() + 1900}`;
+  };
+
+  vm.on(observableModule.Observable.propertyChangeEvent, (event) => {
+    console.log(event.propertyName);
+    if (event.propertyName == "announcements") {
+      vm.announcements.map((x) => {
+        x.datetime = displayDate(x.datetime);
+      });
+      console.log(vm.announcements);
+      vm.set("announcements", vm.announcements);
+    }
+  });
 };
 
 exports.goBack = function () {
