@@ -13,19 +13,19 @@
             <GridLayout rows="auto,auto,*,*,*" columns="auto,5,*,*" style="padding:10%">
                 <Label row="0" col="0" colSpan="4" style="font-size: 17%; font-weight: bold" text="{{lobang.lobang_name}}" textWrap="true" />
                 <StackLayout verticalAlignment="bottom" horizontalAlignment="right" row="2" rowSpan="3" col="3" visibility="{{ lobang_host.user_id === user.user_id ? 'collapsed' : 'visible' }}">
-                    <FlexboxLayout justifyContent="center" alignItems="center" class="joinButton" row="2" col="2" visibility="{{ !hasJoined ? 'visible' : 'collapsed'}}" tap="joinLobangOnTap">
-                        <Image height="10" style="margin-right:5" src="~/06 Assets/00 General/add_black.png"/>
-                        <Label style="margin:1" text="JOIN"/>
+                    <FlexboxLayout justifyContent="center" alignItems="center" class="joinButton" row="2" col="2" visibility="{{ hasJoined == 'false' ? 'visible' : 'collapsed'}}" tap="joinLobangOnTap">
+                        <Image height="10" style="margin-right:5" src="~/06 Assets/00 General/add_black.png" />
+                        <Label style="margin:1" text="JOIN" />
                     </FlexboxLayout>
-                    <FlexboxLayout justifyContent="center" alignItems="center" class="leaveButton" row="2" col="2" visibility="{{ hasJoined ? 'visible' : 'collapsed'}}" tap="unjoinLobangOnTap">
-                        <Image height="18" style="margin-right:3" src="~/06 Assets/00 General/leave_white.png"/>
-                        <Label style="margin:1" text="LEAVE"/>
+                    <FlexboxLayout justifyContent="center" alignItems="center" class="leaveButton" row="2" col="2" visibility="{{ hasJoined == 'true' ? 'visible' : 'collapsed'}}" tap="unjoinLobangOnTap">
+                        <Image height="18" style="margin-right:3" src="~/06 Assets/00 General/leave_white.png" />
+                        <Label style="margin:1" text="LEAVE" />
                     </FlexboxLayout>
                 </StackLayout>
                 <Label row="1" col="0" colSpan="4" text="{{lobang.joined.length + ' people joined'}}" />
-                <Label row="2" col="2" style="font-weight: bold" text="{{lobang.products.length + ' products'}}" height="18"/>
-                <Label row="3" col="2" style="font-weight: bold" text="{{lobang.getTimeLeft()}}" height="18"/>
-                <Label row="4" col="2" style="font-weight: bold" text="{{lobang.getTags()}}" height="18"/>
+                <Label row="2" col="2" style="font-weight: bold" text="{{lobang.products.length + ' products'}}" height="18" />
+                <Label row="3" col="2" style="font-weight: bold" text="{{lobang.getTimeLeft()}}" height="18" />
+                <Label row="4" col="2" style="font-weight: bold" text="{{lobang.getTags()}}" height="18" />
                 <Image row="2" col="0" src="~/06 Assets/10 Lobang Icons/products.png" height="18" />
                 <Image row="3" col="0" src="~/06 Assets/10 Lobang Icons/time-left.png" height="18" />
                 <Image row="4" col="0" src="~/06 Assets/10 Lobang Icons/tag.png" height="18" />
@@ -45,7 +45,7 @@
 
             <ScrollView hidden="{{tab!='lobangDetails'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
                 <StackLayout>
-                    <Label style="padding:10%" class="h1" text="Information"/>
+                    <Label style="padding:10%" class="h1" text="Information" />
                     <GridLayout class="infoContainer" columns="auto,*" height="22%" style="margin-bottom:10">
                         <StackLayout col="0" rowSpan="2" height="100%" horizontalAlignment="center">
                             <GridLayout class="profilePicContainer">
@@ -59,7 +59,7 @@
                             <Label class="fineprint centered" text="{{lobang_host.getRating() + '/5 Rating'}}" />
                         </StackLayout>
                         <FlexboxLayout class="descriptionContainer" col="1" justifyContent="center" flexDirection="column">
-                            <Label class="h2" style="margin:0" text="Groupbuy Description"/>
+                            <Label class="h2" style="margin:0" text="Groupbuy Description" />
                             <Label text="{{lobang.description}}" textWrap="true" />
                         </FlexboxLayout>
                     </GridLayout>
@@ -67,16 +67,16 @@
                         <Label row="0" col="1" class="h2" style="margin:0" text="Collection Point: " />
                         <Label row="0" col="2" text="{{lobang.location}}" />
                         <Label row="1" col="1" class="h2" style="margin:0" text="Collection Date: " />
-                        <Label row="1" col="2" text="{{lobang.collection_date | displayFullDate}}"/>
-                        <Label row="2" col="1" class="h2" style="margin:0"  text="Last Order Date: " />
-                        <Label row="2" col="2" text="{{lobang.last_order_date | displayFullDate}}"/>
-                        <Label row="3" col="1" class="h2" style="margin:0"  text="Groupbuy Status: " />
-                        <Label row="3" col="2" text="{{lobang.lobang_status}}"/>
+                        <Label row="1" col="2" text="{{lobang.collection_date | displayFullDate}}" />
+                        <Label row="2" col="1" class="h2" style="margin:0" text="Last Order Date: " />
+                        <Label row="2" col="2" text="{{lobang.last_order_date | displayFullDate}}" />
+                        <Label row="3" col="1" class="h2" style="margin:0" text="Groupbuy Status: " />
+                        <Label row="3" col="2" text="{{lobang.lobang_status}}" />
                     </GridLayout>
                     <GridLayout columns="*,auto" style="padding:10,10,0,10" visibility="{{ lobang_host.user_id === user.user_id ? 'visible' : 'collapsed' }}">
                         <FlexboxLayout justifyContent="center" alignItems="center" class="editButton" col="1" tap="editLobangOnTap">
-                            <Image height="18" style="margin-right:3" src="~/06 Assets/06 Profile Page Icons/edit.png"/>
-                            <Label style="margin:1" text="EDIT"/>
+                            <Image height="18" style="margin-right:3" src="~/06 Assets/06 Profile Page Icons/edit.png" />
+                            <Label style="margin:1" text="EDIT" />
                         </FlexboxLayout>
                     </GridLayout>
                 </StackLayout>
@@ -84,18 +84,17 @@
 
             <ScrollView hidden="{{tab!='editLobang'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
                 <StackLayout style="padding:10%">
-                    <Label class="h1" text="Edit Information"/>
+                    <Label class="h1" text="Edit Information" />
                     <StackLayout>
                         <GridLayout columns="auto,*,auto" style="padding:10,10,10,10">
                             <FlexboxLayout alignItems="center" col="0" tap="toggleDetailsTab">
-                                <Image height="12" style="margin-right:3" src="~/06 Assets/00 General/back_arrow.png"/>
-                                <Label style="margin:1; font-weight:bold" text="BACK"/>
+                                <Image height="12" style="margin-right:3" src="~/06 Assets/00 General/back_arrow.png" />
+                                <Label style="margin:1; font-weight:bold" text="BACK" />
                             </FlexboxLayout>
                         </GridLayout>
                         <df:RadDataForm row="1" id="tempLobangDataForm" source="{{temp_lobang}}">
                             <df:RadDataForm.properties>
-                                <df:EntityProperty name="min_order" displayName="Minimum Order Quantity">
-                                </df:EntityProperty>
+                                <df:EntityProperty name="min_order" displayName="Minimum Order Quantity"></df:EntityProperty>
                                 <df:EntityProperty name="location" displayName="Collection Point" valuesProvider="Ang Mo Kio, Bedok, Bishan, Bukit Batok, Bukit Merah, Bukit Panjang, Bukit Timah, Central Area, Choa Chu Kang, Clementi, Geylang, Hougang, Jurong East, Jurong West, Kallang/Whampoa, Marine Parade, Pasir Ris, Punggol, Queenstown, Sembawang, Sengkang, Serangoon, Tampines, Tengah, Toa Payoh, Woodlands, Yishun">
                                     <df:EntityProperty.editor>
                                         <df:PropertyEditor type="Picker" />
@@ -132,12 +131,12 @@
 
             <ScrollView hidden="{{tab!='lobangAnnouncements'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
                 <StackLayout style="padding:10%">
-                <Label class="h1" text="Announcements" style="margin-bottom:10"/>
+                    <Label class="h1" text="Announcements" style="margin-bottom:10" />
                     <Repeater items="{{announcements}}">
                         <Repeater.itemsLayout>
                             <StackLayout orientation="vertical" />
                         </Repeater.itemsLayout>
-                        <Repeater.itemTemplate>    
+                        <Repeater.itemTemplate>
                             <GridLayout class="card" rows="auto,auto,auto,auto" columns="*,auto">
                                 <Label style="text-align:right" class="postMiniHeader" row="0" col="1" text="{{datetime}}" />
                                 <Label class="postHeader" row="0" text="{{lobang_name}}" textWrap="true" />
@@ -145,9 +144,9 @@
                                 <GridLayout class="announcementPicContainer" row="2" col="0" colSpan="2" hidden="{{ picture === null }}">
                                     <Image class="announcementPic" src="{{picture}}" stretch="aspectFill" />
                                 </GridLayout>
-                                <FlexboxLayout row="3" col="1" justifyContent="flex-end" alignItems="flex-end" alignContent="" alignItems="center" class="editButton" tap="editAnnouncementDialog">
-                                    <Image height="18" style="margin-right:3" src="~/06 Assets/06 Profile Page Icons/edit.png"/>
-                                    <Label style="margin:1" text="EDIT"/>
+                                <FlexboxLayout row="3" col="1" justifyContent="flex-end" alignItems="flex-end" alignContent="" class="editButton" tap="editAnnouncementDialog">
+                                    <Image height="18" style="margin-right:3" src="~/06 Assets/06 Profile Page Icons/edit.png" />
+                                    <Label style="margin:1" text="EDIT" />
                                 </FlexboxLayout>
                             </GridLayout>
 
@@ -172,7 +171,7 @@
                     <GridLayout visibility="{{ lobang_host.user_id !== user.user_id ? 'visible' : 'collapsed' }}">
                         <!--IF NO ORDER, VIEWING PRODUCTS-->
                         <StackLayout visibility="{{ hasOrder ? 'collapsed' : 'visible' }}">
-                            <Label class="h1" text="{{ 'Products (' + temp_prodArr.length + ')' }}" style="margin-bottom:10"/>
+                            <Label class="h1" text="{{ 'Products (' + temp_prodArr.length + ')' }}" style="margin-bottom:10" />
                             <StackLayout>
                                 <Repeater items="{{temp_prodArr}}">
                                     <Repeater.itemsLayout>
@@ -195,7 +194,7 @@
                         </StackLayout>
                         <!--IF ALREADY HAS ORDER, VIEWING SUMMARY-->
                         <StackLayout visibility="{{ hasOrder ? 'visible' : 'collapsed' }}">
-                            <Label class="h1" text="Order Summary" style="margin-bottom:10"/>
+                            <Label class="h1" text="Order Summary" style="margin-bottom:10" />
                             <StackLayout class="card">
                                 <Label style="font-size: 15%; font-weight: bold" text="{{user.user_id}}" />
                                 <GridLayout rows="*" columns="200,auto" style="padding:10%">
@@ -225,7 +224,7 @@
                     </GridLayout>
                     <!--FOR HOST SECTION, VIEW ORDERS PLACED-->
                     <GridLayout rows="auto,auto" visibility="{{ lobang_host.user_id === user.user_id ? 'visible' : 'collapsed' }}">
-                        <Label row="0" class="h1" text="{{ 'Orders (' + orders.length + ')' }}"/>
+                        <Label row="0" class="h1" text="{{ 'Orders (' + orders.length + ')' }}" />
                         <StackLayout row="1" style="margin-top:10">
                             <Repeater items="{{orders}}">
                                 <Repeater.itemsLayout>
@@ -257,8 +256,8 @@
                                             <Label style="font-size: 12%; font-weight: bold" row="1" col="0" text="{{'Status: ' + status }}" />
                                             <!--Button row="1" col="1" text="Update Status" class='-primary -rounded-sm' tap='updateOrderStatusDialog' /-->
                                             <FlexboxLayout justifyContent="flex-end" alignItems="center" class="editButton" row="2" col="1" tap="updateOrderStatusDialog">
-                                                <Image height="18" style="margin-right:3" src="~/06 Assets/06 Profile Page Icons/edit.png"/>
-                                                <Label style="margin:1" textWrap="true" text="Update Status"/>
+                                                <Image height="18" style="margin-right:3" src="~/06 Assets/06 Profile Page Icons/edit.png" />
+                                                <Label style="margin:1" textWrap="true" text="Update Status" />
                                             </FlexboxLayout>
                                         </GridLayout>
                                     </StackLayout>

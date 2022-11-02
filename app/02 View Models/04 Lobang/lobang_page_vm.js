@@ -96,7 +96,7 @@ function LobangPageViewModel() {
       lobangPageViewModel.user.user_id
     )
       .then((result) => {
-        lobangPageViewModel.set("hasJoined", result);
+        lobangPageViewModel.set("hasJoined", String(result));
       })
       .catch((firebaseError) => {
         reject(firebaseError);
@@ -109,7 +109,7 @@ function LobangPageViewModel() {
       lobangPageViewModel.user.user_id
     )
       .then(() => {
-        lobangPageViewModel.set("hasJoined", true);
+        lobangPageViewModel.set("hasJoined", "true");
         refresh_callback();
       })
       .catch((firebaseError) => {
@@ -123,7 +123,7 @@ function LobangPageViewModel() {
       lobangPageViewModel.user.user_id
     )
       .then(() => {
-        lobangPageViewModel.set("hasJoined", false);
+        lobangPageViewModel.set("hasJoined", "false");
         refresh_callback();
       })
       .catch((firebaseError) => {
@@ -247,6 +247,7 @@ function LobangPageViewModel() {
     doSubmitOrder(order, temp_line_items).then((result) => {
       lobangPageViewModel.set("hasOrder", true);
       lobangPageViewModel.set("userOrder", result);
+      lobangPageViewModel.set("hasJoined", "hasOrder");
     });
   };
 
@@ -284,6 +285,7 @@ function LobangPageViewModel() {
     )
       .then((result) => {
         lobangPageViewModel.set("hasOrder", true);
+        lobangPageViewModel.set("hasJoined", "hasOrder");
         lobangPageViewModel.set("userOrder", result);
       })
       .catch((firebaseError) => {
