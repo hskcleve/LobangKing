@@ -7,7 +7,7 @@ const {
   getTrendingCommunities,
 } = require("~/07 Services/mock_service");
 const {
-  getActiveGroupbuys,
+  getAvailableGroupbuys,
   getCommunities,
   getGroupbuysByCategory,
 } = require("~/07 Services/firestore_service");
@@ -45,7 +45,7 @@ function ExplorePageViewModel() {
   };
 
   explorePageViewModel.getPopularGroupbuysList = function () {
-    getActiveGroupbuys().then((lobangs) => {
+    getAvailableGroupbuys().then((lobangs) => {
       lobangs.sort((a, b) => b.joined.length - a.joined.length);
       popularLobangs = lobangs.length > 5 ? lobangs.slice(6) : lobangs;
       explorePageViewModel.set("popularGroupbuys", lobangs);
@@ -66,7 +66,7 @@ function ExplorePageViewModel() {
     console.log(
       "set categoryToDisplay var as: " + explorePageViewModel.categoryToDisplay
     );
-    getActiveGroupbuys().then((lobangs) => {
+    getAvailableGroupbuys().then((lobangs) => {
       console.log("back in vm!");
       const inCat = lobangs.filter((item) =>
         item.categories.includes(category)
@@ -89,7 +89,7 @@ function ExplorePageViewModel() {
       explorePageViewModel.searchTypePicked ==
       explorePageViewModel.searchType[0]
     ) {
-      getActiveGroupbuys().then((lobangs) => {
+      getAvailableGroupbuys().then((lobangs) => {
         const filteredLocation =
           explorePageViewModel.locationFilter != null &&
           explorePageViewModel.locationFilter != "None"
@@ -110,9 +110,11 @@ function ExplorePageViewModel() {
           .filter((item) =>
             item.lobang_name
               .toLowerCase()
-              .includes(explorePageViewModel.sbText.toLowerCase())
+              .includes(explorePageViewModel.sbText.toLowerCase()) || 
+              item.tags.includes(explorePageViewModel.sbText.toLowerCase())
           )
           .sort((a, b) => b.coins - a.coins);
+
         explorePageViewModel.set("displayResults", groupbuyResults);
         callback();
       });

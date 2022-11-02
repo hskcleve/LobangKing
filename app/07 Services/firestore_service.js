@@ -94,22 +94,24 @@ exports.boostLobang = function (lobang_name, curr_coins, user_id, user_coins) {
   });
 };
 
-exports.getActiveGroupbuys = function () {
+exports.getAvailableGroupbuys = function () {
   return new Promise((resolve, reject) => {
-    let getGroupbuysResponse = [];
+    let getAvailableGroupbuysResponse = [];
     const lobangs = firestore.collection("lobangs");
     const query = lobangs.where("lobang_status", "==", "ACTIVE")
 
     query
       .get()
       .then((querySnapshot) => {
-        console.log("getGroupbuys server response:");
+        console.log("getAvailableGroupbuys server response:");
         console.log(querySnapshot);
         querySnapshot.forEach((doc) => {
           const lobangData = doc.data();
-          getGroupbuysResponse.push(new Lobang(lobangData));
+          if (new Lobang(lobangData).getTimeLeft() != "Expired") {
+            getAvailableGroupbuysResponse.push(new Lobang(lobangData));
+          }
         });
-        resolve(getGroupbuysResponse);
+        resolve(getAvailableGroupbuysResponse);
       })
       .catch((firebaseError) => {
         console.log(firebaseError);
