@@ -136,3 +136,46 @@ exports.joinCommunity = function (communityId, communityMembers, userId) {
       });
   });
 };
+
+exports.leaveCommunity = function (communityId, userId) {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection("communities")
+      .where("community_id", "==", communityId)
+      .get()
+      .then((querySnapshot) => {
+        const docId = querySnapshot.docs[0].id;
+        console.log(docId);
+        firestore
+          .collection("communities")
+          .doc(docId)
+          .update({
+            members: FieldValue.arrayRemove([userId]),
+          });
+        firestore
+          .collection("users")
+          .where("user_id", "==", userId)
+          .get()
+          .then((querySnapshot) => {
+            const userDocId = querySnapshot.docs[0].id;
+            firestore
+              .collection("users")
+              .doc(userDocId)
+              .update({
+                communities_joined: FieldValue.arrayRemove([communityId]),
+              });
+          })
+          .then(() => {
+            resolve();
+          })
+          .catch((firebaseError) => {
+            console.log(firebaseError);
+            reject(firebaseError);
+          });
+      })
+      .catch((firebaseError) => {
+        console.log(firebaseError);
+        reject(firebaseError);
+      });
+  });
+};

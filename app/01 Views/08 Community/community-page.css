@@ -10,7 +10,7 @@
   margin: 120px 140px 100px 60px;
 }
 
-.joinButton {
+.joinButton, .leaveButton{
   margin: 5;
   outline-width: 0.5;
   border-color: white;

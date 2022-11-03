@@ -7,7 +7,7 @@
 
         <GridLayout row="1" rows="auto,*" style="padding:10,10,0,10">
 
-            <GridLayout row="0" class="contentContainer" rows="auto,auto" columns="*,auto">
+            <GridLayout row="0" class="contentContainer" rows="auto,auto" columns="*,auto" hidden="{{featured_announcement == undefined}}">
                 <Label row="0" col="0" class="h1" text="Announcements" tap="announcementsOnTap" style="margin-bottom:10" />
                 <Image row="0" col="1" src="~/06 Assets/00 General/more.png" height="20" style="margin:2" tap="announcementsOnTap" />
                 <GridLayout class="card" row="1" colSpan="2" rows="auto,auto" columns="*,auto" tap="communitiesOnTap">

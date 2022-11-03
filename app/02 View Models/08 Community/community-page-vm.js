@@ -7,7 +7,11 @@ const {
   joinCommunity,
   getCommunityMembers,
   getCommunitiesByUserId,
+  leaveCommunity,
 } = require("~/07 Services/communities-service");
+const {
+  leaveCommunityOnTap,
+} = require("~/01 Views/08 Community/community-page");
 
 const displayPostedTime = function (datetimePosted) {
   return datetimePosted.toDate();
@@ -21,6 +25,7 @@ function CommunityPageViewModel() {
     userIsMember: false,
     members: undefined,
     image: undefined,
+    button_text: undefined,
     displayPostedTime,
   });
 
@@ -40,6 +45,10 @@ function CommunityPageViewModel() {
         communityPageViewModel.user.user_id
       ).then((isMember) => {
         communityPageViewModel.set("userIsMember", isMember);
+        communityPageViewModel.set(
+          "button_text",
+          isMember == true ? "LEAVE" : "JOIN"
+        );
       });
       // get community members
       getCommunityMembers(communityPageViewModel.communityName).then(
@@ -65,6 +74,28 @@ function CommunityPageViewModel() {
     )
       .then((resolved) => {
         alert("Successfully joined community");
+        communityPageViewModel.set("userIsMember", true);
+        communityPageViewModel.set("button_text", "LEAVE");
+        _callback();
+      })
+      .catch((firebaseError) => {
+        alert(firebaseError);
+      });
+  };
+
+  communityPageViewModel.doLeaveCommunity = function (_callback) {
+    var indexToRemove = communityPageViewModel.members.indexOf(
+      communityPageViewModel.user.user_id
+    );
+    communityPageViewModel.members.splice(indexToRemove, 1);
+    leaveCommunity(
+      communityPageViewModel.communityName,
+      communityPageViewModel.user.user_id
+    )
+      .then((resolved) => {
+        alert("Successfully left community");
+        communityPageViewModel.set("userIsMember", false);
+        communityPageViewModel.set("button_text", "JOIN");
         _callback();
       })
       .catch((firebaseError) => {

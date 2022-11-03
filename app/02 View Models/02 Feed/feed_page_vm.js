@@ -30,6 +30,7 @@ function FeedPageViewModel() {
         feedPageViewModel.set("posts", feedPostResult);
       });
       getAnnouncements(feedPageViewModel.user.user_id).then((res) => {
+        console.log(res);
         feedPageViewModel.set("featured_announcement", res[0]);
       });
     }

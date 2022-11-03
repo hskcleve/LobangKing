@@ -3,24 +3,30 @@
         <!-- Banner image + back button -->
         <GridLayout row="0">
             <GridLayout>
-                <Image src="{{image}}" stretch="aspectFill"/>
+                <Image src="{{image}}" stretch="aspectFill" />
             </GridLayout>
             <GridLayout style="background-color:rgba(256,256,256,0.3)"></GridLayout>
             <GridLayout class="topBar" style="color:white;padding-bottom:0" columns="40,*,auto" rows="auto,*,50">
                 <Image class="back-icon" col="0" src="~/06 Assets/00 General/back_arrow_white.png" height="20" tap="goBack" />
-                <Label class="h1" text="{{communityName}}" textWrap="true" col="1"/>
+                <Label class="h1" text="{{communityName}}" textWrap="true" col="1" />
+                <!-- JOIN button when user is not member -->
                 <FlexboxLayout justifyContent="center" alignItems="center" class="joinButton" row="2" col="2" hidden="{{ userIsMember == true }}" tap="joinCommunityOnTap">
-                    <Image height="10" style="margin-right:5" src="~/06 Assets/00 General/add_white.png"/>
-                    <Label style="margin:1" text="JOIN"/>
+                    <Image height="10" style="margin-right:5" src="~/06 Assets/00 General/add_white.png" />
+                    <Label style="margin:1" text="{{button_text}}" />
+                </FlexboxLayout>
+                <!-- LEAVE button when user is already member -->
+                <FlexboxLayout justifyContent="center" alignItems="center" class="leaveButton" row="2" col="2" hidden="{{ userIsMember == false }}" tap="leaveCommunityOnTap">
+                    <Image height="10" style="margin-right:5" src="~/06 Assets/00 General/leave_white.png" />
+                    <Label style="margin:1" text="{{button_text}}" />
                 </FlexboxLayout>
                 <FlexboxLayout alignItems="center" row="2" col="1">
-                    <Image height="17" style="margin-right:5" src="~/06 Assets/11 Navbar Icons/groups_white.png"/>
-                    <Label style="margin:1" text="{{members.length == undefined ? '' : members.length + ' members'}}"/>
+                    <Image height="17" style="margin-right:5" src="~/06 Assets/11 Navbar Icons/groups_white.png" />
+                    <Label style="margin:1" text="{{members.length == undefined ? '' : members.length + ' members'}}" />
                 </FlexboxLayout>
             </GridLayout>
         </GridLayout>
         <!-- Add Post Button -->
-        <GridLayout row="1">
+        <GridLayout row="1" hidden="{{userIsMember == false}}">
             <StackLayout>
                 <Button class="createPostButton" text="Write something..." tap="navToCreatePost" />
             </StackLayout>
@@ -36,16 +42,16 @@
                         <Repeater.itemTemplate>
                             <GridLayout class="card" rows="auto,auto,auto,auto" columns="*,auto">
                                 <Label class="postHeader" row="0" colSpan="2" text="{{user_id}}" />
-                                <Label class="postMiniHeader" row="0" col="1" text="{{displayDate()}}"/>
+                                <Label class="postMiniHeader" row="0" col="1" text="{{displayDate()}}" />
                                 <Label class="postBody" row="2" text="{{body}}" textWrap="true" colSpan="2" />
-                                <Image hidden="{{image.length == 0}}" row="3" stretch="aspect-fill" colSpan="2" src="{{image}}" height="200" width="300"/>
+                                <Image hidden="{{image.length == 0}}" row="3" stretch="aspect-fill" colSpan="2" src="{{image}}" height="200" width="300" />
                             </GridLayout>
                         </Repeater.itemTemplate>
                     </Repeater>
                 </StackLayout>
             </ScrollView>
         </GridLayout>
-        
+
         <customUI:navbar row="3" />
     </GridLayout>
 </Page> 

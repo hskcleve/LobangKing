@@ -49,3 +49,10 @@ exports.joinCommunityOnTap = function (args) {
     page.bindingContext = vm;
   });
 };
+
+exports.leaveCommunityOnTap = function (args) {
+  vm.doLeaveCommunity(() => {
+    page.bindingContext = null;
+    page.bindingContext = vm;
+  });
+};
