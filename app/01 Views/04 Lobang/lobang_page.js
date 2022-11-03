@@ -201,6 +201,15 @@ exports.updateLobangOnTap = function () {
   vm.set("tab", "lobangDetails");
 };
 
+exports.getUserRole = function () {
+  //return "editableAnnouncement";
+  console.log(vm.user.user_id);
+  console.log(vm.lobang.createdBy);
+  if (vm.user.user_id == vm.lobang.createdBy) {
+    return "editableAnnouncement";
+  } else return "readOnlyAnnouncement";
+};
+
 exports.messageHostOnTap = function (args) {};
 
 exports.leaveRatingOnTap = function (args) {};

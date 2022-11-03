@@ -1,7 +1,7 @@
 <Page id="login_page" loaded="onLoaded" navigatedTo="onNavigatedTo" xmlns:df="nativescript-ui-dataform">
     <GridLayout class="gradientBg" rows="auto,*,auto" columns="*,auto,*">
         
-        <Image style="margin-top:20" row="0" col="1" src="~/06 Assets/00 General/lobangking2.png"/>
+        <Image id="icono" style="margin-top:20" row="0" col="1" height="350" src="~/06 Assets/00 General/icono.png"/>
     
         <StackLayout id="formContainer" class="form" height="55%" row="2" col="1" >
             <StackLayout hidden="{{!on_login_page}}">
@@ -19,7 +19,7 @@
 
             <StackLayout hidden="{{on_login_page}}">
                 <Label class="h1 centered" text="Register" style="margin-bottom:3%"/>
-                <ScrollView height="90%">
+                <ScrollView height="90%" scrollBarIndicatorVisible="false">
                     <StackLayout>
                         <df:RadDataForm id="myInfoDataForm" source="{{temp_user}}">
                             <df:RadDataForm.properties>
