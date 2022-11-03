@@ -18,13 +18,24 @@ exports.onNavigatedTo = function (args) {
 toggleRegister = function () {
   vm.toggleRegister();
   const formContainer = page.getViewById("formContainer");
+  const icono = page.getViewById("icono");
   if (!vm.on_login_page) {
+    icono.animate({
+      height: 70,
+      duration: 500,
+      curve: Enums.AnimationCurve.linear,
+    });
     formContainer.animate({
       height: "89%",
       duration: 500,
       curve: Enums.AnimationCurve.linear,
     });
   } else {
+    icono.animate({
+      height: 350,
+      duration: 500,
+      curve: Enums.AnimationCurve.linear,
+    });
     formContainer.animate({
       height: "55%",
       duration: 500,

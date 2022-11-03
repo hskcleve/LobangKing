@@ -15,8 +15,8 @@
                 <TextField hint="Enter Price" text="{{temp_product.price}}" keyboardType="number"></TextField>
             </StackLayout>
         </ScrollView>
-        <Button row="2" class="-primary" text="Confirm" tap="confirmOnTap" hidden="{{isEdit}}"/>
-        <Button row="2" class="-secondary" text="Delete Product" tap="deleteOnTap" hidden="{{!isEdit}}"/>
-        <Button row="3" class="-primary" text="Update Product" tap="updateOnTap" hidden="{{!isEdit}}"/>
+        <Button row="2" class="-primary" style="margin:15" text="Confirm" tap="confirmOnTap" hidden="{{isEdit}}"/>
+        <Button row="2" class="-secondary" style="margin:15,15,5,15" text="Delete Product" tap="deleteOnTap" hidden="{{!isEdit}}"/>
+        <Button row="3" class="-primary" style="margin:5,15,15,15" text="Update Product" tap="updateOnTap" hidden="{{!isEdit}}"/>
     </GridLayout>
 </Page>

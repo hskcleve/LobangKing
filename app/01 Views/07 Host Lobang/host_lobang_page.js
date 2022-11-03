@@ -113,7 +113,7 @@ exports.addTagOnTap = function () {
   if (tagBox.text.length == 0) {
     return;
   }
-  vm.temp_lobang.tags.push(tagBox.text);
+  vm.temp_lobang.tags.push(tagBox.text.toLowerCase());
   page.bindingContext = undefined;
   page.bindingContext = vm;
   tagBox.text = "";
