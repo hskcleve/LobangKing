@@ -342,6 +342,12 @@ function LobangPageViewModel() {
       });
   };
 
+  
+  lobangPageViewModel.editLobangDate = function () {
+    lobangPageViewModel.temp_lobang.last_order_date = new Date(lobangPageViewModel.temp_lobang.last_order_date);
+    lobangPageViewModel.temp_lobang.collection_date = new Date(lobangPageViewModel.temp_lobang.collection_date);
+  };
+
   return lobangPageViewModel;
 }
 
