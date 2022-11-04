@@ -18,6 +18,7 @@ exports.onNavigatedTo = function (args) {
 
   vm.set("lobang", new Lobang(nvc.lobang));
   vm.set("temp_lobang", new Lobang(Object.assign({}, nvc.lobang)));
+  vm.editLobangDate();
   vm.set("user", nvc.user);
   vm.set("temp_user", Object.assign({}, nvc.user));
   vm.getLobangHost();

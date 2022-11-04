@@ -84,7 +84,8 @@
 
             <ScrollView hidden="{{tab!='editLobang'}}" row="1" colSpan="7" orientation="vertical" scrollBarIndicatorVisible="false">
                 <StackLayout style="padding:10%">
-                    <Label class="h1" text="Edit Information" />
+                    <Label class="h1" hidden="{{temp_lobang.lobang_status == 'COMPLETED'}}" text="Edit Information" />
+                    <Label class="h1" hidden="{{temp_lobang.lobang_status != 'COMPLETED'}}" text="Lobang has already been completed" textWrap="true"/>
                     <StackLayout>
                         <GridLayout columns="auto,*,auto" style="padding:10,10,10,10">
                             <FlexboxLayout alignItems="center" col="0" tap="toggleDetailsTab">
@@ -92,7 +93,7 @@
                                 <Label style="margin:1; font-weight:bold" text="BACK" />
                             </FlexboxLayout>
                         </GridLayout>
-                        <df:RadDataForm row="1" id="tempLobangDataForm" source="{{temp_lobang}}">
+                        <df:RadDataForm hidden="{{temp_lobang.lobang_status == 'COMPLETED'}}" row="1" id="tempLobangDataForm" source="{{temp_lobang}}">
                             <df:RadDataForm.properties>
                                 <df:EntityProperty name="min_order" displayName="Minimum Order Quantity"></df:EntityProperty>
                                 <df:EntityProperty name="location" displayName="Collection Point" valuesProvider="Ang Mo Kio, Bedok, Bishan, Bukit Batok, Bukit Merah, Bukit Panjang, Bukit Timah, Central Area, Choa Chu Kang, Clementi, Geylang, Hougang, Jurong East, Jurong West, Kallang/Whampoa, Marine Parade, Pasir Ris, Punggol, Queenstown, Sembawang, Sengkang, Serangoon, Tampines, Tengah, Toa Payoh, Woodlands, Yishun">
